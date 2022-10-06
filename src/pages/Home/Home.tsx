@@ -1,12 +1,14 @@
 import React from 'react';
-import { ProfilePicCoin } from './components';
+import { Profile } from './components/Profile';
 
 export interface HomeInterface {}
 
 const Home : React.FC<HomeInterface> = () => {
-	return <div className="home">
-		<ProfilePicCoin />
-	</div>;
+	return (
+		<div className="home">
+			<Profile />
+		</div>
+	);
 };
 
 export default Home;
