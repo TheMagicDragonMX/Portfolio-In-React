@@ -1,13 +1,19 @@
 import React from 'react';
 import "./ImageButton.scss";
 
-export interface ImageButtonInterface {}
+export interface ImageButtonInterface {
+	onClick: () => void
 
-const ImageButton : React.FC<ImageButtonInterface> = () => {
+	image: string
+	width: number
+	alt?: string
+}
+
+const ImageButton : React.FC<ImageButtonInterface> = ({ onClick, image, width, alt }) => {
 	
 	return (
-		<div className="image-button">
-			
+		<div className="image-button" onClick={ onClick }>
+			<img src={ image } alt={ alt } width={ width } />
 		</div>
 	);
 };
