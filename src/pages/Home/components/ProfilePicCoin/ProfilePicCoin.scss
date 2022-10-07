@@ -1,60 +1,36 @@
-.profile-pic-coin-container {
+.profile-pic-coin {
   position: relative;
+
   --size: 200px;
   width: var(--size);
   height: var(--size);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  // &::before {
-  //   content: "";
-  //   position: absolute;
-  //   bottom: -30px;
-
-  //   width: 80px;
-  //   height: 2px;
-    
-  //   background-color: black;
-  //   border-radius: 50%;
-
-  //   box-shadow: 0px 0px 5px 1px black;
-  //   animation: rotateCoin 10s linear infinite
-  // }
-  
-}
-
-.coin {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  
-  transform-style: preserve-3d;
-  animation: rotateCoin 10s linear infinite;
-}
-
-@keyframes rotateCoin {
-  from {
-    rotate: y 0deg;
-  }
-  
-  to {
-    rotate: y 360deg;
-  }
-}
-
-.coin-side {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
   border-radius: 50%;
   overflow: hidden;
-  backface-visibility: hidden;
+  
+  img {
+    position: absolute;
+  }
 }
 
-.back {
-  rotate: y 180deg;
+.blurring {
+  animation: blur 5s linear infinite alternate;
+}
+
+@keyframes blur {
+  0% {
+    opacity: 1;
+  }
+  
+  45% {
+    opacity: 1;
+  }
+  
+  55% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
