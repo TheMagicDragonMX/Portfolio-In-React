@@ -1,5 +1,5 @@
 .profile-pic-coin {
-  position: relative;
+  position: absolute;
 
   --size: 200px;
   width: var(--size);
@@ -7,10 +7,18 @@
 
   border-radius: 50%;
   overflow: hidden;
-  
+  transition: 500ms;
+
+  z-index: 1;
+  cursor: pointer;
+
   img {
     position: absolute;
   }
+}
+
+.profile-pic-coin:hover {
+  filter: drop-shadow(0 0 20px yellow);
 }
 
 .blurring {

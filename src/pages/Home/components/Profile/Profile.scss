@@ -6,3 +6,30 @@
   align-items: center;
   justify-content: center;
 }
+
+.social-media-buttons {
+  position: relative;
+
+  --size: 200px;
+  width: var(--size);
+  height: var(--size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  cursor: pointer;
+
+  animation: rotateSocialMediaButtons 20s linear infinite;
+}
+
+@keyframes rotateSocialMediaButtons {
+  from {
+    rotate: 0;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
