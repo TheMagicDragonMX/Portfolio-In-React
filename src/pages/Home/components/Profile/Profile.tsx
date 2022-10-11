@@ -37,7 +37,7 @@ const Profile : React.FC<ProfileInterface> = () => {
 		<div className="profile">
 			<ProfilePicCoin onClick={ toggleSocialMediaButtons } />
 			
-			<SpinningWheel ref={ socialMediaButtons } className="socials" rotationTime={ 15 } radius={ 130 } amountOfElements={ 4 }>
+			<SpinningWheel ref={ socialMediaButtons } className="socials" rotationTime={ 15 } radius={ 100 } amountOfElements={ 4 }>
 				<SpinningWheelElement position={ 0 }>
 					<ImageButton image={ facebook } width={ socialsButtonsWidth } onClick={ () => toFacebook() } />	
 				</SpinningWheelElement>
