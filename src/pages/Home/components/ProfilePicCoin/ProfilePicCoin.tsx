@@ -9,6 +9,10 @@ export interface ProfilePicCoinInterface {
 }
 
 const ProfilePicCoin : React.FC<ProfilePicCoinInterface> = ({ onClick }) => {
+
+	/**
+	 * Determines how big the image of myself will be
+	 */
 	const imageWidth = 200;
 	
 	return ( 
