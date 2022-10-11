@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
+.aspect-orb {
+  position: relative;
+  
+  width: 200px;
+  height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background-color: rgb(221, 221, 221);
+
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0);
+  transition: 300ms;
+}
+
+.aspect-orb:hover {
+  scale: 105%;
+}
+
+.aspect-orb-content {
+  font-family: 'Rampart One', cursive;
+  color: rgb(0, 0, 0);
+  font-size: 50px;
+  text-align: center;
+  z-index: 1;
+}
+
+.aspect-orb::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  width: 100%;
+  height: 100%;
+  transition: 1.5s;
+
+  background: linear-gradient(90deg, rgba(0, 247, 255, 0.5) 0%, rgba(255, 255, 0, 0.5) 100%);
+  background-size: 300%;
+  opacity: 0;
+
+  animation: fadeBackground 500ms ease-in-out 0s infinite alternate;
+}
+
+.aspect-orb:hover::before {
+  opacity: 1;
+}
+
+@keyframes fadeBackground {
+  from {
+    background-position: left;
+    rotate: 0deg;
+  }
+
+  to {
+    background-position: right;
+    rotate: 360deg;
+  }
+}
+
