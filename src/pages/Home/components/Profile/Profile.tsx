@@ -8,7 +8,7 @@ import facebook from "@/assets/facebook.png"
 import twitter from "@/assets/twitter.png"
 import github from "@/assets/github.png"
 import leetcode from "@/assets/leetcode.png"
-import { ImageButton } from '@/components';
+import { ImageButton, SpinningWheel } from '@/components';
 
 export interface ProfileInterface {}
 
@@ -22,17 +22,18 @@ const Profile : React.FC<ProfileInterface> = () => {
 
 	return (
 		<div className="profile">
-			<ProfilePicCoin onClick={ toggleSocialMediaButtons } />
+			{/* <ProfilePicCoin onClick={ toggleSocialMediaButtons } /> */}
+
+			<SpinningWheel rotationTime={ 15 }>
+				
+			</SpinningWheel>
 			
-			<div ref={ socialMediaButtonsContainer } className="social-media-buttons">
+			{/* <div ref={ socialMediaButtonsContainer } className="social-media-buttons">
 				<SocialMediaButton position={ 0 } image={ facebook } width={ socialMediaButtonsWidth } onClick={ () => null } />
 				<SocialMediaButton position={ 1 } image={ twitter } width={ socialMediaButtonsWidth } onClick={ () => null } />
 				<SocialMediaButton position={ 2 } image={ github } width={ socialMediaButtonsWidth } onClick={ () => null } />
 				<SocialMediaButton position={ 3 } image={ leetcode } width={ socialMediaButtonsWidth } onClick={ () => null } />
-			</div>
-
-
-
+			</div> */}
 		</div>
 	);
 };

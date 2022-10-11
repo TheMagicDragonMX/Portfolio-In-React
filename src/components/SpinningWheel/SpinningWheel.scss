@@ -1,0 +1,17 @@
+.spinning-wheel {
+  
+  // TODO Erase tests
+  background-color: rgba(255, 255, 255, 0.579);
+
+  animation: spinWheel var(--rotationTime) linear 0s infinite;
+}
+
+@keyframes spinWheel {
+  from {
+    rotate: z 0deg;
+  }
+
+  to {
+    rotate: z 360deg;
+  }
+}
