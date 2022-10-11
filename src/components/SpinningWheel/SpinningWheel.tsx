@@ -10,7 +10,7 @@ export interface SpinningWheelInterface {
 	children?: React.ReactNode;
 }
 
-const SpinningWheel : React.FC<SpinningWheelInterface> = ({ rotationTime, radius, amountOfElements, className, children }) => {
+const SpinningWheel = React.forwardRef<HTMLDivElement, SpinningWheelInterface>(({ rotationTime, radius, amountOfElements, className, children }, ref) => {
 
 	const spinningWheelStyle = { 
 		"--rotationTime": `${ rotationTime }s`, 
@@ -19,10 +19,10 @@ const SpinningWheel : React.FC<SpinningWheelInterface> = ({ rotationTime, radius
 	} as React.CSSProperties;
 
 	return (
-		<div className={`spinning-wheel ${ className ?? "" }`} style={ spinningWheelStyle}>
+		<div ref={ ref } className={`spinning-wheel ${ className ?? "" }`} style={ spinningWheelStyle}>
 			{ children }
 		</div>
 	);
-};
+});
 
 export default SpinningWheel;

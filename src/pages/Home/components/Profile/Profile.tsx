@@ -1,14 +1,13 @@
-import { ProfilePicCoin } from '../ProfilePicCoin';
-import { SocialMediaButton } from '../SocialMediaButton';
 import React, { useEffect, useRef } from 'react';
 import "./Profile.scss"
-import "../SocialMediaButton/SocialMediaButton.scss"
+
+import { ProfilePicCoin } from '../ProfilePicCoin';
 
 import facebook from "@/assets/facebook.png"
 import twitter from "@/assets/twitter.png"
 import github from "@/assets/github.png"
 import leetcode from "@/assets/leetcode.png"
-import { ImageButton, SpinningWheel } from '@/components';
+import { ImageButton, SpinningWheel, SpinningWheelElement } from '@/components';
 
 export interface ProfileInterface {}
 
@@ -16,24 +15,30 @@ const Profile : React.FC<ProfileInterface> = () => {
 	
 	const socialMediaButtonsWidth = 35;
 
-	const socialMediaButtonsContainer = useRef<HTMLDivElement>(null);
-
-	const toggleSocialMediaButtons = () => socialMediaButtonsContainer.current?.classList.toggle("active")
+	const socialMediaButtons = useRef<HTMLDivElement>(null);
+	const toggleSocialMediaButtons = () => socialMediaButtons.current?.classList.toggle("showing-socials")
 
 	return (
 		<div className="profile">
-			{/* <ProfilePicCoin onClick={ toggleSocialMediaButtons } /> */}
-
-			<SpinningWheel rotationTime={ 15 }>
-				
-			</SpinningWheel>
+			<ProfilePicCoin onClick={ toggleSocialMediaButtons } />
 			
-			{/* <div ref={ socialMediaButtonsContainer } className="social-media-buttons">
-				<SocialMediaButton position={ 0 } image={ facebook } width={ socialMediaButtonsWidth } onClick={ () => null } />
-				<SocialMediaButton position={ 1 } image={ twitter } width={ socialMediaButtonsWidth } onClick={ () => null } />
-				<SocialMediaButton position={ 2 } image={ github } width={ socialMediaButtonsWidth } onClick={ () => null } />
-				<SocialMediaButton position={ 3 } image={ leetcode } width={ socialMediaButtonsWidth } onClick={ () => null } />
-			</div> */}
+			<SpinningWheel ref={ socialMediaButtons } className="socials" rotationTime={ 15 } radius={ 130 } amountOfElements={ 4 }>
+				<SpinningWheelElement position={ 0 }>
+					<ImageButton image={ facebook } width={ socialMediaButtonsWidth } onClick={ () => null } />	
+				</SpinningWheelElement>
+
+				<SpinningWheelElement position={ 1 }>
+					<ImageButton image={ twitter } width={ socialMediaButtonsWidth } onClick={ () => null } />
+				</SpinningWheelElement>
+
+				<SpinningWheelElement position={ 2 }>
+					<ImageButton image={ github } width={ socialMediaButtonsWidth } onClick={ () => null } />
+				</SpinningWheelElement>
+
+				<SpinningWheelElement position={ 3 }>
+					<ImageButton image={ leetcode } width={ socialMediaButtonsWidth } onClick={ () => null } />
+				</SpinningWheelElement>
+			</SpinningWheel>
 		</div>
 	);
 };
