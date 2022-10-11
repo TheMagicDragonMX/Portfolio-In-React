@@ -3,18 +3,23 @@ import "./SpinningWheel.scss";
 
 export interface SpinningWheelInterface {
 	rotationTime: number;
+	radius: number;
+	amountOfElements: number;
 	
-	size?: number;
+	className?: string;
 	children?: React.ReactNode;
 }
 
-const SpinningWheel : React.FC<SpinningWheelInterface> = ({ rotationTime, size, children }) => {
-	return (
-		<div className="spinning-wheel" style={{ 
-			"--rotationTime": `${rotationTime}s`, 
-			"width": size ?? 100, 
-			"height": size ?? 100 } as React.CSSProperties}>
+const SpinningWheel : React.FC<SpinningWheelInterface> = ({ rotationTime, radius, amountOfElements, className, children }) => {
 
+	const spinningWheelStyle = { 
+		"--rotationTime": `${ rotationTime }s`, 
+		"--radius": `${ radius }px`,
+		"--amountOfElements": amountOfElements, 
+	} as React.CSSProperties;
+
+	return (
+		<div className={`spinning-wheel ${ className }`} style={ spinningWheelStyle}>
 			{ children }
 		</div>
 	);
