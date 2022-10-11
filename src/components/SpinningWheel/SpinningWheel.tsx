@@ -19,7 +19,7 @@ const SpinningWheel : React.FC<SpinningWheelInterface> = ({ rotationTime, radius
 	} as React.CSSProperties;
 
 	return (
-		<div className={`spinning-wheel ${ className }`} style={ spinningWheelStyle}>
+		<div className={`spinning-wheel ${ className ?? "" }`} style={ spinningWheelStyle}>
 			{ children }
 		</div>
 	);

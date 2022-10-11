@@ -15,7 +15,7 @@ const SpinningWheelElement : React.FC<SpinningWheelElementInterface> = ({ positi
 	} as React.CSSProperties;
 	
 	return (
-		<div className={`spinning-wheel-element-offset ${ className }`} style={ spinningWheelElementOffsetStyle }>
+		<div className={`spinning-wheel-element-offset ${ className ?? "" }`} style={ spinningWheelElementOffsetStyle }>
 			<div className="spinning-wheel-element">
 				{ children }
 			</div>
