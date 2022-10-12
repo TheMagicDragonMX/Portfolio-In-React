@@ -12,21 +12,21 @@ const Home : React.FC<HomeInterface> = () => {
 		<div className="home">
 			<Profile />
 
-			<SpinningWheel amountOfElements={ 4 } radius={ 130 } rotationTime={ 40 }>
+			<SpinningWheel amountOfElements={ 4 } radius={ 170 } rotationTime={ 40 }>
 				<SpinningWheelElement position={ 0 }>
-					<AspectOrb>Music</AspectOrb>
+					<AspectOrb firstColor="#f8fe01" secondColor="#0080ff">Music</AspectOrb>
 				</SpinningWheelElement>
 
 				<SpinningWheelElement position={ 1 }>
-					<AspectOrb>Skills</AspectOrb>
+					<AspectOrb firstColor="#ff80c0" secondColor="#a234dc">Skills</AspectOrb>
 				</SpinningWheelElement>
 				
 				<SpinningWheelElement position={ 2 }>
-					<AspectOrb>Games</AspectOrb>
+					<AspectOrb firstColor="#00ff00" secondColor="#00ffff">Games</AspectOrb>
 				</SpinningWheelElement>
 
 				<SpinningWheelElement position={ 3 }>
-					<AspectOrb>Food</AspectOrb>
+					<AspectOrb firstColor="#ff0080" secondColor="#ff8000">Food</AspectOrb>
 				</SpinningWheelElement>
 			</SpinningWheel>
 		</div>
