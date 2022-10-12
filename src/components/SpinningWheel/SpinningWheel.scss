@@ -13,6 +13,6 @@
   }
 
   to {
-    rotate: z 360deg;
+    rotate: z calc(360deg * var(--counterclockwise));
   }
 }

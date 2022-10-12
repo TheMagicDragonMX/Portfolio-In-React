@@ -6,16 +6,18 @@ export interface SpinningWheelInterface {
 	radius: number;
 	amountOfElements: number;
 	
+	counterclockwise?: boolean;
 	className?: string;
 	children?: React.ReactNode;
 }
 
-const SpinningWheel = React.forwardRef<HTMLDivElement, SpinningWheelInterface>(({ rotationTime, radius, amountOfElements, className, children }, ref) => {
+const SpinningWheel = React.forwardRef<HTMLDivElement, SpinningWheelInterface>(({ rotationTime, radius, amountOfElements, counterclockwise, className, children }, ref) => {
 
 	const spinningWheelStyle = { 
 		"--rotationTime": `${ rotationTime }s`, 
 		"--radius": `${ radius }px`,
-		"--amountOfElements": amountOfElements, 
+		"--amountOfElements": amountOfElements,
+		"--counterclockwise": counterclockwise ? -1 : 1
 	} as React.CSSProperties;
 
 	return (

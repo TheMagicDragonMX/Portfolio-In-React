@@ -1,6 +1,6 @@
 .spinning-wheel-element-offset {
   --offset: calc(360deg / var(--amountOfElements));
-  --displacement: calc(var(--offset) * var(--position));
+  --initialDisplacement: calc(var(--offset) * var(--position));
 
   rotate: z calc(var(--offset) * var(--position));
 }
@@ -16,10 +16,10 @@
 
 @keyframes counterWheelSpin {
   from {
-    rotate: z calc(0deg - var(--displacement));
+    rotate: z calc(0deg - var(--initialDisplacement));
   }
 
   to {
-    rotate: z calc(-360deg - var(--displacement));
+    rotate: z calc(0deg - var(--initialDisplacement) + -360deg * var(--counterclockwise));
   }
 }
