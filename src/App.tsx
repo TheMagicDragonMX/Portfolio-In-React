@@ -1,12 +1,20 @@
 import React from "react"
 import "./App.scss"
+
+import { Routes, Route } from "react-router-dom"
+
 import { Background } from "./components"
-import { Home } from "./pages"
+import { Greeting, Home } from "./pages"
+
 
 function App () {
+	const hasVisitedPageBefore = false
+	
 	return <>
 		<Background>
-			<Home />
+			<Routes>
+				<Route path="/" element={ hasVisitedPageBefore ? <Home/> : <Greeting /> } />
+			</Routes>
 		</Background>
 	</>
 }
