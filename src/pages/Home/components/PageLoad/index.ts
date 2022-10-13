@@ -1,1 +1,1 @@
-export { default as PageLoad } from './PageLoad';
+export { default as PageLoad } from "./PageLoad"

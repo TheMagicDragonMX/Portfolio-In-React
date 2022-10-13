@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 import "./ProfilePicCoin.scss"
 
 import pfpMyself from "@/assets/pfp-myself.jpg"
@@ -13,14 +13,14 @@ const ProfilePicCoin : React.FC<ProfilePicCoinInterface> = ({ onClick }) => {
 	/**
 	 * Determines how big the image of myself will be
 	 */
-	const imageWidth = 150;
+	const imageWidth = 150
 	
 	return ( 
 		<div className="profile-pic-coin" onClick={ onClick }>
 			<img src={ pfpMyself } alt="" width={ imageWidth } />
 			<img className="blurring" src={ pfpCubes } alt="" width={ imageWidth } />
 		</div>
-	);
-};
+	)
+}
 
-export default ProfilePicCoin;
+export default ProfilePicCoin

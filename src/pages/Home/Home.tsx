@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react"
 import "./Home.scss"
 
-import { SpinningWheel, SpinningWheelElement } from "@/components";
-import { AspectOrb } from "./components/AspectOrb";
-import { Profile } from './components/Profile';
+import { SpinningWheel, SpinningWheelElement } from "@/components"
+import { AspectOrb } from "./components/AspectOrb"
+import { Profile } from "./components/Profile"
 
 export interface HomeInterface {}
 
@@ -30,7 +30,7 @@ const Home : React.FC<HomeInterface> = () => {
 				</SpinningWheelElement>
 			</SpinningWheel>
 		</div>
-	);
-};
+	)
+}
 
-export default Home;
+export default Home

@@ -1,5 +1,5 @@
-import React from 'react';
-import "./ImageButton.scss";
+import React from "react"
+import "./ImageButton.scss"
 
 export interface ImageButtonInterface {
 	onClick: () => void
@@ -15,7 +15,7 @@ const ImageButton : React.FC<ImageButtonInterface> = ({ onClick, image, width, a
 		<div className="image-button" onClick={ onClick }>
 			<img src={ image } alt={ alt } width={ width } />
 		</div>
-	);
-};
+	)
+}
 
-export default ImageButton;
+export default ImageButton

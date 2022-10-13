@@ -1,5 +1,5 @@
-import React from "react";
-import "./SpinningWheelElement.scss";
+import React from "react"
+import "./SpinningWheelElement.scss"
 
 export interface SpinningWheelElementInterface {
 	position: number;
@@ -12,7 +12,7 @@ const SpinningWheelElement : React.FC<SpinningWheelElementInterface> = ({ positi
 
 	const spinningWheelElementOffsetStyle = { 
 		"--position": position,
-	} as React.CSSProperties;
+	} as React.CSSProperties
 	
 	return (
 		<div className={`spinning-wheel-element-offset ${ className ?? "" }`} style={ spinningWheelElementOffsetStyle }>
@@ -20,7 +20,7 @@ const SpinningWheelElement : React.FC<SpinningWheelElementInterface> = ({ positi
 				{ children }
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default SpinningWheelElement;
+export default SpinningWheelElement

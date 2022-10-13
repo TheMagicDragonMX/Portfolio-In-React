@@ -1,1 +1,1 @@
-export { default as SpinningWheelElement } from './SpinningWheelElement';
+export { default as SpinningWheelElement } from "./SpinningWheelElement"

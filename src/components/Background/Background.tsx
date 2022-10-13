@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 import "./Background.scss"
 
 export interface BackgroundInterface {
@@ -8,7 +8,7 @@ export interface BackgroundInterface {
 const Background : React.FC<BackgroundInterface> = ({ children }) => {
 	return <div className="background">
 		{ children }
-	</div>;
-};
+	</div>
+}
 
-export default Background;
+export default Background

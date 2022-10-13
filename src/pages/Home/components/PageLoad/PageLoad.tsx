@@ -1,5 +1,5 @@
-import React from 'react';
-import "./PageLoad.scss";
+import React from "react"
+import "./PageLoad.scss"
 
 export interface PageLoadInterface {}
 
@@ -10,8 +10,8 @@ const PageLoad : React.FC<PageLoadInterface> = () => {
 				<h1 id="greeting" className="greeting"></h1>
 				<div className="blinking-bar"></div>
 			</div>
-  	</div>
-	);
-};
+		</div>
+	)
+}
 
-export default PageLoad;
+export default PageLoad

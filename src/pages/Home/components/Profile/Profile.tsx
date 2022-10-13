@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from "react"
 import "./Profile.scss"
 
-import { ProfilePicCoin } from '../ProfilePicCoin';
+import { ProfilePicCoin } from "../ProfilePicCoin"
 
 import facebook from "@/assets/facebook.png"
 import twitter from "@/assets/twitter.png"
 import github from "@/assets/github.png"
 import leetcode from "@/assets/leetcode.png"
-import { ImageButton, SpinningWheel, SpinningWheelElement } from '@/components';
+import { ImageButton, SpinningWheel, SpinningWheelElement } from "@/components"
 
 export interface ProfileInterface {}
 
@@ -55,7 +55,7 @@ const Profile : React.FC<ProfileInterface> = () => {
 				</SpinningWheelElement>
 			</SpinningWheel>
 		</div>
-	);
-};
+	)
+}
 
-export default Profile;
+export default Profile

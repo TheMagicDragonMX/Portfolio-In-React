@@ -1,1 +1,1 @@
-export { default as SpinningWheel } from './SpinningWheel';
+export { default as SpinningWheel } from "./SpinningWheel"

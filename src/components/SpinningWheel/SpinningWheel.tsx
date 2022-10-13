@@ -1,5 +1,5 @@
-import React from 'react';
-import "./SpinningWheel.scss";
+import React from "react"
+import "./SpinningWheel.scss"
 
 export interface SpinningWheelInterface {
 	rotationTime: number;
@@ -18,13 +18,13 @@ const SpinningWheel = React.forwardRef<HTMLDivElement, SpinningWheelInterface>((
 		"--radius": `${ radius }px`,
 		"--amountOfElements": amountOfElements,
 		"--counterclockwise": counterclockwise ? -1 : 1
-	} as React.CSSProperties;
+	} as React.CSSProperties
 
 	return (
 		<div ref={ ref } className={`spinning-wheel ${ className ?? "" }`} style={ spinningWheelStyle}>
 			{ children }
 		</div>
-	);
-});
+	)
+})
 
-export default SpinningWheel;
+export default SpinningWheel

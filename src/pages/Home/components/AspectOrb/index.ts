@@ -1,1 +1,1 @@
-export { default as AspectOrb } from './AspectOrb';
+export { default as AspectOrb } from "./AspectOrb"

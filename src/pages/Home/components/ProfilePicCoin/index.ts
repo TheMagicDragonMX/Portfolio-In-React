@@ -1,1 +1,1 @@
-export { default as ProfilePicCoin } from './ProfilePicCoin';
+export { default as ProfilePicCoin } from "./ProfilePicCoin"
