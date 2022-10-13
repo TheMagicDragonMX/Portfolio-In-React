@@ -8,12 +8,13 @@ import { Greeting, Home } from "./pages"
 
 
 function App () {
-	const hasVisitedPageBefore = false
+	const hasVisitedPageBefore = localStorage.getItem("hasBeenHereBefore") === "true"
 	
 	return <>
 		<Background>
 			<Routes>
 				<Route path="/" element={ hasVisitedPageBefore ? <Home/> : <Greeting /> } />
+				<Route path="/home" element={ <Home /> } />
 			</Routes>
 		</Background>
 	</>

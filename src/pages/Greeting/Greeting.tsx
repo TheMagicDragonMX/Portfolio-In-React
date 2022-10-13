@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import "./Greeting.scss"
 
 export interface GreetingInterface {}
 
-const Greetings : React.FC<GreetingInterface> = () => {
-	
+const Greeting : React.FC<GreetingInterface> = () => {
+
+	/**
+	 * After the greeting is done, it will help on
+	 * redirecting the user to Home page
+	 */
+	const navigate = useNavigate()
+
 	/**
 	 * Keeps track of the component that displays a greeting to the user
 	 */
@@ -63,10 +70,16 @@ const Greetings : React.FC<GreetingInterface> = () => {
 	}
 
 	/**
-	 * Calls the greeting function at component load
+	 * Calls the greeting function at component load, then
+	 * redirects the user to home
+	 * 
+	 * Once the greeting is done, the user won't see it again
+	 * when it enters the page
 	 */
 	useEffect(() => {
 		greetUser()
+			.then(() => localStorage.setItem("hasBeenHereBefore", "true"))
+			.then(() => navigate("/home"))
 	}, [])
 	
 	return (
@@ -76,4 +89,4 @@ const Greetings : React.FC<GreetingInterface> = () => {
 	)
 }
 
-export default Greetings
+export default Greeting
