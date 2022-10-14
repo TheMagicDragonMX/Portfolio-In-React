@@ -4,7 +4,7 @@ import "./App.scss"
 import { Routes, Route } from "react-router-dom"
 
 import { Background } from "./components"
-import { Greeting, Home } from "./pages"
+import { FavoriteMusic, Greeting, Home } from "./pages"
 
 
 function App () {
@@ -14,8 +14,12 @@ function App () {
 	return <>
 		<Background>
 			<Routes>
-				<Route path="/" element={ hasVisitedPageBefore ? <Home/> : <Greeting /> } />
-				<Route path="/home" element={ <Home /> } />
+				<Route index element={ hasVisitedPageBefore ? <Home/> : <Greeting /> } />
+
+				<Route path="home" element={ <Home /> } />
+				<Route path="favorite-music" element={ <FavoriteMusic /> } />
+
+				<Route path="*" element={ <h1>Nothing! <i>for now...</i></h1> } />
 			</Routes>
 		</Background>
 	</>

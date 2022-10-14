@@ -1,3 +1,5 @@
+export { default as FavoriteMusic } from "./FavoriteMusic/FavoriteMusic"
+export * from "./FavoriteMusic"
 export { default as Greeting } from "./Greeting/Greeting"
 export * from "./Greeting"
 export { default as Home } from "./Home/Home"
