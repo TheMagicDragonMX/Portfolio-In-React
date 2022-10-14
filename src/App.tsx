@@ -8,7 +8,8 @@ import { Greeting, Home } from "./pages"
 
 
 function App () {
-	const hasVisitedPageBefore = localStorage.getItem("hasBeenHereBefore") === "true"
+	// const hasVisitedPageBefore = localStorage.getItem("hasBeenHereBefore") === "true"
+	const hasVisitedPageBefore = true
 	
 	return <>
 		<Background>
