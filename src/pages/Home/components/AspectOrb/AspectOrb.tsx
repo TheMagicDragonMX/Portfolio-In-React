@@ -6,9 +6,11 @@ export interface AspectOrbInterface {
 	secondColor: string;
 	
 	children?: React.ReactNode;
+
+	onClick: () => void;
 }
 
-const AspectOrb : React.FC<AspectOrbInterface> = ({ firstColor, secondColor, children }) => {
+const AspectOrb : React.FC<AspectOrbInterface> = ({ firstColor, secondColor, children, onClick }) => {
 
 	const aspectOrbStyle = {
 		"--firstColor": firstColor,
@@ -16,7 +18,7 @@ const AspectOrb : React.FC<AspectOrbInterface> = ({ firstColor, secondColor, chi
 	} as React.CSSProperties
 
 	return (
-		<div className="aspect-orb" style={ aspectOrbStyle } >
+		<div className="aspect-orb" style={ aspectOrbStyle } onClick={ onClick } >
 			<span className="aspect-orb-content">{ children }</span>
 		</div>
 	)
