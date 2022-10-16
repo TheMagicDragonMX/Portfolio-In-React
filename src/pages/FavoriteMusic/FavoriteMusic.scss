@@ -1,0 +1,14 @@
+.favorite-music {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.title {
+  font-family: 'Rampart One', cursive;
+  font-size: 70px;
+}
