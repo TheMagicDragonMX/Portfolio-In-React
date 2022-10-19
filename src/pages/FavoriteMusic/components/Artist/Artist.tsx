@@ -5,13 +5,13 @@ export interface ArtistInterface {
 	logo: string;
 }
 
-const Artist : React.FC<ArtistInterface> = ({ logo }) => {
+const Artist = React.forwardRef<HTMLDivElement, ArtistInterface>(({ logo }, ref) => {
 
 	return (
-		<div className="artist">
+		<div ref={ ref } className="artist">
 			<img className="artist-logo" src={ logo } />
 		</div>
 	)
-}
+})
 
 export default Artist

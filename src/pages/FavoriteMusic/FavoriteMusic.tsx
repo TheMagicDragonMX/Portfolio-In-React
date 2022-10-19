@@ -2,25 +2,23 @@ import React, { useEffect, useRef, useState } from "react"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
-import soundwaveV2 from "@/assets/soundwave_V2.jpg"
-import soundwaveV3 from "@/assets/soundwave_V3.jpg"
+// import soundwaveV2 from "@/assets/soundwave_V2.jpg"
+// import soundwaveV3 from "@/assets/soundwave_V3.jpg"
 import { Artist } from "./components"
 
 export interface FavoriteMusicInterface {}
 
 const FavoriteMusic : React.FC<FavoriteMusicInterface> = () => {
 
+	const listOfArtists = [ "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" ]
+	const artistsElements: React.RefObject<HTMLDivElement>[] = []
+
 	const artistsBar = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		if (!artistsBar.current) return
 
-		artistsBar.current.onscroll = () => {
-			console.log("Left: " + artistsBar.current?.scrollLeft)
-			console.log("Scroll Width: " + artistsBar.current?.scrollWidth)
-		}
-		// artistsBar.current.onscroll = () => adjustArtistSize()
-		// adjustArtistSize()
+		listOfArtists.map(() => artistsElements.push( React.createRef() ))
 	}, [])
 
 	function adjustArtistSize () {
@@ -61,33 +59,14 @@ const FavoriteMusic : React.FC<FavoriteMusicInterface> = () => {
 			artists[i].setAttribute("style", "scale: " + presences[i])
 	}
 
-	const artists: JSX.Element[] = [
-		<Artist key={ 0 } logo={ soundwaveV1 } />,
-		<Artist key={ 1 } logo={ soundwaveV3 } />,
-		<Artist key={ 2 } logo={ soundwaveV2 } />,
-		<Artist key={ 3 } logo={ soundwaveV1 } />,
-		<Artist key={ 4 } logo={ soundwaveV2 } />,
-		<Artist key={ 5 } logo={ soundwaveV3 } />,
-		<Artist key={ 6 } logo={ soundwaveV1 } />,
-		<Artist key={ 7 } logo={ soundwaveV2 } />,
-		<Artist key={ 8 } logo={ soundwaveV3 } />,
-		<Artist key={ 9 } logo={ soundwaveV1 } />,
-		<Artist key={ 10 } logo={ soundwaveV2 } />,
-		<Artist key={ 11 } logo={ soundwaveV2 } />,
-		<Artist key={ 12 } logo={ soundwaveV2 } />,
-		<Artist key={ 13 } logo={ soundwaveV2 } />,
-		<Artist key={ 14 } logo={ soundwaveV2 } />,
-		<Artist key={ 15 } logo={ soundwaveV2 } />,
-	]
-
-	const [ cursor, setCursor ] = useState(0)
-
 	return (
 		<div className="favorite-music">
 			<h2 className="title">Favorite Music</h2>
 
 			<div ref={ artistsBar } className="artists-bar">
-				{ artists }
+				{
+					artistsElements.map((ref, index) => <Artist key={ index } logo={ soundwaveV1 } />)
+				}
 			</div>
 
 		</div>
