@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import "./Artist.scss"
 
 export interface ArtistInterface {
@@ -6,9 +6,10 @@ export interface ArtistInterface {
 }
 
 const Artist : React.FC<ArtistInterface> = ({ logo }) => {
+
 	return (
 		<div className="artist">
-			<img className="artist-logo" src={ logo } width="100" />
+			<img className="artist-logo" src={ logo } />
 		</div>
 	)
 }

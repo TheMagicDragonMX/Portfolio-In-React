@@ -5,10 +5,41 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .title {
   font-family: 'Rampart One', cursive;
   font-size: 70px;
+}
+
+.artists-bar {
+  position: relative;
+  width: 100%;
+  height: 200px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+  
+  // TODO Remove tests
+  // background-color: rgba(250, 235, 215, 0.474);
+}
+
+
+
+.test {
+  flex-shrink: 0;
+
+  height: 50px;
+  width: 120px;
+
+  color: black;
+  background-color: white;
 }
