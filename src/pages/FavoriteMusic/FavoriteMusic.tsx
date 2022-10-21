@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
@@ -6,67 +6,194 @@ import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 // import soundwaveV3 from "@/assets/soundwave_V3.jpg"
 import { Artist } from "./components"
 
-export interface FavoriteMusicInterface {}
+export interface FavoriteMusicInterface { }
 
-const FavoriteMusic : React.FC<FavoriteMusicInterface> = () => {
+const listOfArtists = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
 
-	const listOfArtists = [ "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" ]
-	const artistsElements: React.RefObject<HTMLDivElement>[] = []
+const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	const artistsBar = useRef<HTMLDivElement>(null)
+	const artistsElements = useRef( listOfArtists.map(() => React.createRef<HTMLDivElement>()) )
+	const selectedArtist = useRef<HTMLDivElement>()
+	// const selectedArtist = useRef<React.RefObject<HTMLDivElement>>()
 
-	useEffect(() => {
+	/**
+	 * Setups the page when it loads
+	 */
+	useEffect(() => setup(), [])
+	
+	function setup () {
+		setupArtistsBar()
+	}
+
+	/**
+	 * Prepares the artists scroll bar to style its elements
+	 * when it scrolls
+	 */
+	function setupArtistsBar (): void {
 		if (!artistsBar.current) return
 
-		listOfArtists.map(() => artistsElements.push( React.createRef() ))
-	}, [])
+		adjustArtistSize()
+		artistsBar.current.onscroll = () => adjustArtistSize()
+	}
 
-	function adjustArtistSize () {
-		// Get every artist element so we can access their properties
-		const artists = document.getElementsByClassName("artist")
-		const distancesFromLeft: number[] = []
-		const distancesFromRight: number[] = []
+	/**
+	 * Returns the midpoint of the given artist element
+	 * 
+	 * The element's midpoint is calculated by using the **geometric midpoint formula**
+	 * `midpoint = (x1 + x2) / 2`
+	 * 
+	 * @param artist A ref to the artist element 
+	 */
+	function getArtistMidpoint (artist: React.RefObject<HTMLDivElement>): number {
+		if (!artist.current) return 0 // Default value for inexistent element (quite impossible)
+
+		return (artist.current.getBoundingClientRect().left + artist.current.getBoundingClientRect().right) / 2
+	}
+
+	/**
+	 * Returns an array containing the midpoints of every artist element
+	 */
+	function getArtistsMidpoints (): Array<number> {
+		return artistsElements.current.map( artist => getArtistMidpoint(artist) )
+	}
+
+	/**
+	 * Returns an array containing the presences of every artist element
+	 * 
+	 * The farther the detachment, the less presence it gets
+	 * 
+	 * The presence is 100% absent when the detachment reaches the **Limit**, which
+	 * is the half of the container width
+	 * 
+	 * An element is 100% present (0% absent) when the detachment equals (or is less than)
+	 * the **Absence Point**
+	 * 
+	 * Since the Absence Point is the *"frame of reference"*
+	 * 
+	 * `Limit = Half Bar Container - Absence Point`
+	 * 
+	 * `Real Detachment = Detachment - Absence Point`
+	 * 
+	 * So...
+	 * ```
+	 * Limit -> 100% (absent)
+	 * Real Detachment -> ? (absent)
+	 * ```
+	 * 
+	 * `? (absent) = Result Detachment / 100% * Limit`
+	 * 
+	 * Finally, "presence" is the opposite of "absent", so getting the rest 
+	 * of the gone (%) will nail it
+	 */
+	function getArtistsPresences (): Array<number> {
+		if (!artistsBar.current) return [] // Avoid null warnings
+
+		// Distance from viewport to the left of the bar container
+		const BAR_OFFSET_LEFT = artistsBar.current?.offsetLeft
+
+		// Width of the bar container
+		const BAR_WIDTH = artistsBar.current?.offsetWidth
+
+		// Half width of the bar container
+		const BAR_CONTAINER_HALF_WIDTH = BAR_WIDTH / 2
+
+		// Distance from viewport to the midpoint of the bar
+		const BAR_MIDPOINT = BAR_OFFSET_LEFT + BAR_CONTAINER_HALF_WIDTH
 		
-		// Get the position from the left of the viewport of each artist element
-		for (let i = 0; i < artists.length; i++) {
-			distancesFromLeft.push(artists[i].getBoundingClientRect().left)
-			distancesFromRight.push(artists[i].getBoundingClientRect().right)
-		}
 
-		// Calculate their "presence", which defines how clearly the user sees it
-		const presences: number[] = []
-		const visibleDistance = window.innerWidth * 0.20
-		const visibleLeftDistance = window.innerWidth * 0.20
-		const visibleRightDistance = window.innerWidth * 0.80
+		/**
+		 * Get the detachment of every element
+		 * 
+		 * A "detachment" represents the distance from the bar's midpoint to the element's midpoint
+		 */
+		const detachments = getArtistsMidpoints().map(artistMidpoint => Math.abs( BAR_MIDPOINT - artistMidpoint ))
 
-		for (let i = 0; i < artists.length; i++) {
-			const left = distancesFromLeft[i]
-			const right = distancesFromRight[i]
+		// Determines where the presence starts to reduce
+		const ABSENCE_POINT = 0.10 * BAR_CONTAINER_HALF_WIDTH
 
-			const presence = left < visibleLeftDistance
-				? left * 1 / visibleLeftDistance
+		// Calculate and return presences
+		return detachments.map(detachment => 
+			detachment < ABSENCE_POINT 
+				? 1 // Element is fully present 
+				: 1 - ((detachment - ABSENCE_POINT) * 1) / (BAR_CONTAINER_HALF_WIDTH - ABSENCE_POINT) // Presence calculation is made
+		)
+	}
 
-				: right > visibleRightDistance
-					? 1 - ((right - visibleRightDistance) * 1 / (window.innerWidth - visibleRightDistance))
-
-					: 1
-
-			presences.push(presence)
-		}
+	/**
+	 * Changes the scale of the artist elements depending on their presence
+	 */
+	function adjustArtistSize (): void {
+		const presences = getArtistsPresences()
 
 		// Give the artist elements an appropriate scale depending on their presence  
-		for (let i = 0; i < artists.length; i++)
-			artists[i].setAttribute("style", "scale: " + presences[i])
+		artistsElements.current.forEach(({ current: artist }, index) => {
+			if (artist)
+				artist.style.scale = "" + presences[index]
+		})
+	}
+
+	/**
+	 * Moves scrollbar to the selected artist and gives it a unique style
+	 * 
+	 * @param artist Selected artist
+	 */
+	function onArtistClicked (artist: React.RefObject<HTMLDivElement>): void {
+		scrollToArtist(artist)
+		remarkArtistSelection(artist)
+	}
+
+	/**
+	 * Moves the scrollbar so the selected artist element is at the middle of it
+	 * 
+	 * @param artist Selected artist that will be shown in the middle
+	 */
+	function scrollToArtist (artist: React.RefObject<HTMLDivElement>) {
+		if (!artistsBar.current) return
+		if (!artist.current) return
+		
+		// Half width of the bar container
+		const BAR_CONTAINER_HALF_WIDTH = artistsBar.current.offsetWidth / 2
+
+		// The distance from the left of the scrollbar to de midpoint of the selected artist element
+		const scrollPosition = artist.current.offsetLeft + artist.current.offsetWidth / 2 
+		
+		artistsBar.current.scrollTo({
+			left: scrollPosition - BAR_CONTAINER_HALF_WIDTH, // Will set the element to the middle of the bar
+			behavior: "smooth"
+		})
+	}
+
+	/**
+	 * Gives the selected artist element a style when its selected
+	 * 
+	 * @param artist Selected artist that will receive the style 
+	 */
+	function remarkArtistSelection (artist: React.RefObject<HTMLDivElement>) {
+		if (!artist.current) return
+		
+		selectedArtist.current?.classList.remove("selected-artist")
+		selectedArtist.current = artist.current
+
+		selectedArtist.current?.classList.add("selected-artist")
 	}
 
 	return (
 		<div className="favorite-music">
 			<h2 className="title">Favorite Music</h2>
 
-			<div ref={ artistsBar } className="artists-bar">
-				{
-					artistsElements.map((ref, index) => <Artist key={ index } logo={ soundwaveV1 } />)
+			<div ref={artistsBar} className="artists-bar">
+				<div className="spacer"></div>
+				
+				{ listOfArtists.map((artist, index) => 
+					<Artist 
+						key={ index } 
+						ref={ artistsElements.current[index] } 
+						logo={ soundwaveV1 } 
+						onClick={ () => onArtistClicked(artistsElements.current[index]) } /> ) 
 				}
+
+				<div className="spacer"></div>
 			</div>
 
 		</div>

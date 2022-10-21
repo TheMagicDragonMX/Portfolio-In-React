@@ -12,9 +12,23 @@
   font-size: 70px;
 }
 
+// TODO Remove middle bar
+.title::before {
+  content: "";
+  position: absolute;
+
+  left: 50%;
+  translate: -50%;
+
+  width: 2px;
+  height: 500px;
+
+  background-color: limegreen;
+}
+
 .artists-bar {
   position: relative;
-  width: 100%;
+  width: 90%;
   height: 200px;
 
   display: flex;
@@ -24,22 +38,15 @@
   overflow-x: auto;
   overflow-y: hidden;
 
+  // TODO Remove scrollbar visibility when artist bar is complete
   // &::-webkit-scrollbar {
   //   display: none;
   // }
-  
-  // TODO Remove tests
-  // background-color: rgba(250, 235, 215, 0.474);
 }
 
-
-
-.test {
+.spacer {
   flex-shrink: 0;
 
-  height: 50px;
-  width: 120px;
-
-  color: black;
-  background-color: white;
+  height: 2px;
+  width: 700px;
 }
