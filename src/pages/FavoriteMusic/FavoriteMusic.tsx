@@ -5,17 +5,18 @@ import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 // import soundwaveV2 from "@/assets/soundwave_V2.jpg"
 // import soundwaveV3 from "@/assets/soundwave_V3.jpg"
 import { Artist } from "./components"
+import { listOfArtists } from "@/data"
 
 export interface FavoriteMusicInterface { }
-
-const listOfArtists = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
 
 const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	const artistsBar = useRef<HTMLDivElement>(null)
 	const artistsElements = useRef( listOfArtists.map(() => React.createRef<HTMLDivElement>()) )
 	const selectedArtist = useRef<HTMLDivElement>()
-	// const selectedArtist = useRef<React.RefObject<HTMLDivElement>>()
+
+	const spotifyToken = useRef("BQD0ihJFd3PZaScTiqc1i1bphF6tkkEN7TdiW6FULIcspg0zOpXVcpNkv-KC-9UXOuQgOmk8rAQi_7CPF4PlmbabP4utVckAWfzujAf3-ZhnCuh4m59ya4IaLwujFORjCelVKVD5iOGKkCaa4yTefTle7I_KpUd2ooKfeE3SP15tTtJpFYkNfOTA5XFHV9VgZuEqfA")
+	const spotifyRefreshToken = useRef("AQApqZqhRn4c6uV8o_pzljxQGMuTjScqVcqXpw_sWXVPDj1DspOilD9A-SgvYsvqjJ3vo2prtDUWvjyLwMfIRu5OpcQf8b2AEeMhEXWRcsmeT2orrzVIeDAZAvFg7ACK3vE")
 
 	/**
 	 * Setups the page when it loads
@@ -24,7 +25,12 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	
 	function setup () {
 		setupArtistsBar()
+
+		// requestSpotifyAuthorizationCode()
 	}
+
+	// async function requestSpotifyAuthorizationCode () {
+	// }
 
 	/**
 	 * Prepares the artists scroll bar to style its elements
