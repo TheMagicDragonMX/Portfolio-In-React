@@ -12,20 +12,6 @@
   font-size: 70px;
 }
 
-// TODO Remove middle bar
-.title::before {
-  content: "";
-  position: absolute;
-
-  left: 50%;
-  translate: -50%;
-
-  width: 2px;
-  height: 500px;
-
-  background-color: limegreen;
-}
-
 .artists-bar {
   position: relative;
   width: 90%;
