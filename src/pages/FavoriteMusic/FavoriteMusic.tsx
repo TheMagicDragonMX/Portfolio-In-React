@@ -160,8 +160,9 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 		// Give the artist elements an appropriate scale depending on their presence  
 		artistsElements.current.forEach(({ current: artist }, index) => {
-			if (artist)
-				artist.style.scale = "" + presences[index]
+			if (!artist) return
+			
+			artist.style.scale = "" + presences[index]
 		})
 	}
 
