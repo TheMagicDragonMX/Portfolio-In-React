@@ -4,6 +4,7 @@ import "./FavoriteMusic.scss"
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 // import soundwaveV2 from "@/assets/soundwave_V2.jpg"
 // import soundwaveV3 from "@/assets/soundwave_V3.jpg"
+
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
 
@@ -45,7 +46,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 					}
 				})
 	
-				const artistData = await artistResponse.json()
+				const artistData = await artistResponse.json() as SpotifyApi.SingleArtistResponse
 				
 				newImages[index] = artistData.images[0].url
 				setArtistsImages(newImages)

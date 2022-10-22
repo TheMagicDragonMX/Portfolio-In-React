@@ -1,4 +1,4 @@
-interface FavoriteArtist {
+export interface FavoriteArtist {
 	name: string
 	spotifyID: string
 }
