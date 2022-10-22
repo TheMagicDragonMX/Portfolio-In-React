@@ -1,22 +1,24 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 // import soundwaveV2 from "@/assets/soundwave_V2.jpg"
 // import soundwaveV3 from "@/assets/soundwave_V3.jpg"
 import { Artist } from "./components"
-import { listOfArtists } from "@/data"
+import { listOfFavoriteArtists } from "@/data"
 
 export interface FavoriteMusicInterface { }
 
 const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	const artistsBar = useRef<HTMLDivElement>(null)
-	const artistsElements = useRef( listOfArtists.map(() => React.createRef<HTMLDivElement>()) )
+	const artistsElements = useRef( listOfFavoriteArtists.map(() => React.createRef<HTMLDivElement>()) )
 	const selectedArtist = useRef<HTMLDivElement>()
 
 	const spotifyToken = useRef("BQD0ihJFd3PZaScTiqc1i1bphF6tkkEN7TdiW6FULIcspg0zOpXVcpNkv-KC-9UXOuQgOmk8rAQi_7CPF4PlmbabP4utVckAWfzujAf3-ZhnCuh4m59ya4IaLwujFORjCelVKVD5iOGKkCaa4yTefTle7I_KpUd2ooKfeE3SP15tTtJpFYkNfOTA5XFHV9VgZuEqfA")
 	const spotifyRefreshToken = useRef("AQApqZqhRn4c6uV8o_pzljxQGMuTjScqVcqXpw_sWXVPDj1DspOilD9A-SgvYsvqjJ3vo2prtDUWvjyLwMfIRu5OpcQf8b2AEeMhEXWRcsmeT2orrzVIeDAZAvFg7ACK3vE")
+
+	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
 
 	/**
 	 * Setups the page when it loads
@@ -26,11 +28,35 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	function setup () {
 		setupArtistsBar()
 
-		// requestSpotifyAuthorizationCode()
+		fetchFavoriteArtistsData()
 	}
 
-	// async function requestSpotifyAuthorizationCode () {
-	// }
+	async function fetchFavoriteArtistsData () {
+
+		const newImages = listOfFavoriteArtists.map(() => "")
+
+		listOfFavoriteArtists.forEach( async (artist, index) => {
+			try {
+				const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${ artist.spotifyID }`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${ spotifyToken.current }`
+					}
+				})
+	
+				const artistData = await artistResponse.json()
+				
+				newImages[index] = artistData.images[0].url
+				setArtistsImages(newImages)
+			}
+	
+			catch (e) {
+				console.log(e)
+			}
+		})
+
+	}
 
 	/**
 	 * Prepares the artists scroll bar to style its elements
@@ -191,11 +217,11 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 			<div ref={artistsBar} className="artists-bar">
 				<div className="spacer"></div>
 				
-				{ listOfArtists.map((artist, index) => 
+				{ listOfFavoriteArtists.map((artist, index) => 
 					<Artist 
 						key={ index } 
 						ref={ artistsElements.current[index] } 
-						logo={ soundwaveV1 } 
+						logo={ artistsImages[index] } 
 						onClick={ () => onArtistClicked(artistsElements.current[index]) } /> ) 
 				}
 

@@ -3,7 +3,7 @@ interface FavoriteArtist {
 	spotifyID: string
 }
 
-export const listOfArtists : Array<FavoriteArtist> = [
+export const listOfFavoriteArtists : Array<FavoriteArtist> = [
 	{
 		name: "Vylet Pony",
 		spotifyID: "1kM5BZXs7FFN8Dj1WpgH2j" 
