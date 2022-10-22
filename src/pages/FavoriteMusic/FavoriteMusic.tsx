@@ -133,7 +133,6 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 		// Distance from viewport to the midpoint of the bar
 		const BAR_MIDPOINT = BAR_OFFSET_LEFT + BAR_CONTAINER_HALF_WIDTH
 		
-
 		/**
 		 * Get the detachment of every element
 		 * 
@@ -158,11 +157,15 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	function adjustArtistSize (): void {
 		const presences = getArtistsPresences()
 
+		// Allows the presence to get a minimum value so it doesn't get the lowest possible
+		const MIN_PRESENCE = 0.2
+		const adjustedPresences = presences.map( presence => Math.max(presence, MIN_PRESENCE) )
+
 		// Give the artist elements an appropriate scale depending on their presence  
 		artistsElements.current.forEach(({ current: artist }, index) => {
 			if (!artist) return
 			
-			artist.style.scale = "" + presences[index]
+			artist.style.scale = "" + adjustedPresences[index]
 		})
 	}
 

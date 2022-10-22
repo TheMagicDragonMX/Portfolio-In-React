@@ -11,7 +11,7 @@ const Artist = React.forwardRef<HTMLDivElement, ArtistInterface>(({ logo, onClic
 
 	return (
 		<div ref={ ref } className="artist" onClick={ onClick }>
-			<img className="artist-logo" src={ logo } />
+			<img className="artist-logo" src={ logo } alt="Artist Image" />
 		</div>
 	)
 })
