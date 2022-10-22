@@ -8,14 +8,18 @@
 }
 
 .title {
+  margin: 0;
+  margin-top: 40px;
+  
   font-family: 'Rampart One', cursive;
   font-size: 70px;
+
 }
 
 .artists-bar {
   position: relative;
   width: 90%;
-  height: 200px;
+  height: 300px;
 
   display: flex;
   align-items: center;

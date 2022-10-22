@@ -11,6 +11,7 @@
   background-color: rgb(255, 244, 254);
   border-radius: 50%;
 
+  transition: box-shadow 500ms, width 800ms;
   user-select: none;
   cursor: pointer;
 }
@@ -23,6 +24,6 @@
 }
 
 .selected-artist {
-  transition: box-shadow 500ms;
+  width: 150px;
   box-shadow: 0px 0px 20px yellow;
 }
