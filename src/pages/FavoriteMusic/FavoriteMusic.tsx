@@ -7,7 +7,7 @@ import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
-import { fetchArtistData } from "./helpers"
+import { fetchArtistData, requestRefreshedToken } from "./helpers"
 
 export interface FavoriteMusicInterface { }
 
@@ -17,9 +17,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	const artistsElements = useRef( listOfFavoriteArtists.map(() => React.createRef<HTMLDivElement>()) )
 	const selectedArtist = useRef<HTMLDivElement>()
 
-	const spotifyToken = useRef("BQD0ihJFd3PZaScTiqc1i1bphF6tkkEN7TdiW6FULIcspg0zOpXVcpNkv-KC-9UXOuQgOmk8rAQi_7CPF4PlmbabP4utVckAWfzujAf3-ZhnCuh4m59ya4IaLwujFORjCelVKVD5iOGKkCaa4yTefTle7I_KpUd2ooKfeE3SP15tTtJpFYkNfOTA5XFHV9VgZuEqfA")
-	const spotifyRefreshToken = useRef("AQApqZqhRn4c6uV8o_pzljxQGMuTjScqVcqXpw_sWXVPDj1DspOilD9A-SgvYsvqjJ3vo2prtDUWvjyLwMfIRu5OpcQf8b2AEeMhEXWRcsmeT2orrzVIeDAZAvFg7ACK3vE")
-
+	const spotifyToken = useRef("BQDyOnDNCBf-xEZMJDzwPFCtEB8pGCxmIx2Mtuy4IUvYQBWh226lxiFDHO4dmscRlKR6W8vTjXed8k5AjSC-pgbC3VjM7FWNh7q1FFEUqyEz8GZaLiKltLUddTMLSzA4ehONl80BO216gJ9ULUkkQwa8tAZnmnAQSJuL2fCer0ZDsoKlq6iDj0BCgnQrN3EUn2Xs-A")
 	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
 
 	/**
@@ -35,8 +33,8 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	async function fetchFavoriteArtistsData () {
 
-		const vyletData = await fetchArtistData(listOfFavoriteArtists[0].spotifyID)
-		console.log(vyletData)
+		// const vyletData = await fetchArtistData(listOfFavoriteArtists[0].spotifyID)
+		// console.log(vyletData)
 
 		// const newImages = listOfFavoriteArtists.map(() => "")
 

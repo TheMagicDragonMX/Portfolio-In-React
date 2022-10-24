@@ -1,3 +1,5 @@
+import axios from "axios"
+
 const CLIENT_ID = "777ca20501164302add21cb113e0fca5"
 const CLIENT_SECRET = "81f8455023474fa2afb8fa8f18a75223"
 
@@ -7,28 +9,21 @@ let token = ""
 /**
  * Requests a new token to the Spotify Web API
  */
-async function requestRefreshedToken () {
-	try {
-		const refreshedTokenResponse = await fetch("https://accounts.spotify.com/api/token", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded",
-				"Authorization": `Basic ${ window.btoa(CLIENT_ID + ":" + CLIENT_SECRET) }`
-				// "Authorization": `Basic ${ new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64") }`
-			},
-			body: JSON.stringify({
-				"grant_type": "refresh_token",
-				"refresh_token": REFRESH_TOKEN,
-			})
-		})
+export async function requestRefreshedToken () {
 
-		const refreshedTokenData = await refreshedTokenResponse.json()
-		return refreshedTokenData.access_token
-	}
+	const newTokenParams = new URLSearchParams({ 
+		grant_type: "refresh_token",
+		refresh_token: REFRESH_TOKEN
+	})
 
-	catch (error) {
-		console.log(error)
-	}
+	const newTokenResponse = await axios.post("https://accounts.spotify.com/api/token", newTokenParams.toString(), {
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"Authorization": `Basic ${ window.btoa(CLIENT_ID + ":" + CLIENT_SECRET) }`
+		}
+	})
+
+	return newTokenResponse.data
 }
 
 /**
