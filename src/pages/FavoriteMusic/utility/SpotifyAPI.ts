@@ -9,7 +9,7 @@ let token = ""
 /**
  * Requests a new token to the Spotify Web API
  */
-export async function requestRefreshedToken () {
+async function requestRefreshedToken () {
 
 	const newTokenParams = new URLSearchParams({ 
 		grant_type: "refresh_token",
@@ -31,16 +31,15 @@ export async function requestRefreshedToken () {
  * 
  * @param artistID Spotify ID of the wanted artist
  */
-async function requestArtistData (artistID: string): Promise<Response> {
-	const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${ artistID }`, {
-		method: "GET",
+async function requestArtistData (artistID: string) {
+	const artistDataResponse = await axios.get(`https://api.spotify.com/v1/artists/${ artistID }`, {
 		headers: {
 			"Content-Type": "application/json",
 			"Authorization": `Bearer ${ token }`
 		}
 	})
 
-	return artistResponse		
+	return artistDataResponse		
 }
 
 /**
@@ -51,10 +50,13 @@ async function requestArtistData (artistID: string): Promise<Response> {
  * @param artistID Spotify ID of the wanted artist
  */
 export async function fetchArtistData (artistID: string) {	
-	token = await requestRefreshedToken()
-	console.log("Acquired new token: " + token)
-	const artistDataResponse = await requestArtistData(artistID)
+	let artistDataResponse = await requestArtistData(artistID)
 
-	const artistData = await artistDataResponse.json() as SpotifyApi.SingleArtistResponse
+	while (artistDataResponse.status === 401) {
+		token = await requestRefreshedToken()
+		artistDataResponse = await requestArtistData(artistID)
+	}
+
+	const artistData = await artistDataResponse.data as SpotifyApi.SingleArtistResponse
 	return artistData
 }

@@ -7,7 +7,7 @@ import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
-import { fetchArtistData, requestRefreshedToken } from "./helpers"
+import { fetchArtistData } from "./utility"
 
 export interface FavoriteMusicInterface { }
 
@@ -17,7 +17,6 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	const artistsElements = useRef( listOfFavoriteArtists.map(() => React.createRef<HTMLDivElement>()) )
 	const selectedArtist = useRef<HTMLDivElement>()
 
-	const spotifyToken = useRef("BQDyOnDNCBf-xEZMJDzwPFCtEB8pGCxmIx2Mtuy4IUvYQBWh226lxiFDHO4dmscRlKR6W8vTjXed8k5AjSC-pgbC3VjM7FWNh7q1FFEUqyEz8GZaLiKltLUddTMLSzA4ehONl80BO216gJ9ULUkkQwa8tAZnmnAQSJuL2fCer0ZDsoKlq6iDj0BCgnQrN3EUn2Xs-A")
 	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
 
 	/**
@@ -32,9 +31,6 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	}
 
 	async function fetchFavoriteArtistsData () {
-
-		// const vyletData = await fetchArtistData(listOfFavoriteArtists[0].spotifyID)
-		// console.log(vyletData)
 
 		// const newImages = listOfFavoriteArtists.map(() => "")
 
