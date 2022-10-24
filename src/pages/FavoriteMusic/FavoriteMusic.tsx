@@ -7,6 +7,7 @@ import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
+import { fetchArtistData } from "./helpers"
 
 export interface FavoriteMusicInterface { }
 
@@ -34,28 +35,31 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	async function fetchFavoriteArtistsData () {
 
-		const newImages = listOfFavoriteArtists.map(() => "")
+		const vyletData = await fetchArtistData(listOfFavoriteArtists[0].spotifyID)
+		console.log(vyletData)
 
-		listOfFavoriteArtists.forEach( async (artist, index) => {
-			try {
-				const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${ artist.spotifyID }`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": `Bearer ${ spotifyToken.current }`
-					}
-				})
+		// const newImages = listOfFavoriteArtists.map(() => "")
+
+		// listOfFavoriteArtists.forEach( async (artist, index) => {
+		// 	try {
+		// 		const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${ artist.spotifyID }`, {
+		// 			method: "GET",
+		// 			headers: {
+		// 				"Content-Type": "application/json",
+		// 				"Authorization": `Bearer ${ spotifyToken.current }`
+		// 			}
+		// 		})
 	
-				const artistData = await artistResponse.json() as SpotifyApi.SingleArtistResponse
+		// 		const artistData = await artistResponse.json() as SpotifyApi.SingleArtistResponse
 				
-				newImages[index] = artistData.images[0].url
-				setArtistsImages(newImages)
-			}
+		// 		newImages[index] = artistData.images[0].url
+		// 		setArtistsImages(newImages)
+		// 	}
 	
-			catch (e) {
-				console.log(e)
-			}
-		})
+		// 	catch (e) {
+		// 		console.log(e)
+		// 	}
+		// })
 
 	}
 
