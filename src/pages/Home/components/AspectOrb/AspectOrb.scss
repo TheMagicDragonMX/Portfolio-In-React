@@ -44,10 +44,10 @@
   background-size: 300%;
   opacity: 0.4;
 
-  animation: fadeBackground 500ms ease-in-out 0s infinite alternate;
+  animation: rotateBackgroundGradient 500ms ease-in-out 0s infinite alternate;
 }
 
-@keyframes fadeBackground {
+@keyframes rotateBackgroundGradient {
   from {
     background-position: left;
     rotate: 0deg;
