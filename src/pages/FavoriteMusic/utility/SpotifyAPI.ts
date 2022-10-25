@@ -23,7 +23,7 @@ async function requestRefreshedToken () {
 		}
 	})
 
-	return newTokenResponse.data
+	return newTokenResponse.data.access_token
 }
 
 /**
@@ -90,15 +90,19 @@ async function requestSeveralArtistData (artistsIDs: Array<string>) {
  * 
  * @param artistsIDs Array of Spotify IDs of the wanted artists
  */
-export async function fetchSeveralArtistData (artistsIDs: Array<string>) {	
+export async function fetchSeveralArtistData (artistsIDs: Array<string>): Promise<SpotifyApi.MultipleArtistsResponse> {	
 
-	let severalArtistsDataResponse = await requestSeveralArtistData(artistsIDs)
-
-	while (severalArtistsDataResponse.status === 401) {
+	try {
+		const severalArtistsDataResponse = await requestSeveralArtistData(artistsIDs)
+		const severalArtistsData = await severalArtistsDataResponse.data as SpotifyApi.MultipleArtistsResponse
+		
+		return severalArtistsData
+	}
+	
+	catch (error) {
+		console.log(error)
 		accessToken = await requestRefreshedToken()
-		severalArtistsDataResponse = await requestSeveralArtistData(artistsIDs)
+		return await fetchSeveralArtistData(artistsIDs)
 	}
 
-	const severalArtistsData = await severalArtistsDataResponse.data as SpotifyApi.MultipleArtistsResponse
-	return severalArtistsData
 }
