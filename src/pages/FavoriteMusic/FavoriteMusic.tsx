@@ -7,7 +7,7 @@ import soundwaveV1 from "@/assets/soundwave_V1.jpg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
-import { fetchArtistData, fetchSeveralArtistData } from "./utility"
+import { accessToken, fetchArtistData, fetchSeveralArtistData } from "./utility"
 
 export interface FavoriteMusicInterface { }
 
@@ -19,6 +19,11 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
 
+	const [player, setPlayer] = useState<Spotify.Player>()
+	const [isPaused, setIsPaused] = useState(false)
+	const [isActive, setIsActive] = useState(false)
+	// const [currentTrack, setCurrentTrack] = useState(track);
+	
 	/**
 	 * Setups the page when it loads
 	 */
@@ -33,13 +38,6 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	async function fetchFavoriteArtistsData () {
 		const artistsData = await fetchSeveralArtistData(listOfFavoriteArtists.map( artist => artist.spotifyID ))
 		setArtistsImages(artistsData.artists.map( artist => artist.images[0].url ))
-	}
-
-	async function preparePlayer () {
-	
-		window.onSpotifyWebPlaybackSDKReady = () => {
-			
-		}
 	}
 
 	/**
