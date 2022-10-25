@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
+import vinylDisc from "@/assets/vinyl_disc.svg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
@@ -14,8 +15,10 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	const artistsBar = useRef<HTMLDivElement>(null)
 	const artistsElements = useRef( listOfFavoriteArtists.map(() => React.createRef<HTMLDivElement>()) )
 	const selectedArtist = useRef<HTMLDivElement>()
+	const disc = useRef<HTMLImageElement>(null)
 
 	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
+	const [ discImage, setDiscImage ] = useState<string>(vinylDisc)
 	
 	/**
 	 * Setups the page when it loads
@@ -201,14 +204,23 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 						key={ index } 
 						ref={ artistsElements.current[index] } 
 						logo={ artistsImages[index] } 
-						onClick={ () => onArtistClicked(artistsElements.current[index]) } /> ) 
+						onClick={ () => {
+							onArtistClicked(artistsElements.current[index])
+
+							if (!disc.current) return
+							disc.current.src = artistsImages[index]
+							
+						} } /> ) 
 				}
 
 				{/* <div className="spacer"></div> */}
 			</div>
 
 			<div className="player">
-				
+				<div className="disc">
+					<img src={ vinylDisc } alt="" />
+					<img ref={ disc } className="disc-image" src={ discImage } alt="" />
+				</div>
 			</div>
 
 		</div>
