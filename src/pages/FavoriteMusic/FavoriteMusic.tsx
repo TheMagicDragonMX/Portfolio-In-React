@@ -27,7 +27,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	const disc = useRef<HTMLImageElement>(null)
 
-	const [ discImage, setDiscImage ] = useState<string>(vinylDisc)
+	const [ discImage, setDiscImage ] = useState<string>(soundwaveV1)
 	
 	/**
 	 * Setups the page when it loads
@@ -211,7 +211,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	return (
 		<div className="favorite-music">
-			<h2 className="title">Favorite Music</h2>
+			<h2 className="title"><span>Favorite Music</span></h2>
 
 			<div ref={artistsBar} className="artists-bar">
 				<div className="spacer"></div>
@@ -223,10 +223,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 						logo={ artistsImages[index] } 
 						onClick={ () => {
 							onArtistClicked(artistsElements.current[index])
-
-							if (!disc.current) return
-							disc.current.src = artistsImages[index]
-
+							setDiscImage(artistsImages[index])
 						} } /> ) 
 				}
 
@@ -236,7 +233,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 			<div className="player">
 				<div className="disc">
 					<img src={ vinylDisc } alt="" />
-					<img ref={ disc } className="disc-image" src={ discImage } alt="" />
+					<div ref={ disc } className="disc-image" style={{ backgroundImage: `url(${ discImage })` } as React.CSSProperties }></div>
 				</div>
 			</div>
 
