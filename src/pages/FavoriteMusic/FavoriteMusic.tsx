@@ -197,7 +197,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 			<h2 className="title">Favorite Music</h2>
 
 			<div ref={artistsBar} className="artists-bar">
-				{/* <div className="spacer"></div> */}
+				<div className="spacer"></div>
 				
 				{ listOfFavoriteArtists.map((artist, index) => 
 					<Artist 
@@ -209,11 +209,11 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 							if (!disc.current) return
 							disc.current.src = artistsImages[index]
-							
+
 						} } /> ) 
 				}
 
-				{/* <div className="spacer"></div> */}
+				<div className="spacer"></div>
 			</div>
 
 			<div className="player">
