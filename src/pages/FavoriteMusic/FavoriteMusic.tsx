@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from "react"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
-// import soundwaveV2 from "@/assets/soundwave_V2.jpg"
-// import soundwaveV3 from "@/assets/soundwave_V3.jpg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
-import { accessToken, fetchArtistData, fetchSeveralArtistData } from "./utility"
+import { fetchSeveralArtistData } from "./utility"
 
 export interface FavoriteMusicInterface { }
 
@@ -18,11 +16,6 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	const selectedArtist = useRef<HTMLDivElement>()
 
 	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
-
-	const [player, setPlayer] = useState<Spotify.Player>()
-	const [isPaused, setIsPaused] = useState(false)
-	const [isActive, setIsActive] = useState(false)
-	// const [currentTrack, setCurrentTrack] = useState(track);
 	
 	/**
 	 * Setups the page when it loads
@@ -62,7 +55,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	function getArtistMidpoint (artist: React.RefObject<HTMLDivElement>): number {
 		if (!artist.current) return 0 // Default value for inexistent element (quite impossible)
 
-		return (artist.current.getBoundingClientRect().left + artist.current.getBoundingClientRect().right) / 2
+		return (artist.current.getBoundingClientRect().top + artist.current.getBoundingClientRect().bottom) / 2
 	}
 
 	/**
@@ -103,17 +96,17 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	function getArtistsPresences (): Array<number> {
 		if (!artistsBar.current) return [] // Avoid null warnings
 
-		// Distance from viewport to the left of the bar container
-		const BAR_OFFSET_LEFT = artistsBar.current?.offsetLeft
+		// Distance from viewport to the top of the bar container
+		const BAR_OFFSET_TOP = artistsBar.current?.offsetTop
 
-		// Width of the bar container
-		const BAR_WIDTH = artistsBar.current?.offsetWidth
+		// Height of the bar container
+		const BAR_HEIGHT = artistsBar.current?.offsetHeight
 
-		// Half width of the bar container
-		const BAR_CONTAINER_HALF_WIDTH = BAR_WIDTH / 2
+		// Half height of the bar container
+		const BAR_CONTAINER_HALF_HEIGHT = BAR_HEIGHT / 2
 
 		// Distance from viewport to the midpoint of the bar
-		const BAR_MIDPOINT = BAR_OFFSET_LEFT + BAR_CONTAINER_HALF_WIDTH
+		const BAR_MIDPOINT = BAR_OFFSET_TOP + BAR_CONTAINER_HALF_HEIGHT
 		
 		/**
 		 * Get the detachment of every element
@@ -123,13 +116,13 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 		const detachments = getArtistsMidpoints().map(artistMidpoint => Math.abs( BAR_MIDPOINT - artistMidpoint ))
 
 		// Determines where the presence starts to reduce
-		const ABSENCE_POINT = 0.10 * BAR_CONTAINER_HALF_WIDTH
+		const ABSENCE_POINT = 0.10 * BAR_CONTAINER_HALF_HEIGHT
 
 		// Calculate and return presences
 		return detachments.map(detachment => 
 			detachment < ABSENCE_POINT 
 				? 1 // Element is fully present 
-				: 1 - ((detachment - ABSENCE_POINT) * 1) / (BAR_CONTAINER_HALF_WIDTH - ABSENCE_POINT) // Presence calculation is made
+				: 1 - ((detachment - ABSENCE_POINT) * 1) / (BAR_CONTAINER_HALF_HEIGHT - ABSENCE_POINT) // Presence calculation is made
 		)
 	}
 
@@ -140,7 +133,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 		const presences = getArtistsPresences()
 
 		// Allows the presence to get a minimum value so it doesn't get the lowest possible
-		const MIN_PRESENCE = 0.2
+		const MIN_PRESENCE = 0.5
 		const adjustedPresences = presences.map( presence => Math.max(presence, MIN_PRESENCE) )
 
 		// Give the artist elements an appropriate scale depending on their presence  
@@ -170,14 +163,14 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 		if (!artistsBar.current) return
 		if (!artist.current) return
 		
-		// Half width of the bar container
-		const BAR_CONTAINER_HALF_WIDTH = artistsBar.current.offsetWidth / 2
+		// Half height of the bar container
+		const BAR_CONTAINER_HALF_HEIGHT = artistsBar.current.offsetHeight / 2
 
-		// The distance from the left of the scrollbar to de midpoint of the selected artist element
-		const scrollPosition = artist.current.offsetLeft + artist.current.offsetWidth / 2 
+		// The distance from the top of the scrollbar to the midpoint of the selected artist element
+		const scrollPosition = artist.current.offsetTop + artist.current.offsetHeight / 2 
 		
 		artistsBar.current.scrollTo({
-			left: scrollPosition - BAR_CONTAINER_HALF_WIDTH, // Will set the element to the middle of the bar
+			top: scrollPosition - BAR_CONTAINER_HALF_HEIGHT, // Will set the element at the middle of the bar
 			behavior: "smooth"
 		})
 	}
@@ -201,7 +194,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 			<h2 className="title">Favorite Music</h2>
 
 			<div ref={artistsBar} className="artists-bar">
-				<div className="spacer"></div>
+				{/* <div className="spacer"></div> */}
 				
 				{ listOfFavoriteArtists.map((artist, index) => 
 					<Artist 
@@ -211,7 +204,11 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 						onClick={ () => onArtistClicked(artistsElements.current[index]) } /> ) 
 				}
 
-				<div className="spacer"></div>
+				{/* <div className="spacer"></div> */}
+			</div>
+
+			<div className="player">
+				
 			</div>
 
 		</div>
