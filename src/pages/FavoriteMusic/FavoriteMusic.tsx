@@ -12,12 +12,21 @@ export interface FavoriteMusicInterface { }
 
 const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
+	/**
+	 * Allows us to control elements that are related to the
+	 * artists bar
+	 */
 	const artistsBar = useRef<HTMLDivElement>(null)
 	const artistsElements = useRef( listOfFavoriteArtists.map(() => React.createRef<HTMLDivElement>()) )
 	const selectedArtist = useRef<HTMLDivElement>()
+
+	/**
+	 * Keeps track of the URL of every favorite artist
+	 */
+	const [ artistsImages, setArtistsImages ] = useState<Array<string>>([])
+
 	const disc = useRef<HTMLImageElement>(null)
 
-	const [ artistsImages, setArtistsImages ] = useState<Array<string>>( listOfFavoriteArtists.map(() => "") )
 	const [ discImage, setDiscImage ] = useState<string>(vinylDisc)
 	
 	/**
@@ -32,8 +41,16 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	}
 
 	async function fetchFavoriteArtistsData () {
-		const artistsData = await fetchSeveralArtistData(listOfFavoriteArtists.map( artist => artist.spotifyID ))
-		setArtistsImages(artistsData.artists.map( artist => artist.images[0].url ))
+		
+		try {
+			const artistsData = await fetchSeveralArtistData(listOfFavoriteArtists.map( artist => artist.spotifyID ))
+			setArtistsImages(artistsData.artists.map( artist => artist.images[1].url ))
+		}
+
+		catch {
+			setArtistsImages(listOfFavoriteArtists.map(() => soundwaveV1 ))
+		}
+
 	}
 
 	/**
