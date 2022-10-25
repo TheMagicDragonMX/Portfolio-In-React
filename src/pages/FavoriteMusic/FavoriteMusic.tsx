@@ -35,6 +35,13 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 		setArtistsImages(artistsData.artists.map( artist => artist.images[0].url ))
 	}
 
+	async function preparePlayer () {
+	
+		window.onSpotifyWebPlaybackSDKReady = () => {
+			
+		}
+	}
+
 	/**
 	 * Prepares the artists scroll bar to style its elements
 	 * when it scrolls

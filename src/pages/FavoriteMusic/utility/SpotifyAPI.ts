@@ -102,3 +102,13 @@ export async function fetchSeveralArtistData (artistsIDs: Array<string>) {
 	const severalArtistsData = await severalArtistsDataResponse.data as SpotifyApi.MultipleArtistsResponse
 	return severalArtistsData
 }
+
+
+
+
+
+
+
+// async function playMusic () {
+
+// }

@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    "types": ["node", "spotify-api"],
+    "types": ["node", "spotify-api", "spotify-web-playback-sdk"],
     "paths": {
       "@/*": ["./src/*"]
     }
