@@ -213,21 +213,23 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 		<div className="favorite-music">
 			<h2 className="title"><span>Favorite Music</span></h2>
 
-			<div ref={artistsBar} className="artists-bar">
-				<div className="spacer"></div>
-				
-				{ listOfFavoriteArtists.map((artist, index) => 
-					<Artist 
-						key={ index } 
-						ref={ artistsElements.current[index] } 
-						logo={ artistsImages[index] } 
-						onClick={ () => {
-							onArtistClicked(artistsElements.current[index])
-							setDiscImage(artistsImages[index])
-						} } /> ) 
-				}
+			<div className="artists-bar-container">
+				<div ref={artistsBar} className="artists-bar">
+					<div className="spacer"></div>
+					
+					{ listOfFavoriteArtists.map((artist, index) => 
+						<Artist 
+							key={ index } 
+							ref={ artistsElements.current[index] } 
+							logo={ artistsImages[index] } 
+							onClick={ () => {
+								onArtistClicked(artistsElements.current[index])
+								setDiscImage(artistsImages[index])
+							} } /> ) 
+					}
 
-				<div className="spacer"></div>
+					<div className="spacer"></div>
+				</div>
 			</div>
 
 			<div className="player">

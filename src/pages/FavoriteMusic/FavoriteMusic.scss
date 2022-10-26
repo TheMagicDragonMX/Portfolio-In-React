@@ -71,12 +71,24 @@
   }
 }
 
-.artists-bar {
+.artists-bar-container {
   grid-area: artists;
-  position: relative;
   width: 100%;
   height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // TODO Delete tests
+  // border: 1px solid white;
   
+}
+
+.artists-bar {
+  position: relative;
+  width: 55%;
+  height: 95%;
   
   display: flex;
   flex-direction: column;
@@ -85,6 +97,10 @@
   
   overflow-y: auto;
   
+  border-radius: 20px;
+  border: 2px solid rgb(186, 186, 186);
+  background-color: rgb(44, 44, 44);
+
   // TODO Delete tests
   // border: 1px solid white;
 
