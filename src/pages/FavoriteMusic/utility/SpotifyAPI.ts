@@ -6,10 +6,32 @@ const REFRESH_TOKEN = "AQC5Ml7l0wxCxGhSdHMqCqxMztqD4EdoPNBKOW7jy2LcgjIWMwWa_jsKE
 
 export let accessToken = "BQCNY0ivKNVj8iHJVryxpgAxqHMbi4OlMgNNJEvK5wRk9i13kviV6wqcze_tnzHY6o2OaPw4N8lXl84OqFr02MVFlXJV0R2C1Ezf7o6Li_sO8grQKnRaIREX8E6Qt00YwIu2W0sLXISp4Fmq-MH-IjwEEZ74COUvOi_B57SlAYJbeVemWomx6juoMhINeLTUgsUK6g"
 
+
+/**
+ * Requests a token to the Spotify Web API
+ */
+export async function requestNewToken (code: string) {
+
+	const newTokenParams = new URLSearchParams({ 
+		grant_type: "authorization_code",
+		code: code,
+		redirect_uri: "http://127.0.0.1:3000/favorite-music"
+	})
+
+	const newTokenResponse = await axios.post("https://accounts.spotify.com/api/token", newTokenParams.toString(), {
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"Authorization": `Basic ${ window.btoa(CLIENT_ID + ":" + CLIENT_SECRET) }`
+		}
+	})
+
+	return newTokenResponse.data
+}
+
 /**
  * Requests a new token to the Spotify Web API
  */
-async function requestRefreshedToken () {
+export async function requestRefreshedToken (): Promise<string> {
 
 	const newTokenParams = new URLSearchParams({ 
 		grant_type: "refresh_token",
@@ -106,3 +128,17 @@ export async function fetchSeveralArtistData (artistsIDs: Array<string>): Promis
 	}
 
 }
+
+
+/*
+Scopes that are possibly needed
+- user-read-playback-state: Read access to a user’s player state.
+- user-modify-playback-state: Write access to a user’s playback state
+- user-read-currently-playing: Read access to a user’s currently playing content.
+- user-read-email: Read access to user’s email address.
+- user-top-read: Read access to a user's top artists and tracks.
+- user-read-recently-played: Read access to a user’s recently played tracks.
+
+- user-follow-read:	Read access to the list of artists and other users that the user follows.
+
+*/

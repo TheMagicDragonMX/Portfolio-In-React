@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { useParams } from "react-router-dom"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
@@ -6,11 +7,15 @@ import vinylDisc from "@/assets/vinyl_disc.svg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
-import { fetchSeveralArtistData } from "./utility"
+import { fetchSeveralArtistData, requestNewToken } from "./utility"
 
 export interface FavoriteMusicInterface { }
 
 const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
+
+	const { spotifyCode } = useParams() as { spotifyCode: string | undefined }
+	const [ token, setToken ] = useState("")
+	const [ refreshToken, setRefreshToken ] = useState("")
 
 	/**
 	 * Allows us to control elements that are related to the
@@ -37,8 +42,21 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	function setup () {
 		setupArtistsBar()
 
+		if (spotifyCode !== undefined) {
+			requestNewToken(spotifyCode)
+				.then( data => {
+					setToken(data.access_token)
+					setRefreshToken(data.refresh_token)
+				})
+		}
+
 		fetchFavoriteArtistsData()
 	}
+
+	function loginInSpotify () {
+		window.location.assign("https://accounts.spotify.com/authorize?client_id=777ca20501164302add21cb113e0fca5&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Ffavorite-music&scope=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-read-email%20user-top-read%20user-read-recently-played")
+	}
+
 
 	async function fetchFavoriteArtistsData () {
 		
@@ -233,6 +251,9 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 			</div>
 
 			<div className="player">
+				{/* TODO Remove login button */}
+				<button onClick={ loginInSpotify }>Login in Spotify</button>
+
 				<div className="disc">
 					<img src={ vinylDisc } alt="" />
 					<div ref={ disc } className="disc-image" style={{ backgroundImage: `url(${ discImage })` } as React.CSSProperties }></div>
