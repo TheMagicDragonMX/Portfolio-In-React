@@ -10,7 +10,7 @@ export let accessToken = "BQCNY0ivKNVj8iHJVryxpgAxqHMbi4OlMgNNJEvK5wRk9i13kviV6w
 /**
  * Requests a token to the Spotify Web API
  */
-export async function requestNewToken (code: string) {
+export async function requestNewToken (code: string): Promise<string> {
 
 	const newTokenParams = new URLSearchParams({ 
 		grant_type: "authorization_code",

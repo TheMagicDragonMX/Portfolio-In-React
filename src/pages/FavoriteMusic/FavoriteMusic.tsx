@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
+import { useSpotifyAuth } from "./hooks"
 import "./FavoriteMusic.scss"
 
 import soundwaveV1 from "@/assets/soundwave_V1.jpg"
@@ -14,8 +15,11 @@ export interface FavoriteMusicInterface { }
 const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 	const { spotifyCode } = useParams() as { spotifyCode: string | undefined }
-	const [ token, setToken ] = useState("")
-	const [ refreshToken, setRefreshToken ] = useState("")
+
+	if (spotifyCode === undefined)
+		window.location.href = "https://accounts.spotify.com/authorize?client_id=777ca20501164302add21cb113e0fca5&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Ffavorite-music&scope=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-read-email%20user-top-read%20user-read-recently-played"
+
+	const [ token, tokenAdcquired ] = useSpotifyAuth(spotifyCode !== undefined ? spotifyCode : "")
 
 	/**
 	 * Allows us to control elements that are related to the
@@ -42,21 +46,8 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	function setup () {
 		setupArtistsBar()
 
-		if (spotifyCode !== undefined) {
-			requestNewToken(spotifyCode)
-				.then( data => {
-					setToken(data.access_token)
-					setRefreshToken(data.refresh_token)
-				})
-		}
-
 		fetchFavoriteArtistsData()
 	}
-
-	function loginInSpotify () {
-		window.location.assign("https://accounts.spotify.com/authorize?client_id=777ca20501164302add21cb113e0fca5&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Ffavorite-music&scope=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-read-email%20user-top-read%20user-read-recently-played")
-	}
-
 
 	async function fetchFavoriteArtistsData () {
 		
@@ -252,7 +243,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
 			<div className="player">
 				{/* TODO Remove login button */}
-				<button onClick={ loginInSpotify }>Login in Spotify</button>
+				{/* <button onClick={ loginInSpotify }>Login in Spotify</button> */}
 
 				<div className="disc">
 					<img src={ vinylDisc } alt="" />
