@@ -10,16 +10,12 @@ import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
 import { fetchSeveralArtistData } from "./utility"
 
-export interface FavoriteMusicInterface { }
+// export interface FavoriteMusicInterface { }
+// const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
+	
+const FavoriteMusic: React.FC = () => {
 
-const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
-
-	const { spotifyCode } = useParams() as { spotifyCode?: string }
-
-	if (spotifyCode === undefined)
-		window.location.href = "https://accounts.spotify.com/authorize?client_id=777ca20501164302add21cb113e0fca5&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Ffavorite-music&scope=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-read-email%20user-top-read%20user-read-recently-played"
-
-	const [ token, tokenAdcquired ] = useSpotifyAuth(spotifyCode ?? "")
+	const [ token ] = useSpotifyAuth(localStorage.getItem("spotifyCode") ?? "code_error")
 
 	/**
 	 * Allows us to control elements that are related to the
