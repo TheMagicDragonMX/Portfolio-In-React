@@ -18,8 +18,6 @@ function App () {
 
 				<Route path="home" element={ <Home /> } />
 				<Route path="favorite-music" element={ <FavoriteMusic /> } />
-				<Route path="favorite-music/:spotifyCode" element={ <FavoriteMusic /> } />
-
 				<Route path="*" element={ <h1>Nothing! <i>for now...</i></h1> } />
 			</Routes>
 		</Background>

@@ -16,7 +16,7 @@ export interface RefreshedTokenResponse {
 	expires_in: number
 }
 
-export const useSpotifyAuth = (code: string) => {
+export const useSpotifyAuth = (code: string) : [ string, boolean ] => {
 
 	const CLIENT_ID = "777ca20501164302add21cb113e0fca5"
 	const CLIENT_SECRET = "81f8455023474fa2afb8fa8f18a75223"

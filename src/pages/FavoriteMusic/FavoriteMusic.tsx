@@ -8,18 +8,18 @@ import vinylDisc from "@/assets/vinyl_disc.svg"
 
 import { Artist } from "./components"
 import { listOfFavoriteArtists } from "@/data"
-import { fetchSeveralArtistData, requestNewToken } from "./utility"
+import { fetchSeveralArtistData } from "./utility"
 
 export interface FavoriteMusicInterface { }
 
 const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 
-	const { spotifyCode } = useParams() as { spotifyCode: string | undefined }
+	const { spotifyCode } = useParams() as { spotifyCode?: string }
 
 	if (spotifyCode === undefined)
 		window.location.href = "https://accounts.spotify.com/authorize?client_id=777ca20501164302add21cb113e0fca5&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Ffavorite-music&scope=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-read-email%20user-top-read%20user-read-recently-played"
 
-	const [ token, tokenAdcquired ] = useSpotifyAuth(spotifyCode !== undefined ? spotifyCode : "")
+	const [ token, tokenAdcquired ] = useSpotifyAuth(spotifyCode ?? "")
 
 	/**
 	 * Allows us to control elements that are related to the
@@ -52,7 +52,7 @@ const FavoriteMusic: React.FC<FavoriteMusicInterface> = () => {
 	async function fetchFavoriteArtistsData () {
 		
 		try {
-			const artistsData = await fetchSeveralArtistData(listOfFavoriteArtists.map( artist => artist.spotifyID ))
+			const artistsData = await fetchSeveralArtistData(token, listOfFavoriteArtists.map( artist => artist.spotifyID ))
 			setArtistsImages(artistsData.artists.map( artist => artist.images[1].url ))
 		}
 

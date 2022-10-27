@@ -90,12 +90,12 @@ export async function fetchArtistData (artistID: string) {
  * 
  * @param artistsIDs Array of Spotify IDs of the wanted artists
  */
-async function requestSeveralArtistData (artistsIDs: Array<string>) {
+async function requestSeveralArtistData (token: string, artistsIDs: Array<string>) {
 	
 	const severalArtistsDataResponse = await axios.get("https://api.spotify.com/v1/artists", {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": `Bearer ${ accessToken }`
+			"Authorization": `Bearer ${ token }`
 		},
 		params: {
 			ids: artistsIDs.join(",")
@@ -112,21 +112,12 @@ async function requestSeveralArtistData (artistsIDs: Array<string>) {
  * 
  * @param artistsIDs Array of Spotify IDs of the wanted artists
  */
-export async function fetchSeveralArtistData (artistsIDs: Array<string>): Promise<SpotifyApi.MultipleArtistsResponse> {	
+export async function fetchSeveralArtistData (token: string, artistsIDs: Array<string>): Promise<SpotifyApi.MultipleArtistsResponse> {	
 
-	try {
-		const severalArtistsDataResponse = await requestSeveralArtistData(artistsIDs)
-		const severalArtistsData = await severalArtistsDataResponse.data as SpotifyApi.MultipleArtistsResponse
+	const severalArtistsDataResponse = await requestSeveralArtistData(token, artistsIDs)
+	const severalArtistsData = await severalArtistsDataResponse.data as SpotifyApi.MultipleArtistsResponse
 		
-		return severalArtistsData
-	}
-	
-	catch (error) {
-		console.log(error)
-		accessToken = await requestRefreshedToken()
-		return await fetchSeveralArtistData(artistsIDs)
-	}
-
+	return severalArtistsData
 }
 
 
