@@ -1,6 +1,0 @@
-export { default as FavoriteMusic } from "./FavoriteMusic"
-export { default as Artist } from "./components/Artist/Artist"
-export * from "./components/Artist"
-export * from "./components"
-export * from "./utility/SpotifyAPI"
-export * from "./utility"
