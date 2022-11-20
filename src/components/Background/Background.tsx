@@ -6,9 +6,11 @@ export interface BackgroundInterface {
 }
 
 const Background : React.FC<BackgroundInterface> = ({ children }) => {
-	return <div className="background">
-		{ children }
-	</div>
+	return <>
+		<div className="background">
+			{ children }
+		</div>
+	</> 
 }
 
 export default Background
