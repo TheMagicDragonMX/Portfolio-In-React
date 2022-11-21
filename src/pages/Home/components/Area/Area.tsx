@@ -1,9 +1,5 @@
 import React, { useRef } from "react"
-import "./Map.scss"
-
-export interface MapInterface {
-	children?: React.ReactNode
-}
+import "./Area.scss"
 
 interface Coord {
 	x: number
@@ -12,23 +8,23 @@ interface Coord {
 
 interface DragPoint {
 	mouse: Coord
-	map: Coord
+	area: Coord
 }
 
-const Map : React.FC<MapInterface> = ({ children }) => {
+const Area : React.FC = () => {
 
 	/**
-	 * Keeps track of the draggable map container
+	 * Keeps track of the draggable area container
 	 */
-	const map = useRef<HTMLDivElement>(null)
+	const area = useRef<HTMLDivElement>(null)
 	
 	/**
 	 * Keeps track of the position of the mouse when
-	 * the user started to drag the map
+	 * the user started to drag the area
 	 */
 	const draggingPoint = useRef<DragPoint>({
 		mouse: { x: 0, y: 0 },
-		map: { x: 0, y: 0 }
+		area: { x: 0, y: 0 }
 	})
 
 	/**
@@ -37,11 +33,11 @@ const Map : React.FC<MapInterface> = ({ children }) => {
 	 * so the user can drag the container
 	 */
 	function enableDragging (mouse: React.MouseEvent) {
-		if (!map.current) return // Prevent null warning
+		if (!area.current) return // Prevent null warning
 
 		draggingPoint.current = { 
 			mouse: { x: mouse.clientX, y: mouse.clientY }, 
-			map: { x: map.current.scrollLeft, y: map.current.scrollTop } 
+			area: { x: area.current.scrollLeft, y: area.current.scrollTop } 
 		}
 
 		document.addEventListener("mousemove", drag)
@@ -53,19 +49,19 @@ const Map : React.FC<MapInterface> = ({ children }) => {
 	 * depending on the mouse position 
 	 */
 	function drag (mouse: MouseEvent) {
-		if (!map.current) return // Prevent null warning
+		if (!area.current) return // Prevent null warning
 
 		const xDisplacement = mouse.clientX - draggingPoint.current.mouse.x
 		const yDisplacement = mouse.clientY - draggingPoint.current.mouse.y
 
-		map.current.scrollTo({
-			top: draggingPoint.current.map.y - yDisplacement,
-			left: draggingPoint.current.map.x - xDisplacement
+		area.current.scrollTo({
+			top: draggingPoint.current.area.y - yDisplacement,
+			left: draggingPoint.current.area.x - xDisplacement
 		})
 	}
 
 	/**
-	 * Disables map dragging once the user stops
+	 * Disables area dragging once the user stops
 	 * clicking a mouse button
 	 */
 	function stopMapDragging () {
@@ -75,13 +71,14 @@ const Map : React.FC<MapInterface> = ({ children }) => {
 
 	return <>
 		<div
-			ref={ map } 
-			className="map"
+			ref={ area } 
+			className="area"
 			onMouseDown={ e => enableDragging(e) } >
-				
-			{ children }
+			
+			
+			
 		</div>
 	</>
 }
 
-export default Map
+export default Area
