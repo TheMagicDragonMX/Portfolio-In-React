@@ -1,6 +1,8 @@
 import React, { useRef } from "react"
 import "./Area.scss"
 
+import { Map } from "../Map"
+
 interface Coord {
 	x: number
 	y: number
@@ -75,7 +77,7 @@ const Area : React.FC = () => {
 			className="area"
 			onMouseDown={ e => enableDragging(e) } >
 			
-			
+			<Map />
 			
 		</div>
 	</>
