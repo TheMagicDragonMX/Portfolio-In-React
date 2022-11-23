@@ -59,7 +59,7 @@ const Area : React.FC = () => {
 		area.current.scrollTo({
 			top: draggingPoint.current.area.y - yDisplacement,
 			left: draggingPoint.current.area.x - xDisplacement,
-			behavior: "smooth"
+			behavior: "auto"
 		})
 	}
 

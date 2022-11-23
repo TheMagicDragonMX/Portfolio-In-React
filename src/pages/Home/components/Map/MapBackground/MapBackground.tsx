@@ -5,9 +5,9 @@ const MapBackground : React.FC = () => {
 
 	const mapBackground = useRef<HTMLDivElement>(null)
 
-	const getRandomGrayColor = () => {
-		const gray = Math.floor( Math.random() * 20 ) + 10
-		return `rgb(${ gray }, ${ gray }, ${ gray })`
+	const getRandomDelay = () => {
+		const delay = Math.floor( Math.random() * 1000 )
+		return `${ delay }ms`
 	}
 
 	const [ squares, setSquares ] = useState(new Array(0).fill(""))
@@ -28,7 +28,7 @@ const MapBackground : React.FC = () => {
 					<div key={ key }>
 						{ 
 							squares.map( (square, key) => 
-								<div key={ key } className="little-square" style={{ backgroundColor: getRandomGrayColor() }}></div> 
+								<div key={ key } className="little-square" style={{ "--delay": getRandomDelay() } as React.CSSProperties}></div> 
 							)
 						}
 					</div>

@@ -7,8 +7,6 @@ const Map : React.FC = () => {
 	return <>
 		<div className="map">
 			<MapBackground />
-
-			<div className="test">Hey!</div>
 		</div>
 	</>
 }
