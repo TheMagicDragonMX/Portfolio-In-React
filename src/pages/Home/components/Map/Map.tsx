@@ -8,7 +8,7 @@ const Map : React.FC = () => {
 		<div className="map">
 			<MapBackground />
 
-			
+			<div className="test">Hey!</div>
 		</div>
 	</>
 }
