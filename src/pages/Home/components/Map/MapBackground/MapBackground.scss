@@ -21,16 +21,4 @@
 .little-square {
   width: 15px;
   height: 15px;
-
-  animation: changeGrayScale 1s ease-in-out var(--delay, 0s) infinite alternate;
-}
-
-@keyframes changeGrayScale {
-  from {
-    background-color: rgb(10, 10, 10);
-  }
-  
-  to {
-    background-color: rgb(30, 30, 30);
-  }
 }
