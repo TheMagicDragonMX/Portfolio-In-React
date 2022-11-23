@@ -1,1 +1,1 @@
-export { default as MapBackgroundScene } from "./MapBackgroundScene"
+export { default as MapBackground } from "./MapBackground"

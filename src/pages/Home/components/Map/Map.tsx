@@ -6,19 +6,12 @@ import "./Map.scss"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 
-import { MapBackgroundScene } from "./MapBackground"
+import { MapBackground } from "./MapBackground"
 
 const Map : React.FC = () => {
 	return <>
 		<div className="map">
-			<Canvas shadows>
-				<gridHelper />
-				<OrbitControls />
-
-				<color attach="background" args={[ "black" ]} />
-				
-				<MapBackgroundScene />
-			</Canvas>
+			<MapBackground />
 		</div>
 	</>
 }
