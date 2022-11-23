@@ -11,7 +11,7 @@ import { MapBackgroundScene } from "./MapBackground"
 const Map : React.FC = () => {
 	return <>
 		<div className="map">
-			<Canvas>
+			<Canvas shadows>
 				<gridHelper />
 				<OrbitControls />
 
