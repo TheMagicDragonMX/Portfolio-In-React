@@ -1,39 +1,80 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import "./MapBackground.scss"
+
+interface Coord {
+	x: number
+	y: number
+}
+class DarkSquare {
+	size: number
+	position: Coord
+
+	private readonly LIGHTER_LIMIT = 50
+	private readonly DARKER_LIMIT = 10
+	private gray: number
+	private becomingDarker: boolean
+
+	constructor (size: number, position: Coord) {
+		this.size = size
+		this.position = position
+
+		this.gray = Math.floor(Math.random() * this.LIGHTER_LIMIT) + this.DARKER_LIMIT
+		this.becomingDarker = true
+	}
+
+	draw (pencil: CanvasRenderingContext2D) {
+		pencil.fillStyle = `rgb(${ this.gray }, ${ this.gray }, ${ this.gray })`
+		pencil.fillRect(this.position.x, this.position.y, this.size, this.size)
+	}
+
+	animate (pencil: CanvasRenderingContext2D) {
+		this.gray += (this.becomingDarker ? -1 : 1)
+
+		if (this.gray > 100)
+			this.becomingDarker = true
+			
+		else if (this.gray < 10)
+			this.becomingDarker = false
+
+		this.draw(pencil)
+	}
+
+}
 
 const MapBackground : React.FC = () => {
 
 	const mapBackground = useRef<HTMLDivElement>(null)
+	const canvas = useRef<HTMLCanvasElement>(null)
 
-	const getRandomGrayColor = () => {
-		const gray = Math.floor( Math.random() * 20 ) + 10
-		return `rgb(${ gray }, ${ gray }, ${ gray })`
-	}
-
-	const [ squares, setSquares ] = useState(new Array(0).fill(""))
-	const [ groups, setGroups ] = useState(new Array(10).fill(""))
+	const square = new DarkSquare(300, { x: 0, y: 0 })
+	const squareTwo = new DarkSquare(300, { x: 350, y: 0 })
+	const squareTree = new DarkSquare(300, { x: 700, y: 0 })
 
 	useEffect(() => {
-		const availableHorizontalSquares = Math.round((mapBackground.current?.parentElement?.offsetWidth ?? 15) / 15)
-		const availableVerticalSquares = Math.round((mapBackground.current?.parentElement?.offsetHeight ?? 15) / 15)
+		if (!canvas.current) return
+		if (!mapBackground.current) return
 
-		setSquares( new Array(availableHorizontalSquares).fill("") )
-		setGroups( new Array(availableVerticalSquares).fill("") )
+		canvas.current.width = mapBackground.current.offsetWidth
+		canvas.current.height = mapBackground.current.offsetHeight
+
+		updateBackground()
 	}, [])
+
+	function updateBackground () {
+		const pencil = canvas.current?.getContext("2d")
+		if (!pencil) return
+		pencil.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
+
+		square.animate(pencil)
+		squareTwo.animate(pencil)
+		squareTree.animate(pencil)
+
+		requestAnimationFrame(updateBackground)
+	}
 
 	return <>
 		<div className="map-background" ref={ mapBackground }>
-			{
-				groups.map( (group, key) => 
-					<div key={ key }>
-						{ 
-							squares.map( (square, key) => 
-								<div key={ key } className="little-square" style={{ backgroundColor: getRandomGrayColor() }}></div> 
-							)
-						}
-					</div>
-				)
-			}
+			<canvas ref={ canvas }></canvas>
 		</div>
 	</>
 }
