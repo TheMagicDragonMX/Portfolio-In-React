@@ -116,8 +116,8 @@ const MapBackground : React.FC = () => {
 		if (!mapBackground.current) return // Prevent null warning
 
 		// Makes canvas to fit the entire available space
-		canvas.current.width = mapBackground.current.offsetWidth + 1
-		canvas.current.height = mapBackground.current.offsetHeight + 1
+		canvas.current.width = mapBackground.current.offsetWidth
+		canvas.current.height = mapBackground.current.offsetHeight
 
 		// Determine how many squares are necessary to fill the entire canvas
 		const amountOfHorizontalSquares = Math.round(canvas.current.width / PIXEL_SIZE) + 1
