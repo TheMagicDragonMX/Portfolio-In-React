@@ -30,7 +30,7 @@ class DarkSquare {
 		this.fadingTime = fadingTime
 		this.brighterLimit = brighterLimit
 		this.darkerLimit = darkerLimit
-		this.delay = delay
+		this.delay = Math.floor(Math.random() * delay)
 
 		this.gray = 0 // Starts at black
 	}
@@ -74,7 +74,7 @@ class DarkSquare {
 		const grayPercentage = this.getEaseInOutPercentage()
 
 		// Calculate gray scale over the given limits
-		this.gray = Number(( (this.brighterLimit - this.darkerLimit) * grayPercentage + this.darkerLimit ).toFixed(0))
+		this.gray = Math.floor( (this.brighterLimit - this.darkerLimit) * grayPercentage + this.darkerLimit )
 		this.draw(pencil)
 	}
 }
@@ -95,8 +95,8 @@ const MapBackground : React.FC = () => {
 	const squares: DarkSquare[] = []
 	const PIXEL_SIZE = 15
 	const FADING_TIME = 4000
-	const BRIGHTER_LIMIT = 250
-	const DARKER_LIMIT = 100
+	const BRIGHTER_LIMIT = 40
+	const DARKER_LIMIT = 10
 	const MAX_DELAY = 1000
 
 	/**
