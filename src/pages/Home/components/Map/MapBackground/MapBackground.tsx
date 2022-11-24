@@ -93,7 +93,7 @@ const MapBackground : React.FC = () => {
 	 * some properties of the background are listed too
 	 */
 	const squares: DarkSquare[] = []
-	const PIXEL_SIZE = 15
+	const PIXEL_SIZE = 40
 	const FADING_TIME = 4000
 	const BRIGHTER_LIMIT = 40
 	const DARKER_LIMIT = 10
@@ -116,8 +116,8 @@ const MapBackground : React.FC = () => {
 		if (!mapBackground.current) return // Prevent null warning
 
 		// Makes canvas to fit the entire available space
-		canvas.current.width = mapBackground.current.offsetWidth
-		canvas.current.height = mapBackground.current.offsetHeight
+		canvas.current.width = mapBackground.current.offsetWidth + 1
+		canvas.current.height = mapBackground.current.offsetHeight + 1
 
 		// Determine how many squares are necessary to fill the entire canvas
 		const amountOfHorizontalSquares = Math.round(canvas.current.width / PIXEL_SIZE) + 1
