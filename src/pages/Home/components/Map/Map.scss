@@ -1,9 +1,13 @@
 .map {
   position: relative;
 
-  width: 200%;
-  height: 200%;
+  width: 150%;
+  height: 150%;
 
   display: grid;
   place-items: center;
+
+  & > * {
+    z-index: 1;
+  }
 }

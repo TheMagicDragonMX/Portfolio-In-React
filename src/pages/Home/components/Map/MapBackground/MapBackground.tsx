@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import "./MapBackground.scss"
 
 interface Coord {
@@ -9,17 +9,29 @@ class DarkSquare {
 	size: number
 	position: Coord
 
-	private readonly LIGHTER_LIMIT = 10
-	private readonly DARKER_LIMIT = 5
+	private readonly LIGHTER_LIMIT = 40
+	private readonly DARKER_LIMIT = 15
+	private readonly ANIMATION_DURATION = 4000
 	private gray: number
-	private becomingDarker: boolean
+	private delay: number
 
 	constructor (size: number, position: Coord) {
 		this.size = size
 		this.position = position
 
 		this.gray = Math.floor(Math.random() * this.LIGHTER_LIMIT) + this.DARKER_LIMIT
-		this.becomingDarker = (Math.random() > 0.5)
+		this.delay = Math.floor(Math.random() * 1000)
+	}
+
+	private toRadians = (degrees: number) => (degrees * Math.PI / 180)
+
+	private getEaseInOutPercentage = () => {
+		const milliseconds = (new Date()).getTime()
+		const period = this.ANIMATION_DURATION / 360
+		const angleInRadiants = this.toRadians( milliseconds / period + this.delay )
+		const percentage = Math.sin( angleInRadiants ) / 2 + 0.5 // <- Turns [1, -1] range of sine into [1, 0]
+
+		return percentage
 	}
 
 	draw (pencil: CanvasRenderingContext2D) {
@@ -28,17 +40,11 @@ class DarkSquare {
 	}
 
 	animate (pencil: CanvasRenderingContext2D) {
-		this.gray += (this.becomingDarker ? -1 : 1)
+		const grayPercentage = this.getEaseInOutPercentage()
 
-		if (this.gray > 100)
-			this.becomingDarker = true
-			
-		else if (this.gray < 10)
-			this.becomingDarker = false
-
+		this.gray = Number((this.LIGHTER_LIMIT * grayPercentage).toFixed(0))
 		this.draw(pencil)
 	}
-
 }
 
 const MapBackground : React.FC = () => {
@@ -47,7 +53,7 @@ const MapBackground : React.FC = () => {
 	const canvas = useRef<HTMLCanvasElement>(null)
 	
 	const squares: DarkSquare[] = []
-	const PIXEL_SIZE = 115
+	const PIXEL_SIZE = 15
 
 	useEffect(() => {
 		if (!canvas.current) return
@@ -58,10 +64,6 @@ const MapBackground : React.FC = () => {
 
 		const amountOfHorizontalSquares = Math.round(canvas.current.width / PIXEL_SIZE) + 1
 		const amountOfVerticalSquares = Math.round(canvas.current.height / PIXEL_SIZE) + 1
-
-		// const amountOfHorizontalSquares = 1
-		// const amountOfVerticalSquares = 1
-		
 
 		for (let vertical = 0; vertical < amountOfVerticalSquares; vertical++)
 			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++)
