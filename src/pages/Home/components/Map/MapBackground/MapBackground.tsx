@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import "./MapBackground.scss"
 
 interface Coord {
@@ -9,8 +9,8 @@ class DarkSquare {
 	size: number
 	position: Coord
 
-	private readonly LIGHTER_LIMIT = 50
-	private readonly DARKER_LIMIT = 10
+	private readonly LIGHTER_LIMIT = 10
+	private readonly DARKER_LIMIT = 5
 	private gray: number
 	private becomingDarker: boolean
 
@@ -19,7 +19,7 @@ class DarkSquare {
 		this.position = position
 
 		this.gray = Math.floor(Math.random() * this.LIGHTER_LIMIT) + this.DARKER_LIMIT
-		this.becomingDarker = true
+		this.becomingDarker = (Math.random() > 0.5)
 	}
 
 	draw (pencil: CanvasRenderingContext2D) {
@@ -45,10 +45,9 @@ const MapBackground : React.FC = () => {
 
 	const mapBackground = useRef<HTMLDivElement>(null)
 	const canvas = useRef<HTMLCanvasElement>(null)
-
-	const square = new DarkSquare(300, { x: 0, y: 0 })
-	const squareTwo = new DarkSquare(300, { x: 350, y: 0 })
-	const squareTree = new DarkSquare(300, { x: 700, y: 0 })
+	
+	const squares: DarkSquare[] = []
+	const PIXEL_SIZE = 115
 
 	useEffect(() => {
 		if (!canvas.current) return
@@ -56,6 +55,17 @@ const MapBackground : React.FC = () => {
 
 		canvas.current.width = mapBackground.current.offsetWidth
 		canvas.current.height = mapBackground.current.offsetHeight
+
+		const amountOfHorizontalSquares = Math.round(canvas.current.width / PIXEL_SIZE) + 1
+		const amountOfVerticalSquares = Math.round(canvas.current.height / PIXEL_SIZE) + 1
+
+		// const amountOfHorizontalSquares = 1
+		// const amountOfVerticalSquares = 1
+		
+
+		for (let vertical = 0; vertical < amountOfVerticalSquares; vertical++)
+			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++)
+				squares.push( new DarkSquare(PIXEL_SIZE, { x: horizontal * PIXEL_SIZE, y: vertical * PIXEL_SIZE }))
 
 		updateBackground()
 	}, [])
@@ -65,9 +75,7 @@ const MapBackground : React.FC = () => {
 		if (!pencil) return
 		pencil.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
 
-		square.animate(pencil)
-		squareTwo.animate(pencil)
-		squareTree.animate(pencil)
+		squares.forEach(square => square.animate(pencil))
 
 		requestAnimationFrame(updateBackground)
 	}
