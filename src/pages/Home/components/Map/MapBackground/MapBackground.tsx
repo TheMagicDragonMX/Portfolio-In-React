@@ -94,11 +94,11 @@ const MapBackground : React.FC = () => {
 	 * some properties of the background are listed too
 	 */
 	const squares: DarkSquare[] = []
-	const PIXEL_SIZE = 20
+	const PIXEL_SIZE = 15
 	const FADING_TIME = 4000
 	const BRIGHTER_LIMIT = 40
 	const DARKER_LIMIT = 10
-	const MAX_DELAY = 1000
+	const delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
 
 	/**
 	 * Once the component is rendered, initializes
@@ -133,7 +133,7 @@ const MapBackground : React.FC = () => {
 					fadingTime: FADING_TIME,
 					brighterLimit: BRIGHTER_LIMIT,
 					darkerLimit: DARKER_LIMIT,
-					delay: MAX_DELAY
+					delay: delays[Math.floor( Math.random() * (delays.length) )]
 				}))
 
 		// Assign context to "pencil" so we can draw on the canvas
