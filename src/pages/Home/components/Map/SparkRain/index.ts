@@ -1,1 +1,1 @@
-export { default as SparkRain } from './SparkRain';
+export { default as SparkRain } from "./SparkRain"

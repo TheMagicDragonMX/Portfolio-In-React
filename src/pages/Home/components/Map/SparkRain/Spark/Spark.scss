@@ -1,0 +1,40 @@
+.spark {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  filter: blur(1px);
+  background-color: #ffef83;
+  box-shadow: 
+    0px 0px 10px 5px #ffef83,
+    0px 0px 70px 15px #ffef83,
+    0px 0px 100px 25px #ffef83;
+  border-radius: 50%;
+
+  animation: 
+    blink 1s ease-in-out 0s infinite alternate, 
+    fall 1s linear;
+}
+
+@keyframes blink {
+  0% {
+    scale: 1;
+  }
+
+  100% {
+    scale: 0.5; 
+  }
+}
+
+@keyframes fall {
+  0% {
+    top: 0;
+    left: 0;
+  }
+
+  100% {
+    top: calc(100% + var(--topDestiny, 0px));
+    left: calc(100% + var(--leftDestiny, 0px));
+  }
+}

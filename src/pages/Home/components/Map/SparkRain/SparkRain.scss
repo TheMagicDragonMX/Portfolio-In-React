@@ -3,6 +3,16 @@
 
   width: 100%;
   height: 100%;
+}
 
-  background-color: rgba(245, 222, 179, 0.11);
+.spark-rain-container {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
 }

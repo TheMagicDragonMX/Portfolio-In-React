@@ -87,13 +87,14 @@ const MapBackground : React.FC = () => {
 	 */
 	const mapBackground = useRef<HTMLDivElement>(null)
 	const canvas = useRef<HTMLCanvasElement>(null)
+	const pencil = useRef<CanvasRenderingContext2D>()
 	
 	/**
 	 * Contains the squares that fill the entire canvas
 	 * some properties of the background are listed too
 	 */
 	const squares: DarkSquare[] = []
-	const PIXEL_SIZE = 40
+	const PIXEL_SIZE = 20
 	const FADING_TIME = 4000
 	const BRIGHTER_LIMIT = 40
 	const DARKER_LIMIT = 10
@@ -135,7 +136,10 @@ const MapBackground : React.FC = () => {
 					delay: MAX_DELAY
 				}))
 
-		updateBackground()
+		// Assign context to "pencil" so we can draw on the canvas
+		pencil.current = canvas.current.getContext("2d", {
+			alpha: false
+		}) ?? undefined
 	}
 
 	/**
@@ -143,14 +147,16 @@ const MapBackground : React.FC = () => {
 	 * the look of every square inside it
 	 */
 	function updateBackground (): void {
-		const pencil = canvas.current?.getContext("2d")
-		if (!pencil) return
+		if (!pencil.current) return
 
 		// Clear canvas
-		pencil.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
+		pencil.current.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
 
 		// Update every square look
-		squares.forEach(square => square.animate(pencil))
+		squares.forEach(square => {
+			if (pencil.current !== undefined)
+				square.animate(pencil.current)
+		})
 
 		requestAnimationFrame(updateBackground)
 	}

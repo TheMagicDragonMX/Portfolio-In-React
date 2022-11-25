@@ -8,8 +8,7 @@ const Map : React.FC = () => {
 	return <>
 		<div className="map">
 			<MapBackground />
-			<SparkRain />
-
+			{/* <SparkRain /> */}
 		</div>
 	</>
 }
