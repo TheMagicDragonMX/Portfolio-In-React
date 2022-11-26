@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react"
 import "./MapBackground.scss"
 
+import { random } from "@/util"
+
 interface Coord {
 	x: number
 	y: number
@@ -98,7 +100,7 @@ const MapBackground : React.FC = () => {
 			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++) {
 
 				// Determine from which group the square will be part (and get an specific delay for that group)
-				const selectedDelay = delays[Math.floor( Math.random() * delays.length )]
+				const selectedDelay = delays[ random(0, delays.length) ]
 
 				// Add square to the randomly selected delay group
 				squareGroups.find( group => group.delay === selectedDelay )?.squares.push({
