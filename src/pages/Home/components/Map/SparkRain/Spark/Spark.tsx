@@ -1,3 +1,4 @@
+import { random } from "@/util"
 import React from "react"
 import "./Spark.scss"
 
@@ -7,20 +8,18 @@ export interface SparkInterface {
 
 const Spark : React.FC<SparkInterface> = () => {
 
-	function getSparkDestiny () {
-		const leftDestiny = Math.floor(Math.random() * (50 - -50)) - 50
-		const topDestiny = (leftDestiny > 0)
-			? Math.floor(Math.random() * (0 - -50)) - 50
-			: Math.floor(Math.random() * 50)
+	function calculateStartPoint () {
+		const leftStartPoint = -20
+		const topStartPoint = random(-100, 80)
 
-		return [ leftDestiny, topDestiny ]
+		return [ leftStartPoint, topStartPoint ]
 	}
 
-	const [ left, right ] = getSparkDestiny()
+	const [ left, top ] = calculateStartPoint()
 
 	return <div className="spark" style={{ 
-		"--topDestiny": left + "%", 
-		"--leftDestiny": right + "%"
+		"--startPointTop": top + "%",
+		"--startPointLeft": left + "%" 
 	} as React.CSSProperties}></div>
 }
 

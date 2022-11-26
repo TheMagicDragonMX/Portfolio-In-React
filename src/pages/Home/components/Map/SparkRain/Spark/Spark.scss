@@ -14,7 +14,7 @@
 
   animation: 
     blink 1s ease-in-out 0s infinite alternate, 
-    fall 1s linear;
+    fall 6s linear;
 }
 
 @keyframes blink {
@@ -29,12 +29,12 @@
 
 @keyframes fall {
   0% {
-    top: 0;
-    left: 0;
+    top: var(--startPointTop, 0%);
+    left: var(--startPointLeft, 0%);
   }
 
   100% {
-    top: calc(100% + var(--topDestiny, 0px));
-    left: calc(100% + var(--leftDestiny, 0px));
+    top: calc(var(--startPointTop, 0%) + 200%);
+    left: calc(var(--startPointLeft, 0%) + 200%);
   }
 }
