@@ -6,77 +6,14 @@ interface Coord {
 	y: number
 }
 
-interface DarkSquareInterface {
+interface DarkSquare {
 	size: number
 	position: Coord
-	fadingTime: number
-	brighterLimit: number
-	darkerLimit: number
-	delay: number
 }
-class DarkSquare {
-	size: number
-	position: Coord
-	fadingTime: number
-	brighterLimit: number
-	darkerLimit: number
+
+interface DarkSquareGroup {
+	squares: DarkSquare[]
 	delay: number
-
-	private gray: number
-
-	constructor ({ size, position, fadingTime, brighterLimit, darkerLimit, delay }: DarkSquareInterface) {
-		this.size = size
-		this.position = position
-		this.fadingTime = fadingTime
-		this.brighterLimit = brighterLimit
-		this.darkerLimit = darkerLimit
-		this.delay = Math.floor(Math.random() * delay)
-
-		this.gray = 0 // Starts at black
-	}
-
-	/**
-	 * Converts the given degrees to radians
-	 */
-	private toRadians = (degrees: number) => (degrees * Math.PI / 180)
-
-	/**
-	 * Calculates how dark the square will be depending on
-	 * the current time (in milliseconds) + delay
-	 */
-	private getEaseInOutPercentage = () => {
-		const date = new Date()
-
-		const milliseconds = date.getTime()
-		const period = this.fadingTime / 360 // "360" is the default period time as milliseconds are treated like degrees
-		const angleInRadiants = this.toRadians( milliseconds / period + this.delay )
-		const percentage = Math.sin( angleInRadiants ) / 2 + 0.5 // <- Turns [1, -1] range of sine into [1, 0]
-
-		return percentage
-	}
-
-	/**
-	 * Draws the square on the canvas
-	 * @param pencil 2D context of the canvas where the square will be drawn
-	 */
-	draw (pencil: CanvasRenderingContext2D) {
-		pencil.fillStyle = `rgb(${ this.gray }, ${ this.gray }, ${ this.gray })`
-		pencil.fillRect(this.position.x, this.position.y, this.size, this.size)
-	}
-
-	/**
-	 * Draws the square on the canvas with a gray scale
-	 * that changes over time
-	 * 
-	 * @param pencil 2D context of the canvas where the square will be drawn
-	 */
-	animate (pencil: CanvasRenderingContext2D) {
-		const grayPercentage = this.getEaseInOutPercentage()
-
-		// Calculate gray scale over the given limits
-		this.gray = Math.floor( (this.brighterLimit - this.darkerLimit) * grayPercentage + this.darkerLimit )
-		this.draw(pencil)
-	}
 }
 
 const MapBackground : React.FC = () => {
@@ -87,18 +24,31 @@ const MapBackground : React.FC = () => {
 	 */
 	const mapBackground = useRef<HTMLDivElement>(null)
 	const canvas = useRef<HTMLCanvasElement>(null)
-	const pencil = useRef<CanvasRenderingContext2D>()
 	
+	/**
+	 * Squares are separated by groups
+	 * 
+	 * Each group has:
+	 * - Different delay time
+	 * - Squares that belong to the group
+	 * 
+	 * Each group having a unique delay time makes it possible 
+	 * for the canvas to draw all squares of the group at once
+	 */
+	const delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+	const squareGroups: DarkSquareGroup[] = delays.map( delay => ({
+		squares: [],
+		delay: delay
+	} as DarkSquareGroup))
+
 	/**
 	 * Contains the squares that fill the entire canvas
 	 * some properties of the background are listed too
 	 */
-	const squares: DarkSquare[] = []
 	const PIXEL_SIZE = 15
 	const FADING_TIME = 4000
 	const BRIGHTER_LIMIT = 40
 	const DARKER_LIMIT = 10
-	const delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
 
 	/**
 	 * Once the component is rendered, initializes
@@ -121,25 +71,44 @@ const MapBackground : React.FC = () => {
 		canvas.current.height = mapBackground.current.offsetHeight
 
 		// Determine how many squares are necessary to fill the entire canvas
-		const amountOfHorizontalSquares = Math.round(canvas.current.width / PIXEL_SIZE) + 1
-		const amountOfVerticalSquares = Math.round(canvas.current.height / PIXEL_SIZE) + 1
+		const amountOfHorizontalSquares = Math.floor(canvas.current.width / PIXEL_SIZE) + 1
+		const amountOfVerticalSquares = Math.floor(canvas.current.height / PIXEL_SIZE) + 1
 
 		// Instantiate determined squares for the background
 		for (let vertical = 0; vertical < amountOfVerticalSquares; vertical++)
-			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++)
-				squares.push( new DarkSquare({
+			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++) {
+
+				// Determine from which group the square will be part (and get an specific delay for that group)
+				const selectedDelay = delays[Math.floor( Math.random() * delays.length )]
+
+				// Add square to the randomly selected delay group
+				squareGroups.find( group => group.delay === selectedDelay)?.squares.push({
 					size: PIXEL_SIZE, 
 					position: { x: horizontal * PIXEL_SIZE, y: vertical * PIXEL_SIZE },
-					fadingTime: FADING_TIME,
-					brighterLimit: BRIGHTER_LIMIT,
-					darkerLimit: DARKER_LIMIT,
-					delay: delays[Math.floor( Math.random() * (delays.length) )]
-				}))
+				} as DarkSquare)
+			}
 
-		// Assign context to "pencil" so we can draw on the canvas
-		pencil.current = canvas.current.getContext("2d", {
-			alpha: false
-		}) ?? undefined
+		console.log({ totalSquares: amountOfHorizontalSquares * amountOfVerticalSquares})
+	}
+
+	/**
+	 * Converts the given degrees to radians
+	 */
+	const toRadians = (degrees: number) => (degrees * Math.PI / 180)
+
+	/**
+	 * Calculates how dark the square will be depending on
+	 * the current time (in milliseconds) + delay
+	 */
+	function getEaseInOutPercentage (delay: number) {
+		const date = new Date()
+
+		const milliseconds = date.getTime()
+		const period = FADING_TIME / 360 // "360" is the default period time as milliseconds are treated like degrees
+		const angleInRadiants = toRadians( milliseconds / period + delay )
+		const percentage = Math.sin( angleInRadiants ) / 2 + 0.5 // <- Turns [1, -1] range of sine into [1, 0]
+
+		return Number(percentage.toFixed(2))
 	}
 
 	/**
@@ -147,15 +116,21 @@ const MapBackground : React.FC = () => {
 	 * the look of every square inside it
 	 */
 	function updateBackground (): void {
-		if (!pencil.current) return
+		const pencil = canvas.current?.getContext("2d")
+		if (!pencil) return
 
 		// Clear canvas
-		pencil.current.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
+		pencil.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
 
 		// Update every square look
-		squares.forEach(square => {
-			if (pencil.current !== undefined)
-				square.animate(pencil.current)
+		squareGroups.forEach( group => {
+			if (pencil === undefined) return
+
+			const grayPercentage = getEaseInOutPercentage( group.delay )
+			const grayColor = Math.floor( (BRIGHTER_LIMIT - DARKER_LIMIT) * grayPercentage + DARKER_LIMIT )
+
+			pencil.fillStyle = `rgb(${ grayColor }, ${ grayColor }, ${ grayColor })`
+			group.squares.forEach( square => pencil?.fillRect(square.position.x, square.position.y, square.size, square.size) )
 		})
 
 		requestAnimationFrame(updateBackground)
