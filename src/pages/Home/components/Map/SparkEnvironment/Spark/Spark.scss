@@ -14,7 +14,8 @@
 
   animation: 
     blink 1s ease-in-out 0s infinite alternate, 
-    fall 6s linear;
+    fall var(--timeToFall, 10s) linear 0s,
+    tiltFalling 0.8s ease-in-out 0s infinite alternate;
 }
 
 @keyframes blink {
@@ -29,12 +30,22 @@
 
 @keyframes fall {
   0% {
-    top: var(--startPointTop, 0%);
-    left: var(--startPointLeft, 0%);
+    left: var(--startPointX, 0);
+    top: var(--startPointY, 0);
   }
 
   100% {
-    top: calc(var(--startPointTop, 0%) + 200%);
-    left: calc(var(--startPointLeft, 0%) + 200%);
+    top: calc(var(--endPointX, 100%));
+    left: calc(var(--endPointY, 100%));
+  }
+}
+
+@keyframes tiltFalling {
+  0% {
+    translate: 0px;
+  }
+
+  100% {
+    translate: 100px;
   }
 }

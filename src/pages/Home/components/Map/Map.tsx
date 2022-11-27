@@ -2,13 +2,13 @@ import React from "react"
 import "./Map.scss"
 
 import { MapBackground } from "./MapBackground"
-import { SparkRain } from "./SparkRain"
+import { SparkEnvironment } from "./SparkEnvironment"
 
 const Map : React.FC = () => {
 	return <>
 		<div className="map">
-			<MapBackground />
-			<SparkRain />
+			{/* <MapBackground /> */}
+			<SparkEnvironment />
 		</div>
 	</>
 }
