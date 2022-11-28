@@ -100,7 +100,7 @@ const MapBackground : React.FC = () => {
 			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++) {
 
 				// Determine from which group the square will be part (and get an specific delay for that group)
-				const selectedDelay = delays[ random(0, delays.length) ]
+				const selectedDelay = delays[ random(0, delays.length - 1) ]
 
 				// Add square to the randomly selected delay group
 				squareGroups.find( group => group.delay === selectedDelay )?.squares.push({
