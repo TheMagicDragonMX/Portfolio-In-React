@@ -8,15 +8,36 @@ export interface PuckInterface {}
 const Puck : React.FC<PuckInterface> = () => {
 	return <>
 		<div className="puck">
-			<span className="front-face">
+			<span className="face front">
 				<img src={ pfp } />
 			</span>
+			<span className="face back"></span>
 
-			<span className="back-face"></span>
-			<span className="short-side" style={{ "--shortSide": 1 } as React.CSSProperties}></span>
-			<span className="short-side" style={{ "--shortSide": -1 } as React.CSSProperties}></span>
-			<span className="long-side" style={{ "--longSide": 1 } as React.CSSProperties}></span>
-			<span className="long-side" style={{ "--longSide": -1 } as React.CSSProperties}></span>
+			<div className="side short left" style={{ "--amountOfFragments": 3 } as React.CSSProperties} >
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+				<div className="filler"></div>
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+				<div className="fragment" style={{ "--displacement": 2 } as React.CSSProperties } ></div>
+			</div>
+			
+			<div className="side short right" style={{ "--amountOfFragments": 2 } as React.CSSProperties} >
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+				<div className="filler"></div>
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+			</div>
+			
+			<div className="side long top" style={{ "--amountOfFragments": 2 } as React.CSSProperties} >
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+				<div className="filler"></div>
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+			</div>
+
+			<div className="side long bottom" style={{ "--amountOfFragments": 3 } as React.CSSProperties} >
+				<div className="fragment" style={{ "--displacement": 2 } as React.CSSProperties } ></div>
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+				<div className="filler"></div>
+				<div className="fragment" style={{ "--displacement": 1 } as React.CSSProperties } ></div>
+			</div>
 		</div>
 	</>
 }
