@@ -12,10 +12,9 @@
   place-items: center;
 
   transform: 
-    rotateX(-20deg) 
+    rotateX(20deg) 
     rotateY(30deg)
-    // rotateY(90deg)
-    // skewY(-10deg)
+    skewY(-10deg)
     ;
 
   transform-style: preserve-3d;
