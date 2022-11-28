@@ -1,8 +1,8 @@
 .puck {
-  --puckWidth: 400px;
+  --puckWidth: 500px;
   --puckHeight: 200px;
   --puckDepth: 30px;
-  --cornerSize: 30px;
+  --cornerSize: 50px;
 
   position: relative;
   width: var(--puckWidth, 100px);
@@ -14,6 +14,7 @@
   transform: 
     rotateX(-20deg) 
     rotateY(30deg)
+    // rotateY(90deg)
     // skewY(-10deg)
     ;
 
@@ -23,12 +24,10 @@
   background-color: transparent;
 
   transition: 0.5s;
-  animation: rotationTest 6s linear infinite;
-
-  // background-color: aqua;
+  // animation: rotationTest 6s linear infinite;
 }
 
-.puck:hover { scale: 1.5 }
+.puck:hover { scale: 1.2 }
 
 @keyframes rotationTest {
   from {
@@ -79,7 +78,6 @@
 
   width: var(--puckDepth, 30px);
 
-  // background-color: rgba(255, 255, 255, 0.2);
   transform-style: preserve-3d;
 }
 
@@ -114,8 +112,8 @@
 }
 
 .fragment {
-  width: var(--cornerSize, 30px);
-  height: var(--puckDepth, 30px);
+  width: var(--puckDepth, 30px);
+  height: var(--cornerSize, 30px);
 
   background-color: rgba(255, 226, 99, 0.541);
   transform: translateZ(calc(-1 * var(--cornerSize, 30px) * var(--displacement, 1)));
