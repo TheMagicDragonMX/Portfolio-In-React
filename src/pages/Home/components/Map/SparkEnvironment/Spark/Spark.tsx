@@ -1,18 +1,19 @@
 import React from "react"
 import "./Spark.scss"
 
-interface Coord {
+export interface Coord {
 	x: number
 	y: number
 }
 
 export interface SparkInterface {
+	key: number
 	startPoint: Coord
 	endPoint: Coord
-	timeToFall: number
+	timeToComplete: number
 }
 
-const Spark : React.FC<SparkInterface> = ({ startPoint, endPoint, timeToFall }) => {
+const Spark : React.FC<SparkInterface> = ({ startPoint, endPoint, timeToComplete }) => {
 
 	const sparkStyle = {
 		"--startPointX": startPoint.x + "px",
@@ -21,12 +22,10 @@ const Spark : React.FC<SparkInterface> = ({ startPoint, endPoint, timeToFall }) 
 		"--endPointX": endPoint.x + "px",
 		"--endPointY": endPoint.y + "px",
 
-		"--timeToFall": timeToFall + "s"
+		"--timeToComplete": timeToComplete + "s"
 	} as React.CSSProperties
 
-	return <>
-		<div className="spark" style={ sparkStyle }></div>
-	</>
+	return <div className="spark" style={ sparkStyle }></div>
 }
 
 export default Spark

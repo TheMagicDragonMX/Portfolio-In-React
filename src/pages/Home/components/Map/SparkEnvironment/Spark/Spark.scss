@@ -1,6 +1,11 @@
 .spark {
   position: absolute;
 
+  left: var(--startPointX, 0);
+  top: var(--startPointY, 0);
+
+  translate: -50% -50%;
+
   width: 5px;
   height: 5px;
 
@@ -13,9 +18,10 @@
   border-radius: 50%;
 
   animation: 
-    blink 1s ease-in-out 0s infinite alternate, 
-    fall var(--timeToFall, 10s) linear 0s,
-    tiltFalling 0.8s ease-in-out 0s infinite alternate;
+    blink 1s ease-in-out 0s infinite alternate,
+    move var(--timeToComplete, 10s) linear 0s forwards,
+    tiltWhileMoving 1.5s ease-in-out 0s infinite alternate
+  ;
 }
 
 @keyframes blink {
@@ -28,24 +34,24 @@
   }
 }
 
-@keyframes fall {
+@keyframes move {
   0% {
     left: var(--startPointX, 0);
     top: var(--startPointY, 0);
   }
 
   100% {
-    top: calc(var(--endPointX, 100%));
-    left: calc(var(--endPointY, 100%));
+    left: var(--endPointX, 100%);
+    top: var(--endPointY, 100%);
   }
 }
 
-@keyframes tiltFalling {
+@keyframes tiltWhileMoving {
   0% {
-    translate: 0px;
+    translate: -50px;
   }
 
   100% {
-    translate: 100px;
+    translate: 50px;
   }
 }
