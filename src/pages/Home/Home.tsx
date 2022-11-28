@@ -2,7 +2,7 @@ import React from "react"
 import "./Home.scss"
 
 import { Background } from "@/components"
-import { Area, Menu } from "./components"
+import { MapDraggableArea, Menu } from "./components"
 
 const Home : React.FC = () => {
 	
@@ -11,7 +11,7 @@ const Home : React.FC = () => {
 			<div className="home">
 				<Menu />
 			
-				<Area /> 
+				<MapDraggableArea /> 
 			</div>		
 		</Background>
 	</>

@@ -9,6 +9,8 @@ const Map : React.FC = () => {
 		<div className="map">
 			<MapBackground />
 			<SparkEnvironment />
+
+			
 		</div>
 	</>
 }

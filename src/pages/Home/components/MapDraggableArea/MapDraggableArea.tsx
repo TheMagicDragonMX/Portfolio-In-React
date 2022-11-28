@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import "./Area.scss"
+import "./MapDraggableArea.scss"
 
 import { Map } from "../Map"
 
@@ -13,7 +13,7 @@ interface DragPoint {
 	area: Coord
 }
 
-const Area : React.FC = () => {
+const MapDraggableArea : React.FC = () => {
 
 	/**
 	 * Keeps track of the draggable area container
@@ -83,4 +83,4 @@ const Area : React.FC = () => {
 	</>
 }
 
-export default Area
+export default MapDraggableArea
