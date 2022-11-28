@@ -8,23 +8,26 @@ export interface Coord {
 
 export interface SparkInterface {
 	key: number
-	
+
 	color: string
-	startPoint: Coord
-	endPoint: Coord
+	spawnPoint: Coord
+	destiny: Coord
 	timeToComplete: number
 }
 
-const Spark : React.FC<SparkInterface> = ({ color, startPoint, endPoint, timeToComplete }) => {
+const Spark : React.FC<SparkInterface> = ({ color, spawnPoint, destiny, timeToComplete }) => {
 
+	/**
+	 * Setups CSS variables for the spark
+	 */
 	const sparkStyle = {
 		"--sparkColor": color,
 
-		"--startPointX": startPoint.x + "px",
-		"--startPointY": startPoint.y + "px",
+		"--startPointX": spawnPoint.x + "px",
+		"--startPointY": spawnPoint.y + "px",
 
-		"--endPointX": endPoint.x + "px",
-		"--endPointY": endPoint.y + "px",
+		"--endPointX": destiny.x + "px",
+		"--endPointY": destiny.y + "px",
 
 		"--timeToComplete": timeToComplete + "s"
 	} as React.CSSProperties
