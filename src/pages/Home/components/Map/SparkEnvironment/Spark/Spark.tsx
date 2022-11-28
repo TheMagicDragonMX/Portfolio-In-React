@@ -8,14 +8,18 @@ export interface Coord {
 
 export interface SparkInterface {
 	key: number
+	
+	color: string
 	startPoint: Coord
 	endPoint: Coord
 	timeToComplete: number
 }
 
-const Spark : React.FC<SparkInterface> = ({ startPoint, endPoint, timeToComplete }) => {
+const Spark : React.FC<SparkInterface> = ({ color, startPoint, endPoint, timeToComplete }) => {
 
 	const sparkStyle = {
+		"--sparkColor": color,
+
 		"--startPointX": startPoint.x + "px",
 		"--startPointY": startPoint.y + "px",
 

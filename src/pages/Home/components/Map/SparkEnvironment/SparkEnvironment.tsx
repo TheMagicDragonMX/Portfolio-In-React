@@ -16,6 +16,8 @@ const SparkEnvironment : React.FC = () => {
 	const environment = useRef<HTMLDivElement>(null)
 
 	const SPAWN_MARGIN = 150
+	const MAX_SPARKS = 15
+	const sparkColors = ["#ffef83", "#ff83e8"]
 	const [ sparks, setSparks ] = useState<SparkInterface[]>([])
 
 	function getMovementPoints (): MovementPoints {
@@ -52,14 +54,16 @@ const SparkEnvironment : React.FC = () => {
 	
 	useEffect(() => {
 		const sparkGenerator = setInterval(() => {
-			if (sparks.length > 20)
+			if (sparks.length > MAX_SPARKS)
 				sparks.shift()
 
 			const key = random(0, 10000)
+			
+			const color = sparkColors[ random(0, sparkColors.length - 1) ]
 			const timeToComplete = random(4, 6)
 			const { startPoint, endPoint } = getMovementPoints()
 
-			sparks.push({ key, timeToComplete, startPoint, endPoint })
+			sparks.push({ key, color, timeToComplete, startPoint, endPoint })
 			setSparks([ ...sparks ])
 		}, 2000)
 
@@ -69,11 +73,10 @@ const SparkEnvironment : React.FC = () => {
 	return <>
 		<div className="spark-environment">
 			<div ref={ environment} className="spark-environment-container" >
-				{/* <Spark startPoint={{ x: window.innerWidth / 2, y: 0 }} endPoint={{ x: window.innerWidth / 2, y: window.innerHeight }} timeToComplete={ 5 } /> */}
-				
 				{ sparks.map( spark => 
 					<Spark
 						key={ spark.key } 
+						color={ spark.color }
 						startPoint={ spark.startPoint } 
 						endPoint={ spark.endPoint } 
 						timeToComplete={ spark.timeToComplete } /> )}

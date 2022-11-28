@@ -10,11 +10,11 @@
   height: 5px;
 
   filter: blur(1px);
-  background-color: #ffef83;
+  background-color: var(--sparkColor, #ff83e8);
   box-shadow: 
-    0px 0px 10px 5px #ffef83,
-    0px 0px 70px 15px #ffef83,
-    0px 0px 100px 25px #ffef83;
+    0px 0px 10px 5px var(--sparkColor, #ff83e8),
+    0px 0px 70px 15px var(--sparkColor, #ff83e8),
+    0px 0px 100px 25px var(--sparkColor, #ff83e8);
   border-radius: 50%;
 
   animation: 
