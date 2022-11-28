@@ -2,8 +2,8 @@ import React from "react"
 import "./Map.scss"
 
 import { MapBackground } from "./MapBackground"
-import { Puck } from "./Puck"
 import { SparkEnvironment } from "./SparkEnvironment"
+import { Puck } from "./Puck"
 
 const Map : React.FC = () => {
 	return <>
@@ -12,7 +12,6 @@ const Map : React.FC = () => {
 			{/* <SparkEnvironment /> */}
 
 			<Puck />	
-
 		</div>
 	</>
 }
