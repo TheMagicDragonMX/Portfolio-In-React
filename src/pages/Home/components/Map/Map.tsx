@@ -9,26 +9,51 @@ import pfp from "@/assets/pfp-cubes.jpg"
 
 const Map : React.FC = () => {
 
+	/**
+	 * Control the maximum and minimum values 
+	 * for the zoom
+	 */
 	const MAX_ZOOM = 3
-	const MIN_ZOOM = 1
+	const MIN_ZOOM = 0.5
 	
+	/**
+	 * Keeps track of the HTML element that contains
+	 * the map
+	 */
 	const map = useRef<HTMLDivElement>(null)
-	const scale = useRef(1)
+
+	/**
+	 * Keeps track of the amount of zoom that
+	 * the user currently has
+	 */
+	const zoom = useRef(1)
 	
+	/**
+	 * Once the map element renders, give it the
+	 * listener that changes the zoom when the wheel
+	 * is rotated
+	 */
 	useEffect(() => {
 		if (!map.current) return
 	
-		map.current.style.scale = scale.current + ""
-		map.current.addEventListener("wheel", zoom, { passive: false })
+		map.current.style.scale = zoom.current + ""
+		map.current.addEventListener("wheel", changeZoom, { passive: false })
 	}, [])
 
-	function zoom (this: HTMLDivElement, wheel: WheelEvent) {
+	/**
+	 * Depending on the amount of distance that the wheel
+	 * moved, scales the map accordingly.
+	 * 
+	 * Wheel down to zoom out
+	 * Wheel up to zoom in
+	 */
+	function changeZoom (this: HTMLDivElement, wheel: WheelEvent) {
 		wheel.preventDefault() // Prevent scrolling map with wheel
 
 		const differential = wheel.deltaY / -800
-		scale.current = Number(Math.max( Math.min( scale.current + differential, MAX_ZOOM ), MIN_ZOOM ).toFixed(2))
+		zoom.current = Number(Math.max( Math.min( zoom.current + differential, MAX_ZOOM ), MIN_ZOOM ).toFixed(2))
 		
-		this.style.scale = scale.current + ""
+		this.style.scale = zoom.current + ""
 	}
 
 	return <>
