@@ -3,7 +3,7 @@ import "./MapDraggableArea.scss"
 
 import { Map } from "../Map"
 
-interface Coord {
+export interface Coord {
 	x: number
 	y: number
 }
@@ -78,7 +78,6 @@ const MapDraggableArea : React.FC = () => {
 			onMouseDown={ e => enableDragging(e) } >
 			
 			<Map />
-			
 		</div>
 	</>
 }
