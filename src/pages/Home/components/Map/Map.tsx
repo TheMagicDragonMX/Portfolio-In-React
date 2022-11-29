@@ -7,20 +7,20 @@ import { Puck } from "./Puck"
 
 import pfp from "@/assets/pfp-cubes.jpg"
 
-const Map : React.FC = () => {
+const Map = React.forwardRef<HTMLDivElement>(( props, ref ) => {
 	return <>
-		<div className="map">
-			{/* <MapBackground /> */}
+		<div ref={ ref } className="map">
+			<MapBackground />
 			{/* <SparkEnvironment /> */}
 
-			<Puck 
+			{/* <Puck 
 				image={ pfp }
 				width={ 300 } 
 				height={ 200 } 
 				depth={ 30 } 
-				corner={ 20 } />	
+				corner={ 20 } />	 */}
 		</div>
 	</>
-}
+})
 
 export default Map
