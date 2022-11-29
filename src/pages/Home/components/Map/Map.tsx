@@ -10,7 +10,7 @@ import pfp from "@/assets/pfp-cubes.jpg"
 const Map : React.FC = () => {
 
 	const MAX_ZOOM = 3
-	const MIN_ZOOM = 0.5
+	const MIN_ZOOM = 1
 	
 	const map = useRef<HTMLDivElement>(null)
 	const scale = useRef(1)
@@ -32,16 +32,18 @@ const Map : React.FC = () => {
 	}
 
 	return <>
-		<div ref={ map } className="map">
-			<MapBackground />
-			{/* <SparkEnvironment /> */}
+		<div className="map-margin">
+			<div ref={ map } className="map">
+				<MapBackground />
+				{/* <SparkEnvironment /> */}
 
-			<Puck 
-				image={ pfp }
-				width={ 300 } 
-				height={ 200 } 
-				depth={ 30 } 
-				corner={ 20 } />	
+				<Puck 
+					image={ pfp }
+					width={ 300 } 
+					height={ 200 } 
+					depth={ 30 } 
+					corner={ 20 } />	
+			</div>
 		</div>
 	</>
 }
