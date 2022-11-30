@@ -14,7 +14,8 @@ const Map : React.FC = () => {
 	 * for the zoom
 	 */
 	const MAX_ZOOM = 3
-	const MIN_ZOOM = 0.5
+	const MIN_ZOOM = 1
+	const NORMAL_ZOOM = 1
 	
 	/**
 	 * Keeps track of the HTML element that contains
@@ -26,7 +27,7 @@ const Map : React.FC = () => {
 	 * Keeps track of the amount of zoom that
 	 * the user currently has
 	 */
-	const zoom = useRef(1)
+	const zoom = useRef(NORMAL_ZOOM)
 	
 	/**
 	 * Once the map element renders, give it the
@@ -36,7 +37,7 @@ const Map : React.FC = () => {
 	useEffect(() => {
 		if (!map.current) return
 	
-		map.current.style.scale = zoom.current + ""
+		// map.current.style.scale = zoom.current + ""
 		map.current.addEventListener("wheel", changeZoom, { passive: false })
 	}, [])
 
@@ -52,22 +53,31 @@ const Map : React.FC = () => {
 
 		const differential = wheel.deltaY / -800
 		zoom.current = Number(Math.max( Math.min( zoom.current + differential, MAX_ZOOM ), MIN_ZOOM ).toFixed(2))
-		
+
 		this.style.scale = zoom.current + ""
 	}
 
 	return <>
-		<div className="map-margin">
-			<div ref={ map } className="map">
+		<div ref={ map } className="map-margin">
+			<div className="map">
 				<MapBackground />
 				{/* <SparkEnvironment /> */}
 
 				<Puck 
 					image={ pfp }
-					width={ 300 } 
-					height={ 200 } 
-					depth={ 30 } 
-					corner={ 20 } />	
+					width={ 200 } 
+					height={ 100 } 
+					depth={ 10 } 
+					corner={ 10 }
+					innerShadow={ 5 } />	
+
+				{/* <Puck 
+					image={ pfp }
+					width={ 500 } 
+					height={ 300 } 
+					depth={ 10 } 
+					corner={ 30 } 
+					innerShadow={ 20 }/>	 */}
 			</div>
 		</div>
 	</>
