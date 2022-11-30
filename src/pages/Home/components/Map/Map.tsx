@@ -5,7 +5,7 @@ import { MapBackground } from "./MapBackground"
 import { SparkEnvironment } from "./SparkEnvironment"
 import { Puck } from "./Puck"
 
-import pfp from "@/assets/pfp-cubes.jpg"
+import pfp from "@/assets/pixelated_cubes_pfp.png"
 
 const Map : React.FC = () => {
 
@@ -60,24 +60,18 @@ const Map : React.FC = () => {
 	return <>
 		<div ref={ map } className="map-margin">
 			<div className="map">
-				<MapBackground />
+				{/* <MapBackground /> */}
 				{/* <SparkEnvironment /> */}
 
-				<Puck 
-					image={ pfp }
-					width={ 200 } 
-					height={ 100 } 
-					depth={ 10 } 
-					corner={ 10 }
-					innerShadow={ 5 } />	
-
-				{/* <Puck 
-					image={ pfp }
-					width={ 500 } 
-					height={ 300 } 
-					depth={ 10 } 
-					corner={ 30 } 
-					innerShadow={ 20 }/>	 */}
+				<div className="puck-area">
+					<Puck 
+						image={ pfp }
+						width={ 210 } 
+						height={ 200 } 
+						depth={ 10 } 
+						corner={ 20 }
+						innerShadow={ 5 } />
+				</div>
 			</div>
 		</div>
 	</>
