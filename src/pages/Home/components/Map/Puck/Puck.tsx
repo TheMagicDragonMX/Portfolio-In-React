@@ -1,7 +1,6 @@
 import React from "react"
 import "./Puck.scss"
 
-
 export interface PuckInterface {
 	image: string
 	
@@ -9,9 +8,10 @@ export interface PuckInterface {
 	height: number
 	depth: number
 	corner: number
+	innerShadow: number
 }
 
-const Puck : React.FC<PuckInterface> = ({ image, width, height, depth, corner }) => {
+const Puck : React.FC<PuckInterface> = ({ image, width, height, depth, corner, innerShadow }) => {
 
 	/**
 	 * Setup CSS variables for the puck
@@ -21,6 +21,7 @@ const Puck : React.FC<PuckInterface> = ({ image, width, height, depth, corner })
 		"--puckHeight": height + "px",
 		"--puckDepth": depth + "px",
 		"--cornerSize": corner + "px",
+		"--innerShadow": innerShadow + "px",
 	} as React.CSSProperties
 
 	/**
