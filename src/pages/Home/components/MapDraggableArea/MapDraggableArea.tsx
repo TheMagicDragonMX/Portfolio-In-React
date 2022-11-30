@@ -42,6 +42,7 @@ const MapDraggableArea : React.FC = () => {
 			area: { x: area.current.scrollLeft, y: area.current.scrollTop } 
 		}
 
+		area.current.style.cursor = "grab"
 		document.addEventListener("mousemove", drag)
 		document.addEventListener("mouseup", stopMapDragging)
 	}
@@ -67,6 +68,9 @@ const MapDraggableArea : React.FC = () => {
 	 * clicking a mouse button
 	 */
 	function stopMapDragging () {
+		if (!area.current) return
+
+		area.current.style.cursor = "default"
 		document.removeEventListener("mousemove", drag)
 		document.removeEventListener("mouseup", stopMapDragging)
 	}
