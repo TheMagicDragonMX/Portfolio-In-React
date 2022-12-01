@@ -15,7 +15,7 @@ const Map : React.FC = () => {
 	 * for the zoom
 	 */
 	const MAX_ZOOM = 3
-	const MIN_ZOOM = 1
+	const MIN_ZOOM = 0.5
 	const NORMAL_ZOOM = 1
 	
 	/**
@@ -61,8 +61,8 @@ const Map : React.FC = () => {
 	return <>
 		<div ref={ map } className="map-margin">
 			<div className="map">
-				<MapBackground />
-				<SparkEnvironment />
+				{/* <MapBackground /> */}
+				{/* <SparkEnvironment /> */}
 
 				<div className="puck-area">
 					<Puck
