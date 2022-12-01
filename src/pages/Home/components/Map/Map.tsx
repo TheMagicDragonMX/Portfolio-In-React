@@ -65,22 +65,122 @@ const Map : React.FC = () => {
 				<SparkEnvironment />
 
 				<div className="puck-area">
-					<Puck 
+					<Puck
+						className="pfp-puck"
 						depth={ 20 } 
 						corner={ 20 }
 						innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
 
 					<Puck
+						className="projects-puck"
 						depth={ 10 } 
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
+					<div className="listed projects">
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Academo</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">LED Cube</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Rotating Cube</h2></Puck>
+							
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Happy Birthday Gift Card</h2></Puck>
+							
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Portfolio</h2></Puck>
+					</div>
+
+					<div className="listed technologies">
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">C</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">C++</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">C#</h2></Puck>
+							
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Java</h2></Puck>
+							
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Python</h2></Puck>
+					</div>
+					
+					<div className="listed socials">
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Facebook</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Instagram</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Leet Code</h2></Puck>
+							
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">Github</h2></Puck>
+
+						<Puck
+							className="projects-puck"
+							depth={ 10 } 
+							corner={ 10 }
+							innerShadow={ 5 }><h2 className="topic">LinkedIn</h2></Puck>
+					</div>
+
 					<Puck
+						className="technologies-puck"
 						depth={ 10 } 
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
 
 					<Puck
+						className="socials-puck"
 						depth={ 10 } 
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>

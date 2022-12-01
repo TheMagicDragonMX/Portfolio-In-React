@@ -2,6 +2,7 @@ import React from "react"
 import "./Puck.scss"
 
 export interface PuckInterface {
+	className?: string
 	children: JSX.Element
 	
 	depth: number
@@ -9,7 +10,7 @@ export interface PuckInterface {
 	innerShadow: number
 }
 
-const Puck : React.FC<PuckInterface> = ({ children, depth, corner, innerShadow }) => {
+const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, innerShadow }) => {
 
 	/**
 	 * Setup CSS variables for the puck
@@ -35,7 +36,7 @@ const Puck : React.FC<PuckInterface> = ({ children, depth, corner, innerShadow }
 	const doubleDisplacement = { "--displacement": 2 } as React.CSSProperties
 	
 	return <>
-		<div className="puck" style={ puckStyle }>
+		<div className={`puck ${ className }`} style={ puckStyle }>
 			{/* <div className="face front"></div> */}
 			<div className="face back"></div>
 
