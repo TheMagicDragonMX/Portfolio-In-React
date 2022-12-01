@@ -7,6 +7,11 @@ import { SparkEnvironment } from "./SparkEnvironment"
 import { Puck } from "./Puck"
 
 import pfp from "@/assets/pixelated_cubes_pfp.png"
+import facebook from "@/assets/socials/facebook.png"
+import github from "@/assets/socials/github.png"
+import instagram from "@/assets/socials/instagram.png"
+import leetcode from "@/assets/socials/leetcode.png"
+import linkedin from "@/assets/socials/linkedin.png"
 
 const Map : React.FC = () => {
 
@@ -143,31 +148,31 @@ const Map : React.FC = () => {
 					
 					<div className="listed socials">
 						<Puck
-							className="projects-puck"
+							// className="projects-puck"
 							depth={ 10 } 
 							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Facebook</h2></Puck>
+							innerShadow={ 5 }><img className="facebook-puck" src={ facebook } alt="" /></Puck>
 
 						<Puck
-							className="projects-puck"
+							// className="projects-puck"
 							depth={ 10 } 
 							corner={ 10 }
 							innerShadow={ 5 }><h2 className="topic">Instagram</h2></Puck>
 
 						<Puck
-							className="projects-puck"
+							// className="projects-puck"
 							depth={ 10 } 
 							corner={ 10 }
 							innerShadow={ 5 }><h2 className="topic">Leet Code</h2></Puck>
 							
 						<Puck
-							className="projects-puck"
+							// className="projects-puck"
 							depth={ 10 } 
 							corner={ 10 }
 							innerShadow={ 5 }><h2 className="topic">Github</h2></Puck>
 
 						<Puck
-							className="projects-puck"
+							// className="projects-puck"
 							depth={ 10 } 
 							corner={ 10 }
 							innerShadow={ 5 }><h2 className="topic">LinkedIn</h2></Puck>

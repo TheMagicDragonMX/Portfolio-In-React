@@ -33,7 +33,14 @@
 
 .projects { grid-area: listed-projects; }
 .technologies { grid-area: listed-technologies; }
+
 .socials { grid-area: listed-socials; }
+.facebook-puck {
+  vertical-align: middle;
+
+  width: 100px;
+  background-color: transparent;
+}
 
 .profile-pic {
   width: 200px;
