@@ -138,11 +138,18 @@
 }
 
 .fragment {
+  translate: 0 0 calc(-1 * var(--cornerSize, 30px) * var(--displacement, 1));
+  background-color: rgba(255, 226, 99, 0.541);
+}
+
+.short > .fragment {
   width: var(--puckDepth, 30px);
   height: var(--cornerSize, 30px);
+}
 
-  background-color: rgba(255, 226, 99, 0.541);
-  transform: translateZ(calc(-1 * var(--cornerSize, 30px) * var(--displacement, 1)));
+.long > .fragment {
+  width: var(--cornerSize, 30px);
+  height: var(--puckDepth, 30px);
 }
 
 .filler {
