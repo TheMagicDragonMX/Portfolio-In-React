@@ -35,35 +35,3 @@
     z-index: 1;
   }
 }
-
-.puck-area {
-  width: 1200px;
-  height: 650px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-
-  // background-color: black;
-}
-
-.profile-pic {
-  width: 200px;
-}
-
-.topic {
-  margin: 0;
-  padding: 5px 20px 10px 20px;
-  
-  height: 80px;
-  
-  display: grid;
-  place-items: center;
-  
-  font-size: 30px;
-  font-family: "Pixel Font", 'Courier New', Courier, monospace;
-  color: white;
-  background-color: rgb(75, 75, 75);
-}

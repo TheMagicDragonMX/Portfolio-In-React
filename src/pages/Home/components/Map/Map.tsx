@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react"
-import "./Map.scss"
+import "./MapArrangement.scss"
+import "./MapContent.scss"
 
 import { MapBackground } from "./MapBackground"
 import { SparkEnvironment } from "./SparkEnvironment"
