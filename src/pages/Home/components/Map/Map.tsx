@@ -5,14 +5,10 @@ import "./MapContent.scss"
 import { MapBackground } from "./MapBackground"
 import { SparkEnvironment } from "./SparkEnvironment"
 import { Puck } from "./Puck"
+import { Projects } from "./Projects"
+import { Socials } from "./Socials"
 
 import pfp from "@/assets/pixelated_cubes_pfp.png"
-import facebook from "@/assets/socials/facebook.png"
-import github from "@/assets/socials/github.png"
-import instagram from "@/assets/socials/instagram.png"
-import leetcode from "@/assets/socials/leetcode.png"
-import linkedin from "@/assets/socials/linkedin.png"
-import { Projects } from "./Projects"
 
 const Map : React.FC = () => {
 
@@ -85,6 +81,8 @@ const Map : React.FC = () => {
 
 					<Projects />
 
+					<Socials />
+
 					<div className="listed technologies">
 						<Puck
 							className="projects-puck"
@@ -117,32 +115,7 @@ const Map : React.FC = () => {
 							innerShadow={ 5 }><h2 className="topic">Python</h2></Puck>
 					</div>
 					
-					<div className="listed socials">
-						<Puck
-							depth={ 5 } 
-							corner={ 7 }
-							innerShadow={ 3 }><img className="social-logo facebook-puck" src={ facebook } alt="" /></Puck>
-
-						<Puck
-							depth={ 5 } 
-							corner={ 7 }
-							innerShadow={ 3 }><img className="social-logo github-puck" src={ github } alt="" /></Puck>
-
-						<Puck
-							depth={ 5 } 
-							corner={ 7 }
-							innerShadow={ 3 }><img className="social-logo instagram-puck" src={ instagram } alt="" /></Puck>
-
-						<Puck
-							depth={ 5 } 
-							corner={ 7 }
-							innerShadow={ 3 }><img className="social-logo leetcode-puck" src={ leetcode } alt="" /></Puck>
-
-						<Puck
-							depth={ 5 } 
-							corner={ 7 }
-							innerShadow={ 3 }><img className="social-logo linkedin-puck" src={ linkedin } alt="" /></Puck>
-					</div>
+					
 
 					<Puck
 						className="technologies-puck"
