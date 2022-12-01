@@ -7,9 +7,9 @@ import { SparkEnvironment } from "./SparkEnvironment"
 import { Puck } from "./Puck"
 import { Projects } from "./Projects"
 import { Socials } from "./Socials"
+import { Technologies } from "./Technologies"
 
 import pfp from "@/assets/pixelated_cubes_pfp.png"
-import { Technologies } from "./Technologies"
 
 const Map : React.FC = () => {
 
@@ -64,8 +64,8 @@ const Map : React.FC = () => {
 	return <>
 		<div ref={ map } className="map-margin">
 			<div className="map">
-				<MapBackground />
-				<SparkEnvironment />
+				{/* <MapBackground /> */}
+				{/* <SparkEnvironment /> */}
 
 				<div className="puck-area">
 					<Puck
@@ -80,11 +80,15 @@ const Map : React.FC = () => {
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
+					<Projects />
+
 					<Puck
 						className="technologies-puck"
 						depth={ 10 } 
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
+
+					<Technologies />
 
 					<Puck
 						className="socials-puck"
@@ -92,8 +96,6 @@ const Map : React.FC = () => {
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
 
-					<Projects />
-					<Technologies />
 					<Socials />
 				</div>
 			</div>

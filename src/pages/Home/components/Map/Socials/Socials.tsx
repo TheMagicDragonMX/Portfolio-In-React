@@ -17,27 +17,27 @@ const Socials : React.FC<SocialsInterface> = () => {
 			<Puck
 				depth={ 5 } 
 				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo facebook-puck" src={ facebook } alt="" /></Puck>
+				innerShadow={ 3 }><img className="social-logo facebook-puck" src={ facebook } alt="Facebook Logo" /></Puck>
 
 			<Puck
 				depth={ 5 } 
 				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo github-puck" src={ github } alt="" /></Puck>
+				innerShadow={ 3 }><img className="social-logo github-puck" src={ github } alt="Github Logo" /></Puck>
 
 			<Puck
 				depth={ 5 } 
 				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo instagram-puck" src={ instagram } alt="" /></Puck>
+				innerShadow={ 3 }><img className="social-logo instagram-puck" src={ instagram } alt="Instagram Logo" /></Puck>
 
 			<Puck
 				depth={ 5 } 
 				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo leetcode-puck" src={ leetcode } alt="" /></Puck>
+				innerShadow={ 3 }><img className="social-logo leetcode-puck" src={ leetcode } alt="LeetCode Logo" /></Puck>
 
 			<Puck
 				depth={ 5 } 
 				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo linkedin-puck" src={ linkedin } alt="" /></Puck>
+				innerShadow={ 3 }><img className="social-logo linkedin-puck" src={ linkedin } alt="LinkedIn Logo" /></Puck>
 		</div>
 	</>
 }

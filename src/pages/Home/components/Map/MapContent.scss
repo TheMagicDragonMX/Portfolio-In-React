@@ -1,6 +1,6 @@
 .puck-area {
   width: 90%;
-  height: 90%;
+  height: 95%;
 
   display: grid;
   place-items: center;
@@ -11,7 +11,8 @@
     "socials      listed-socials"
     ;
   
-  grid-template-columns: 300px auto;
+  grid-template-columns: 300px 900px;
+  row-gap: 20px;
 
   background-color: black;
 }
