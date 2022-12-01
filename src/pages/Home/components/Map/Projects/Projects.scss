@@ -1,0 +1,11 @@
+.listed-projects {
+  grid-area: listed-projects;
+
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  gap: 10px;
+}

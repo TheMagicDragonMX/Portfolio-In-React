@@ -12,6 +12,7 @@ import github from "@/assets/socials/github.png"
 import instagram from "@/assets/socials/instagram.png"
 import leetcode from "@/assets/socials/leetcode.png"
 import linkedin from "@/assets/socials/linkedin.png"
+import { Projects } from "./Projects"
 
 const Map : React.FC = () => {
 
@@ -66,8 +67,8 @@ const Map : React.FC = () => {
 	return <>
 		<div ref={ map } className="map-margin">
 			<div className="map">
-				{/* <MapBackground /> */}
-				{/* <SparkEnvironment /> */}
+				<MapBackground />
+				<SparkEnvironment />
 
 				<div className="puck-area">
 					<Puck
@@ -82,37 +83,7 @@ const Map : React.FC = () => {
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
-					<div className="listed projects">
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Academo</h2></Puck>
-
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">LED Cube</h2></Puck>
-
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Rotating Cube</h2></Puck>
-							
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Happy Birthday Gift Card</h2></Puck>
-							
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Portfolio</h2></Puck>
-					</div>
+					<Projects />
 
 					<div className="listed technologies">
 						<Puck
@@ -148,34 +119,29 @@ const Map : React.FC = () => {
 					
 					<div className="listed socials">
 						<Puck
-							// className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><img className="facebook-puck" src={ facebook } alt="" /></Puck>
+							depth={ 5 } 
+							corner={ 7 }
+							innerShadow={ 3 }><img className="social-logo facebook-puck" src={ facebook } alt="" /></Puck>
 
 						<Puck
-							// className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Instagram</h2></Puck>
+							depth={ 5 } 
+							corner={ 7 }
+							innerShadow={ 3 }><img className="social-logo github-puck" src={ github } alt="" /></Puck>
 
 						<Puck
-							// className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Leet Code</h2></Puck>
-							
-						<Puck
-							// className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Github</h2></Puck>
+							depth={ 5 } 
+							corner={ 7 }
+							innerShadow={ 3 }><img className="social-logo instagram-puck" src={ instagram } alt="" /></Puck>
 
 						<Puck
-							// className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">LinkedIn</h2></Puck>
+							depth={ 5 } 
+							corner={ 7 }
+							innerShadow={ 3 }><img className="social-logo leetcode-puck" src={ leetcode } alt="" /></Puck>
+
+						<Puck
+							depth={ 5 } 
+							corner={ 7 }
+							innerShadow={ 3 }><img className="social-logo linkedin-puck" src={ linkedin } alt="" /></Puck>
 					</div>
 
 					<Puck
