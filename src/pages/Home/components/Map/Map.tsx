@@ -64,13 +64,21 @@ const Map : React.FC = () => {
 				{/* <SparkEnvironment /> */}
 
 				<div className="puck-area">
-					<Puck 
+					{/* <Puck 
 						image={ pfp }
 						width={ 210 } 
 						height={ 200 } 
 						depth={ 10 } 
 						corner={ 20 }
-						innerShadow={ 5 } />
+						innerShadow={ 5 } /> */}
+
+					<Puck
+						// width={ 210 } 
+						// height={ 200 } 
+						depth={ 10 } 
+						corner={ 10 }
+						innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
+
 				</div>
 			</div>
 		</div>

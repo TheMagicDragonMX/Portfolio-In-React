@@ -39,5 +39,23 @@
   width: 1200px;
   height: 650px;
 
-  background-color: white;
+  display: grid;
+  place-items: center;
+
+  background-color: black;
+}
+
+.topic {
+  margin: 0;
+  padding: 10px;
+  
+  height: 100px;
+  
+  display: grid;
+  place-items: center;
+  
+  font-size: 50px;
+  color: white;
+  background-color: darkgray;
+  // filter: opacity(1);
 }

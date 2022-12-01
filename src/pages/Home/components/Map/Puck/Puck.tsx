@@ -2,23 +2,19 @@ import React from "react"
 import "./Puck.scss"
 
 export interface PuckInterface {
-	image: string
+	children: JSX.Element
 	
-	width: number
-	height: number
 	depth: number
 	corner: number
 	innerShadow: number
 }
 
-const Puck : React.FC<PuckInterface> = ({ image, width, height, depth, corner, innerShadow }) => {
+const Puck : React.FC<PuckInterface> = ({ children, depth, corner, innerShadow }) => {
 
 	/**
 	 * Setup CSS variables for the puck
 	 */
 	const puckStyle = {
-		"--puckWidth": width + "px",
-		"--puckHeight": height + "px",
 		"--puckDepth": depth + "px",
 		"--cornerSize": corner + "px",
 		"--innerShadow": innerShadow + "px",
@@ -40,10 +36,8 @@ const Puck : React.FC<PuckInterface> = ({ image, width, height, depth, corner, i
 	
 	return <>
 		<div className="puck" style={ puckStyle }>
-			<span className="face front">
-				<img src={ image } />
-			</span>
-			<span className="face back"></span>
+			{/* <div className="face front"></div> */}
+			<div className="face back"></div>
 
 			<div className="side short left" style={ sideWithThreeFragments } >
 				<div className="fragment" style={ singleDisplacement } ></div>
@@ -70,6 +64,8 @@ const Puck : React.FC<PuckInterface> = ({ image, width, height, depth, corner, i
 				<div className="filler"></div>
 				<div className="fragment" style={ singleDisplacement } ></div>
 			</div>
+
+			<div className="content">{ children }</div>
 		</div>
 	</>
 }
