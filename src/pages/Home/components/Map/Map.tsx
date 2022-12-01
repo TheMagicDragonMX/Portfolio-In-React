@@ -73,8 +73,6 @@ const Map : React.FC = () => {
 						innerShadow={ 5 } /> */}
 
 					<Puck
-						// width={ 210 } 
-						// height={ 200 } 
 						depth={ 10 } 
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
