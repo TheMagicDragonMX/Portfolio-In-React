@@ -9,6 +9,7 @@ import { Projects } from "./Projects"
 import { Socials } from "./Socials"
 
 import pfp from "@/assets/pixelated_cubes_pfp.png"
+import { Technologies } from "./Technologies"
 
 const Map : React.FC = () => {
 
@@ -79,44 +80,6 @@ const Map : React.FC = () => {
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
-					<Projects />
-
-					<Socials />
-
-					<div className="listed technologies">
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">C</h2></Puck>
-
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">C++</h2></Puck>
-
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">C#</h2></Puck>
-							
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Java</h2></Puck>
-							
-						<Puck
-							className="projects-puck"
-							depth={ 10 } 
-							corner={ 10 }
-							innerShadow={ 5 }><h2 className="topic">Python</h2></Puck>
-					</div>
-					
-					
-
 					<Puck
 						className="technologies-puck"
 						depth={ 10 } 
@@ -129,6 +92,9 @@ const Map : React.FC = () => {
 						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
 
+					<Projects />
+					<Technologies />
+					<Socials />
 				</div>
 			</div>
 		</div>
