@@ -60,19 +60,29 @@ const Map : React.FC = () => {
 	return <>
 		<div ref={ map } className="map-margin">
 			<div className="map">
-				{/* <MapBackground /> */}
-				{/* <SparkEnvironment /> */}
+				<MapBackground />
+				<SparkEnvironment />
 
 				<div className="puck-area">
 					<Puck 
-						depth={ 10 } 
-						corner={ 30 }
+						depth={ 20 } 
+						corner={ 20 }
 						innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
 
 					<Puck
 						depth={ 10 } 
 						corner={ 10 }
+						innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
+
+					<Puck
+						depth={ 10 } 
+						corner={ 10 }
 						innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
+
+					<Puck
+						depth={ 10 } 
+						corner={ 10 }
+						innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
 
 				</div>
 			</div>
