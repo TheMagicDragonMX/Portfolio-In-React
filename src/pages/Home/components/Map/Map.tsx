@@ -64,8 +64,8 @@ const Map : React.FC = () => {
 	return <>
 		<div ref={ map } className="map-margin">
 			<div className="map">
-				{/* <MapBackground /> */}
-				{/* <SparkEnvironment /> */}
+				<MapBackground />
+				<SparkEnvironment />
 
 				<div className="puck-area">
 					<Puck
