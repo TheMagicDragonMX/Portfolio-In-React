@@ -1,0 +1,89 @@
+.map {
+  --mainPuckColumnSize: 300px;
+  --listedPucksColumnSize: 900px;
+
+  --pfpRowSize: 300px;
+  --projectsRowSize: 150px;
+  --technologiesRowSize: 150px;
+  --socialsRowSize: 150px;
+  --rowGap: 20px;
+  
+  box-sizing: content-box;
+  position: relative;
+
+  padding: 10px;
+  width: calc(
+    var(--mainPuckColumnSize) + 
+    var(--listedPucksColumnSize)
+    );
+
+  height: calc(
+    var(--pfpRowSize) +
+    var(--projectsRowSize) +
+    var(--technologiesRowSize) +
+    var(--socialsRowSize) +
+    var(--rowGap) * (4 - 1)
+  );
+
+  display: inline-block;
+
+  background-color: rgb(9, 104, 104);
+  // background-color: rgb(0, 0, 0);
+
+  & > * { z-index: 1; }
+}
+
+.puck-area {
+  position: absolute;
+  width: fit-content;
+  
+  display: grid;
+  place-items: center;
+  grid-template-areas:
+    "pfp          empty"
+    "projects     listed-projects"
+    "technologies listed-technologies"
+    "socials      listed-socials"
+    ;
+  
+  grid-template-columns: 
+    var(--mainPuckColumnSize) 
+    var(--listedPucksColumnSize)
+    ;
+
+  grid-template-rows: 
+    var(--pfpRowSize) 
+    var(--projectsRowSize) 
+    var(--technologiesRowSize) 
+    var(--socialsRowSize)
+    ;
+
+  row-gap: var(--rowGap);
+
+  transform-origin: top left;
+  background-color: rgb(8, 0, 77);
+}
+
+.pfp-puck { grid-area: pfp; }
+.profile-pic { width: 250px; }
+
+.projects-puck { grid-area: projects; }
+.technologies-puck { grid-area: technologies; }
+.socials-puck { grid-area: socials; }
+
+.topic {
+  margin: 0;
+  padding: 5px 20px 10px 20px;
+  
+  height: 80px;
+  
+  display: grid;
+  place-items: center;
+  
+  font-size: 30px;
+  font-family: "Pixel Font", 'Courier New', Courier, monospace;
+  text-align: center;
+  color: white;
+
+  background-color: rgb(75, 75, 75);
+}

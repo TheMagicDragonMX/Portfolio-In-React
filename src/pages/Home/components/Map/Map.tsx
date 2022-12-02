@@ -1,9 +1,6 @@
 import React, { useEffect, useRef } from "react"
-import "./MapArrangement.scss"
-import "./MapContent.scss"
+import "./Map.scss"
 
-import { MapBackground } from "../MapBackground"
-import { SparkEnvironment } from "../SparkEnvironment"
 import { Puck } from "./Puck"
 import { Projects } from "./Projects"
 import { Socials } from "./Socials"
@@ -69,9 +66,7 @@ const Map : React.FC = () => {
 	}
 
 	return <>
-		{/* <div className="map-container"> */}
 		<div className="map">
-
 			<div ref={ puckArea } className="puck-area">
 				<Puck
 					className="pfp-puck"
@@ -104,7 +99,6 @@ const Map : React.FC = () => {
 				<Socials />
 			</div>
 		</div>
-		{/* </div> */}
 	</>
 }
 

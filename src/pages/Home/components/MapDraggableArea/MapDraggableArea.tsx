@@ -1,8 +1,6 @@
 import React, { useRef } from "react"
 import "./MapDraggableArea.scss"
 
-import { MapBackground } from "../MapBackground"
-import { SparkEnvironment } from "../SparkEnvironment"
 import { Map } from "../Map"
 
 export interface Coord {
@@ -83,10 +81,7 @@ const MapDraggableArea : React.FC = () => {
 			className="area"
 			onMouseDown={ e => enableDragging(e) } >
 
-			<MapBackground />
-			<SparkEnvironment />
-			
-			{/* <Map /> */}
+			<Map />
 		</div>
 	</>
 }

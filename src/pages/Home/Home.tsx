@@ -11,7 +11,7 @@ const Home : React.FC = () => {
 			<SparkEnvironment />
 
 			{/* <Menu /> */}
-			{/* <MapDraggableArea />  */}
+			<MapDraggableArea /> 
 		</div>		
 	</>
 }
