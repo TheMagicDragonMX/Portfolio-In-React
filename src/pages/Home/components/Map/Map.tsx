@@ -14,7 +14,7 @@ const Map : React.FC = () => {
 	 * Control the maximum and minimum values 
 	 * for the zoom
 	 */
-	const MAX_ZOOM = 3
+	const MAX_ZOOM = 2
 	const MIN_ZOOM = 0.5
 	const NORMAL_ZOOM = 1
 	
@@ -38,7 +38,7 @@ const Map : React.FC = () => {
 	useEffect(() => {
 		if (!puckArea.current) return
 	
-		puckArea.current.addEventListener("wheel", changeZoom, { passive: false })
+		// puckArea.current.addEventListener("wheel", changeZoom, { passive: false })
 	}, [])
 
 	/**
