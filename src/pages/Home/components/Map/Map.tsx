@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react"
 import "./MapArrangement.scss"
 import "./MapContent.scss"
 
-import { MapBackground } from "./MapBackground"
-import { SparkEnvironment } from "./SparkEnvironment"
+import { MapBackground } from "../MapBackground"
+import { SparkEnvironment } from "../SparkEnvironment"
 import { Puck } from "./Puck"
 import { Projects } from "./Projects"
 import { Socials } from "./Socials"
@@ -23,9 +23,9 @@ const Map : React.FC = () => {
 	
 	/**
 	 * Keeps track of the HTML element that contains
-	 * the map
+	 * all the pucks
 	 */
-	const map = useRef<HTMLDivElement>(null)
+	const puckArea = useRef<HTMLDivElement>(null)
 
 	/**
 	 * Keeps track of the amount of zoom that
@@ -39,10 +39,9 @@ const Map : React.FC = () => {
 	 * is rotated
 	 */
 	useEffect(() => {
-		if (!map.current) return
+		if (!puckArea.current) return
 	
-		// map.current.style.scale = zoom.current + ""
-		map.current.addEventListener("wheel", changeZoom, { passive: false })
+		puckArea.current.addEventListener("wheel", changeZoom, { passive: false })
 	}, [])
 
 	/**
@@ -59,47 +58,53 @@ const Map : React.FC = () => {
 		zoom.current = Number(Math.max( Math.min( zoom.current + differential, MAX_ZOOM ), MIN_ZOOM ).toFixed(2))
 
 		this.style.scale = zoom.current + ""
+
+		// Change parent sizes to fit the new zoomed (scaled) element
+		const newWidth = this.clientWidth * zoom.current
+		const newHeight = this.clientHeight * zoom.current
+
+		if (!this.parentElement) return
+		this.parentElement.style.width = newWidth + "px"
+		this.parentElement.style.height = newHeight + "px"
 	}
 
 	return <>
-		<div ref={ map } className="map-margin">
-			<div className="map">
-				<MapBackground />
-				<SparkEnvironment />
+		{/* <div className="map-container"> */}
+		<div className="map">
 
-				<div className="puck-area">
-					<Puck
-						className="pfp-puck"
-						depth={ 20 } 
-						corner={ 20 }
-						innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
+			<div ref={ puckArea } className="puck-area">
+				<Puck
+					className="pfp-puck"
+					depth={ 20 } 
+					corner={ 20 }
+					innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
 
-					<Puck
-						className="projects-puck"
-						depth={ 10 } 
-						corner={ 10 }
-						innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
+				<Puck
+					className="projects-puck"
+					depth={ 10 } 
+					corner={ 10 }
+					innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
-					<Projects />
+				<Projects />
 
-					<Puck
-						className="technologies-puck"
-						depth={ 10 } 
-						corner={ 10 }
-						innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
+				<Puck
+					className="technologies-puck"
+					depth={ 10 } 
+					corner={ 10 }
+					innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
 
-					<Technologies />
+				<Technologies />
 
-					<Puck
-						className="socials-puck"
-						depth={ 10 } 
-						corner={ 10 }
-						innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
+				<Puck
+					className="socials-puck"
+					depth={ 10 } 
+					corner={ 10 }
+					innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
 
-					<Socials />
-				</div>
+				<Socials />
 			</div>
 		</div>
+		{/* </div> */}
 	</>
 }
 

@@ -1,7 +1,6 @@
 .puck-area {
-  width: 90%;
-  height: 95%;
-
+  width: fit-content;
+  
   display: grid;
   place-items: center;
   grid-template-areas:
@@ -12,9 +11,11 @@
     ;
   
   grid-template-columns: 300px 900px;
+  grid-template-rows: 300px 150px 150px 150px;
   row-gap: 20px;
 
-  // background-color: black;
+  transform-origin: top left;
+  background-color: rgb(8, 0, 77);
 }
 
 .pfp-puck { grid-area: pfp; }

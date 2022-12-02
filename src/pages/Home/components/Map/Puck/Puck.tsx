@@ -36,7 +36,7 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 	const doubleDisplacement = { "--displacement": 2 } as React.CSSProperties
 	
 	return <>
-		<div className={`puck ${ className }`} style={ puckStyle }>
+		<div className={`puck ${ className ?? "" }`} style={ puckStyle }>
 			{/* <div className="face front"></div> */}
 			{/* <div className="face back"></div> */}
 

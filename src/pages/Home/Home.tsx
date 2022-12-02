@@ -1,19 +1,18 @@
 import React from "react"
 import "./Home.scss"
 
-import { Background } from "@/components"
-import { MapDraggableArea, Menu } from "./components"
+import { MapBackground, MapDraggableArea, Menu, SparkEnvironment } from "./components"
 
 const Home : React.FC = () => {
 	
 	return <>
-		<Background>
-			<div className="home">
-				<Menu />
-			
-				<MapDraggableArea /> 
-			</div>		
-		</Background>
+		<div className="home">
+			<MapBackground />
+			<SparkEnvironment />
+
+			{/* <Menu /> */}
+			{/* <MapDraggableArea />  */}
+		</div>		
 	</>
 }
 
