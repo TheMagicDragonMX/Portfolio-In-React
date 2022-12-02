@@ -26,7 +26,7 @@ export interface TechnologiesInterface {}
 const Technologies : React.FC<TechnologiesInterface> = () => {
 
 	const DEPTH = 10
-	const CORNER = 10
+	const CORNER = 5
 	const SHADOW = 2
 	
 	return <>
@@ -34,87 +34,87 @@ const Technologies : React.FC<TechnologiesInterface> = () => {
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ arduino } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ arduino } alt="Arduino Logo" /></Puck>
 				
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ c } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ c } alt="C Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ csharp } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ csharp } alt="C# Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ cpp } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ cpp } alt="C++ Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ html } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ html } alt="HTML Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ css } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ css } alt="CSS Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ sass } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ sass } alt="SASS Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ javascript } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ javascript } alt="JS Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ typescript } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ typescript } alt="TS Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ react } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ react } alt="React Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ nodejs } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ nodejs } alt="NodeJS Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ php } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ php } alt="PHP Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ java } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ java } alt="Java Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ firebase } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ firebase } alt="Firebase Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ mysql } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ mysql } alt="MySQL Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ python } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ python } alt="Python Logo" /></Puck>
 
 			<Puck
 				depth={ DEPTH } 
 				corner={ CORNER }
-				innerShadow={ SHADOW }><img className="tech-logo" src={ vite } alt=" Logo" /></Puck>
+				innerShadow={ SHADOW }><img className="tech-logo" src={ vite } alt="ViteJS Logo" /></Puck>
 		</div>
 	</>
 }

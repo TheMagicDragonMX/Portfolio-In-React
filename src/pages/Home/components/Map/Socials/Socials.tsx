@@ -12,32 +12,37 @@ import { Puck } from "../Puck"
 export interface SocialsInterface {}
 
 const Socials : React.FC<SocialsInterface> = () => {
+
+	const DEPTH = 10
+	const CORNER = 7
+	const SHADOW = 2
+	
 	return <>
 		<div className="listed-socials">
 			<Puck
-				depth={ 5 } 
-				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo facebook-puck" src={ facebook } alt="Facebook Logo" /></Puck>
+				depth={ DEPTH } 
+				corner={ CORNER }
+				innerShadow={ SHADOW }><img className="social-logo facebook-puck" src={ facebook } alt="Facebook Logo" /></Puck>
 
 			<Puck
-				depth={ 5 } 
-				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo github-puck" src={ github } alt="Github Logo" /></Puck>
+				depth={ DEPTH } 
+				corner={ CORNER }
+				innerShadow={ SHADOW }><img className="social-logo github-puck" src={ github } alt="Github Logo" /></Puck>
 
 			<Puck
-				depth={ 5 } 
-				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo instagram-puck" src={ instagram } alt="Instagram Logo" /></Puck>
+				depth={ DEPTH } 
+				corner={ CORNER }
+				innerShadow={ SHADOW }><img className="social-logo instagram-puck" src={ instagram } alt="Instagram Logo" /></Puck>
 
 			<Puck
-				depth={ 5 } 
-				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo leetcode-puck" src={ leetcode } alt="LeetCode Logo" /></Puck>
+				depth={ DEPTH } 
+				corner={ CORNER }
+				innerShadow={ SHADOW }><img className="social-logo leetcode-puck" src={ leetcode } alt="LeetCode Logo" /></Puck>
 
 			<Puck
-				depth={ 5 } 
-				corner={ 7 }
-				innerShadow={ 3 }><img className="social-logo linkedin-puck" src={ linkedin } alt="LinkedIn Logo" /></Puck>
+				depth={ DEPTH } 
+				corner={ CORNER }
+				innerShadow={ SHADOW }><img className="social-logo linkedin-puck" src={ linkedin } alt="LinkedIn Logo" /></Puck>
 		</div>
 	</>
 }
