@@ -1,7 +1,7 @@
 import React from "react"
 import "./Home.scss"
 
-import { MapBackground, MapDraggableArea, Menu, SparkEnvironment } from "./components"
+import { MapBackground, MapDraggableArea, SparkEnvironment } from "./components"
 
 const Home : React.FC = () => {
 	
@@ -10,7 +10,6 @@ const Home : React.FC = () => {
 			<MapBackground />
 			<SparkEnvironment />
 
-			{/* <Menu /> */}
 			<MapDraggableArea /> 
 		</div>		
 	</>
