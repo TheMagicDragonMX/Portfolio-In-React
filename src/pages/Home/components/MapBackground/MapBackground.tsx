@@ -41,7 +41,7 @@ const delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
  * Limits of the gray color scale, they can go
  * from 0 to 255
  */
-const SQUARE_SIZE = 10
+const SQUARE_SIZE = 15
 const BLINKING_TIME = 4000
 const BRIGHTNESS = 40
 const DARKNESS = 10
