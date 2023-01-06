@@ -8,9 +8,9 @@ const Home : React.FC = () => {
 	return <>
 		<div className="home">
 			<MapBackground />
-			<SparkEnvironment />
+			{/* <SparkEnvironment /> */}
 
-			<MapDraggableArea /> 
+			{/* <MapDraggableArea />  */}
 		</div>		
 	</>
 }

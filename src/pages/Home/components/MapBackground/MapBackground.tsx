@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import "./MapBackground.scss"
 
 import { random } from "@/util"
@@ -18,6 +18,34 @@ interface DarkSquareGroup {
 	delay: number
 }
 
+/**
+ * An array that holds the different delays that the squares 
+ * can get on their first blink
+ * 
+ * Having defined delays helps on grouping squares, which 
+ * makes it easer for the canvas to draw 
+ */
+const delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+
+/**
+ * Properties that control the behavior and look of the
+ * background
+ * 
+ * SQUARE_SIZE: 
+ * The size of each square in pixels
+ * 
+ * BLINKING_TIME: 
+ * How much it takes for the squares to blink
+ * 
+ * BRIGHTNESS & DARKNESS:
+ * Limits of the gray color scale, they can go
+ * from 0 to 255
+ */
+const SQUARE_SIZE = 10
+const BLINKING_TIME = 4000
+const BRIGHTNESS = 40
+const DARKNESS = 10
+
 const MapBackground : React.FC = () => {
 
 	/**
@@ -26,7 +54,7 @@ const MapBackground : React.FC = () => {
 	 */
 	const mapBackground = useRef<HTMLDivElement>(null)
 	const canvas = useRef<HTMLCanvasElement>(null)
-	
+
 	/**
 	 * Squares are separated by groups
 	 * 
@@ -37,51 +65,47 @@ const MapBackground : React.FC = () => {
 	 * Each group having a unique delay time makes it possible 
 	 * for the canvas to draw all squares of the group at once
 	 */
-	const delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-	const squareGroups: DarkSquareGroup[] = delays.map( delay => ({
-		squares: [],
-		delay: delay
-	} as DarkSquareGroup))
-
-	/**
-	 * Properties that control the behavior and look of the
-	 * background
-	 * 
-	 * SQUARE_SIZE: 
-	 * The size of each square in pixels
-	 * 
-	 * BLINKING_TIME: 
-	 * How much it takes for the squares to blink
-	 * 
-	 * BRIGHTNESS & DARKNESS:
-	 * Limits of the gray color scale, they can go
-	 * from 0 to 255
-	 */
-	const SQUARE_SIZE = 15
-	const BLINKING_TIME = 4000
-	const BRIGHTNESS = 40
-	const DARKNESS = 10
+	const squareGroups: DarkSquareGroup[] = useMemo( () => delays.map( delay => ({
+		delay: delay,
+		squares: []
+	})), [])
 
 	/**
 	 * Once the component is rendered, initializes
 	 * background scenario and animation
 	 */
 	useEffect(() => {
-		setupBackground()
+
+		setCanvasSizeToFitContainer()
 		createSquaresGroups()
+		
 		updateBackground()
+
+		return clearSquares
 	}, [])
 
+
 	/**
-	 * Setups the canvas size and the squares that will fill it
+	 * The array that contains the squares must be emptied so
+	 * when next time the user enters the map, they can be 
+	 * created again
 	 */
-	function setupBackground (): void {
+	function clearSquares () {
+		squareGroups.forEach( group => { group.squares = [] } )
+	}
+
+	/**
+	 * It is intended that the canvas fits its container,
+	 * but using the CSS 100% value affects it's proportions
+	 * and causes awful drawing, that's why the size is set
+	 * on code
+	 */
+	function setCanvasSizeToFitContainer () : void {
 		if (!canvas.current) return // Prevent null warning
 		if (!mapBackground.current) return // Prevent null warning
 
-		// Makes canvas to fit the entire available space
-		canvas.current.width = mapBackground.current.offsetWidth
-		canvas.current.height = mapBackground.current.offsetHeight
+		canvas.current.width = mapBackground.current.clientWidth
+		canvas.current.height = mapBackground.current.clientHeight + 1 // Covers the container when it's height has decimal values 
 	}
 
 	/**
@@ -94,7 +118,7 @@ const MapBackground : React.FC = () => {
 		// Determine how many squares are necessary to fill the entire canvas
 		const amountOfHorizontalSquares = Math.floor(canvas.current.width / SQUARE_SIZE) + 1
 		const amountOfVerticalSquares = Math.floor(canvas.current.height / SQUARE_SIZE) + 1
-
+		
 		// Create squares for the background
 		for (let vertical = 0; vertical < amountOfVerticalSquares; vertical++)
 			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++) {
@@ -115,7 +139,9 @@ const MapBackground : React.FC = () => {
 	/**
 	 * Converts the given degrees to radians
 	 */
-	const toRadians = (degrees: number) => (degrees * Math.PI / 180)
+	function toRadians (degrees: number) { 
+		return degrees * Math.PI / 180
+	}
 
 	/**
 	 * Mimics the CSS ease-in-out timing function by returning
