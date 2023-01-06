@@ -90,7 +90,7 @@ const MapBackground : React.FC = () => {
 	 * when next time the user enters the map, they can be 
 	 * created again
 	 */
-	function clearSquares () {
+	function clearSquares (): void {
 		squareGroups.forEach( group => { group.squares = [] } )
 	}
 
@@ -100,7 +100,7 @@ const MapBackground : React.FC = () => {
 	 * and causes awful drawing, that's why the size is set
 	 * on code
 	 */
-	function setCanvasSizeToFitContainer () : void {
+	function setCanvasSizeToFitContainer (): void {
 		if (!canvas.current) return // Prevent null warning
 		if (!mapBackground.current) return // Prevent null warning
 
@@ -112,7 +112,7 @@ const MapBackground : React.FC = () => {
 	 * Depending on the canvas size, determines how many squares fit
 	 * in and creates them (separated by groups)
 	 */
-	function createSquaresGroups () {
+	function createSquaresGroups (): void {
 		if (!canvas.current) return // Prevent null warning
 
 		// Determine how many squares are necessary to fill the entire canvas
@@ -139,7 +139,7 @@ const MapBackground : React.FC = () => {
 	/**
 	 * Converts the given degrees to radians
 	 */
-	function toRadians (degrees: number) { 
+	function toRadians (degrees: number): number { 
 		return degrees * Math.PI / 180
 	}
 
@@ -148,7 +148,7 @@ const MapBackground : React.FC = () => {
 	 * a percentage of the process depending on the time AND
 	 * the phase shift given by a delay
 	 */
-	function getEaseInOutPercentage (delay: number) {
+	function getEaseInOutPercentage (delay: number): number {
 		const date = new Date()
 
 		const milliseconds = date.getTime()
