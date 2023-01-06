@@ -8,13 +8,8 @@ interface Coord {
 	y: number
 }
 
-interface DarkSquare {
-	size: number
-	position: Coord
-}
-
 interface DarkSquareGroup {
-	squares: DarkSquare[]
+	positions: Coord[]
 	delay: number
 }
 
@@ -60,14 +55,14 @@ const MapBackground : React.FC = () => {
 	 * 
 	 * Each group has:
 	 * - Different delay time
-	 * - Squares that belong to the group
+	 * - The positions of the squares that belong to the group
 	 * 
 	 * Each group having a unique delay time makes it possible 
 	 * for the canvas to draw all squares of the group at once
 	 */
 	const squareGroups: DarkSquareGroup[] = useMemo( () => delays.map( delay => ({
 		delay: delay,
-		squares: []
+		positions: []
 	})), [])
 
 	/**
@@ -91,14 +86,14 @@ const MapBackground : React.FC = () => {
 	 * created again
 	 */
 	function clearSquares (): void {
-		squareGroups.forEach( group => { group.squares = [] } )
+		squareGroups.forEach( group => { group.positions = [] } )
 	}
 
 	/**
 	 * It is intended that the canvas fits its container,
 	 * but using the CSS 100% value affects it's proportions
 	 * and causes awful drawing, that's why the size is set
-	 * on code
+	 * with JS
 	 */
 	function setCanvasSizeToFitContainer (): void {
 		if (!canvas.current) return // Prevent null warning
@@ -110,30 +105,26 @@ const MapBackground : React.FC = () => {
 
 	/**
 	 * Depending on the canvas size, determines how many squares fit
-	 * in and creates them (separated by groups)
+	 * in and generates positions for them (separated by groups)
 	 */
 	function createSquaresGroups (): void {
 		if (!canvas.current) return // Prevent null warning
 
 		// Determine how many squares are necessary to fill the entire canvas
-		const amountOfHorizontalSquares = Math.floor(canvas.current.width / SQUARE_SIZE) + 1
-		const amountOfVerticalSquares = Math.floor(canvas.current.height / SQUARE_SIZE) + 1
+		const horizontalCapacity = Math.floor(canvas.current.width / SQUARE_SIZE) + 1
+		const verticalCapacity = Math.floor(canvas.current.height / SQUARE_SIZE) + 1
 		
-		// Create squares for the background
-		for (let vertical = 0; vertical < amountOfVerticalSquares; vertical++)
-			for (let horizontal = 0; horizontal < amountOfHorizontalSquares; horizontal++) {
+		// Generate positions of squares for the background
+		for (let y = 0; y < verticalCapacity; y++)
+			for (let x = 0; x < horizontalCapacity; x++) {
 
-				// Determine from which group the square will be part (and get an specific delay for that group)
-				const selectedDelay = delays[ random(0, delays.length - 1) ]
+				// Determine from which group the square will be part
+				const correspondingDelay = delays[ random(0, delays.length - 1) ]
 
-				// Add square to the randomly selected delay group
-				squareGroups.find( group => group.delay === selectedDelay )?.squares.push({
-					size: SQUARE_SIZE, 
-					position: { x: horizontal * SQUARE_SIZE, y: vertical * SQUARE_SIZE },
-				} as DarkSquare)
+				// Add square position to the randomly selected group
+				const correspondingGroup = squareGroups.find( group => group.delay === correspondingDelay )
+				correspondingGroup?.positions.push({ x: x * SQUARE_SIZE, y: y * SQUARE_SIZE })
 			}
-
-		console.log({ totalSquares: amountOfHorizontalSquares * amountOfVerticalSquares})
 	}
 
 	/**
@@ -145,8 +136,9 @@ const MapBackground : React.FC = () => {
 
 	/**
 	 * Mimics the CSS ease-in-out timing function by returning
-	 * a percentage of the process depending on the time AND
-	 * the phase shift given by a delay
+	 * a percentage of the process depending on the time
+	 * 
+	 * It also considers the phase shift given by a delay
 	 */
 	function getEaseInOutPercentage (delay: number): number {
 		const date = new Date()
@@ -165,7 +157,7 @@ const MapBackground : React.FC = () => {
 	 */
 	function updateBackground (): void {
 		const pencil = canvas.current?.getContext("2d")
-		if (!pencil) return
+		if (!pencil) return // Prevent null warning
 
 		// Clear canvas
 		pencil.clearRect(0, 0, canvas.current?.width ?? 0, canvas.current?.height ?? 0)
@@ -179,7 +171,7 @@ const MapBackground : React.FC = () => {
 			pencil.fillStyle = `rgb(${ grayColor }, ${ grayColor }, ${ grayColor })`
 
 			// Update every square of the group
-			group.squares.forEach( square => pencil?.fillRect(square.position.x, square.position.y, square.size, square.size) )
+			group.positions.forEach( position => pencil?.fillRect(position.x, position.y, SQUARE_SIZE, SQUARE_SIZE) )
 		})
 
 		requestAnimationFrame(updateBackground)
