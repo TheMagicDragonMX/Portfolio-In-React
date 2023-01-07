@@ -30,8 +30,7 @@ interface SparkDetails {
  * sparkColors:
  * Colors that the sparks can get randomly
  */
-// const ENVIRONMENT_MARGIN = 150
-const ENVIRONMENT_MARGIN = -10
+const ENVIRONMENT_MARGIN = 150
 const MAX_SPARKS = 15
 const GENERATION_TIME = 2000
 const MAX_TRAVEL_TIME = 6
@@ -164,12 +163,15 @@ const SparkEnvironment : React.FC = () => {
 	 * When the component renders, generates a spark
 	 * one every 2 seconds
 	 * 
-	 * The interval gets cleared in the cleanup
+	 * The interval as well as the spark array get cleared in the cleanup
 	 */
 	useEffect(() => {
 		const sparkGenerator = setInterval(() => generateSpark(), GENERATION_TIME)
 
-		return () => clearInterval(sparkGenerator)
+		return () => {
+			clearInterval(sparkGenerator)
+			setSparks([])
+		}
 	}, [])
 
 	return <>
