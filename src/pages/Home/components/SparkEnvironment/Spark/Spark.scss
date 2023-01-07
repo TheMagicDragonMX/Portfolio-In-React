@@ -9,17 +9,17 @@
   width: 5px;
   height: 5px;
 
+  background-color: var(--sparkColor);
   filter: blur(1px);
-  background-color: var(--sparkColor, #ff83e8);
   box-shadow: 
-    0px 0px 10px 5px var(--sparkColor, #ff83e8),
-    0px 0px 70px 15px var(--sparkColor, #ff83e8),
-    0px 0px 100px 25px var(--sparkColor, #ff83e8);
+    0px 0px 10px 5px var(--sparkColor),
+    0px 0px 70px 15px var(--sparkColor),
+    0px 0px 100px 25px var(--sparkColor);
   border-radius: 50%;
 
   animation: 
     blink 1s ease-in-out 0s infinite alternate,
-    move var(--timeToComplete, 10s) linear 0s forwards,
+    move var(--travelTime, 10s) linear 0s forwards,
     tiltWhileMoving 1.5s ease-in-out 0s infinite alternate
   ;
 }
