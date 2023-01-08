@@ -17,7 +17,7 @@ const Home : React.FC = () => {
 	const map = useRef<HTMLDivElement>(null)
 	const home = useRef<HTMLDivElement>(null)
 
-	const scrollLimits = useRef<Coord>({ x: 0, y: 0 })
+	const scrollingLimits = useRef<Coord>({ x: 0, y: 0 })
 
 	const mapDisplacement = useRef<Coord>({ x: 0, y: 0 })
 	const mapOffset = useRef<Coord>({ x: 0, y: 0 })
@@ -37,9 +37,20 @@ const Home : React.FC = () => {
 		if (!map.current) return // Prevent null warning
 		if (!home.current) return // Prevent null warning
 
-		scrollLimits.current = {
+		scrollingLimits.current = {
 			x: map.current.offsetWidth - home.current.clientWidth,
 			y: map.current.offsetHeight - home.current.clientHeight
+		}
+	}
+
+	/**
+	 * Returns a coord that is limited by the calculated scrolling
+	 * limits, x and y values will be coerced if they exceed them
+	 */
+	function getCoordInsideScrollingLimits (coord: Coord) {
+		return { 
+			x: Math.max( Math.min(coord.x, scrollingLimits.current.x), 0 ),
+			y: Math.max( Math.min(coord.y, scrollingLimits.current.y), 0 ),
 		}
 	}
 
@@ -49,11 +60,17 @@ const Home : React.FC = () => {
 	 */
 	function setupMapMovementWithMouseWheel () {
 		home.current?.addEventListener("wheel", (wheel) => {
+
+			const limitedCoord = getCoordInsideScrollingLimits({
+				x: mapOffset.current.x + wheel.deltaY,
+				y: mapOffset.current.y + wheel.deltaY
+			})
+
 			if (wheel.shiftKey)
-				mapOffset.current.x = Math.max( Math.min(mapOffset.current.y + wheel.deltaY, scrollLimits.current.x), 0 )  
+				mapOffset.current.x = limitedCoord.x  
 			
 			else
-				mapOffset.current.y = Math.max( Math.min(mapOffset.current.y + wheel.deltaY, scrollLimits.current.y), 0 )  
+				mapOffset.current.y = limitedCoord.y  
 		})
 	}
 
@@ -81,10 +98,10 @@ const Home : React.FC = () => {
 				y: dragPoint.current.y - mouse.clientY
 			}
 
-			mapOffset.current = {
-				x: Math.max( Math.min(starterOffset.current.x + displacement.x * MOUSE_DRAG_SPEED, scrollLimits.current.x), 0 ),
-				y: Math.max( Math.min(starterOffset.current.y + displacement.y * MOUSE_DRAG_SPEED, scrollLimits.current.y), 0 )
-			}
+			mapOffset.current = getCoordInsideScrollingLimits({
+				x: starterOffset.current.x + displacement.x * MOUSE_DRAG_SPEED,
+				y: starterOffset.current.y + displacement.y * MOUSE_DRAG_SPEED
+			})
 		})
 		
 		window.addEventListener("mouseup", () => {
@@ -117,10 +134,10 @@ const Home : React.FC = () => {
 				y: dragPoint.current.y - finger.touches[0].clientY
 			}
 
-			mapOffset.current = {
-				x: Math.max( Math.min(starterOffset.current.x + displacement.x * TOUCH_DRAG_SPEED, scrollLimits.current.x), 0 ),
-				y: Math.max( Math.min(starterOffset.current.y + displacement.y * TOUCH_DRAG_SPEED, scrollLimits.current.y), 0 )
-			}
+			mapOffset.current = getCoordInsideScrollingLimits({
+				x: starterOffset.current.x + displacement.x * TOUCH_DRAG_SPEED,
+				y: starterOffset.current.y + displacement.y * TOUCH_DRAG_SPEED
+			})
 		})
 		
 		window.addEventListener("touchend", () => {
