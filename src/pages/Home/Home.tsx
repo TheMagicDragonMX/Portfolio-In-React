@@ -7,10 +7,10 @@ const Home : React.FC = () => {
 	
 	return <>
 		<div className="home">
-			<MapBackground />
-			<SparkEnvironment />
-
-			{/* <MapDraggableArea />  */}
+			<div className="map-container">
+				<MapBackground />
+				<SparkEnvironment />
+			</div>
 		</div>		
 	</>
 }
