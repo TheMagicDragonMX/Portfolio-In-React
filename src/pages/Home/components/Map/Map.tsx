@@ -66,7 +66,7 @@ const Map : React.FC = () => {
 	}
 
 	return <>
-		<div className="map">
+		<div className="mapp">
 			<div ref={ puckArea } className="puck-area">
 				<Puck
 					className="pfp-puck"
