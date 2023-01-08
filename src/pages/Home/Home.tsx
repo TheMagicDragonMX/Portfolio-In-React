@@ -10,6 +10,7 @@ interface Coord {
 
 const SCROLLING_SPEED = 0.05
 const MOUSE_DRAG_SPEED = 1
+const TOUCH_DRAG_SPEED = 1
 
 const Home : React.FC = () => {
 	
@@ -121,8 +122,8 @@ const Home : React.FC = () => {
 				y: dragPoint.current.y - finger.touches[0].clientY
 			}
 
-			mapXOffset.current = Math.max( Math.min(starterOffset.current.x + displacement.x * MOUSE_DRAG_SPEED, topXScrollLimit.current), 0 )  
-			mapYOffset.current = Math.max( Math.min(starterOffset.current.y + displacement.y * MOUSE_DRAG_SPEED, topYScrollLimit.current), 0 )  
+			mapXOffset.current = Math.max( Math.min(starterOffset.current.x + displacement.x * TOUCH_DRAG_SPEED, topXScrollLimit.current), 0 )  
+			mapYOffset.current = Math.max( Math.min(starterOffset.current.y + displacement.y * TOUCH_DRAG_SPEED, topYScrollLimit.current), 0 )  
 		})
 		
 		window.addEventListener("touchend", () => {

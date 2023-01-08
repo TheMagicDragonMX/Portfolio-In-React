@@ -125,6 +125,8 @@ const MapBackground : React.FC = () => {
 				const correspondingGroup = squareGroups.find( group => group.delay === correspondingDelay )
 				correspondingGroup?.positions.push({ x: x * SQUARE_SIZE, y: y * SQUARE_SIZE })
 			}
+
+		console.log("# of squares: " + horizontalCapacity * verticalCapacity)
 	}
 
 	/**
