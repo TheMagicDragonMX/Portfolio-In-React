@@ -19,12 +19,12 @@ const Home : React.FC = () => {
 
 	const scrollingLimits = useRef<Coord>({ x: 0, y: 0 })
 
-	const mapDisplacement = useRef<Coord>({ x: 0, y: 0 })
-	const mapOffset = useRef<Coord>({ x: 0, y: 0 })
+	const animatedMapPosition = useRef<Coord>({ x: 0, y: 0 })
+	const mapPosition = useRef<Coord>({ x: 0, y: 0 })
 	
-	const userIsDragging = useRef(false)
-	const dragPoint = useRef<Coord>({ x: 0, y: 0 })
-	const starterOffset = useRef<Coord>({ x: 0, y: 0 })
+	const isDragging = useRef(false)
+	const draggingStartedAt = useRef<Coord>({ x: 0, y: 0 })
+	const mapPositionWasAt = useRef<Coord>({ x: 0, y: 0 })
 	
 	/**
 	 * Establishes when the map div should stop moving
@@ -33,7 +33,7 @@ const Home : React.FC = () => {
 	 * property, which must have a limit, otherwise the div
 	 * could move outside the window
 	 */
-	function setupScrollingLimits () {
+	function setupScrollingLimits (): void {
 		if (!map.current) return // Prevent null warning
 		if (!home.current) return // Prevent null warning
 
@@ -47,11 +47,49 @@ const Home : React.FC = () => {
 	 * Returns a coord that is limited by the calculated scrolling
 	 * limits, x and y values will be coerced if they exceed them
 	 */
-	function getCoordInsideScrollingLimits (coord: Coord) {
+	function getCoordInsideScrollingLimits (coord: Coord): Coord {
 		return { 
 			x: Math.max( Math.min(coord.x, scrollingLimits.current.x), 0 ),
 			y: Math.max( Math.min(coord.y, scrollingLimits.current.y), 0 ),
 		}
+	}
+
+	/**
+	 * When the user starts dragging the map
+	 * 
+	 * -An draggingStartedAt is set to know where the user started to 
+	 * drag, and... 
+	 * 
+	 * - Another draggingStartedAt is set to know the position of the map
+	 * when the drag started, so calculations can be made
+	 */
+	function enableMapDragging (startPosition: Coord): void {
+		isDragging.current = true
+		
+		draggingStartedAt.current = startPosition
+		mapPositionWasAt.current = mapPosition.current
+	}
+
+	/**
+	 * When the user drags the map, the map offset gets changed
+	 * depending on the total displacement of the mouse
+	 */
+	function moveMap (mousePosition: Coord, draggingSpeed: number) {
+		if (!isDragging.current) return
+		
+		const displacement: Coord = {
+			x: draggingStartedAt.current.x - mousePosition.x,
+			y: draggingStartedAt.current.y - mousePosition.y
+		}
+
+		mapPosition.current = getCoordInsideScrollingLimits({
+			x: mapPositionWasAt.current.x + (displacement.x * draggingSpeed),
+			y: mapPositionWasAt.current.y + (displacement.y * draggingSpeed)
+		})
+	}
+
+	function disableMapDragging () {
+		isDragging.current = true
 	}
 
 	/**
@@ -62,15 +100,15 @@ const Home : React.FC = () => {
 		home.current?.addEventListener("wheel", (wheel) => {
 
 			const limitedCoord = getCoordInsideScrollingLimits({
-				x: mapOffset.current.x + wheel.deltaY,
-				y: mapOffset.current.y + wheel.deltaY
+				x: mapPosition.current.x + wheel.deltaY,
+				y: mapPosition.current.y + wheel.deltaY
 			})
 
 			if (wheel.shiftKey)
-				mapOffset.current.x = limitedCoord.x  
+				mapPosition.current.x = limitedCoord.x  
 			
 			else
-				mapOffset.current.y = limitedCoord.y  
+				mapPosition.current.y = limitedCoord.y  
 		})
 	}
 
@@ -79,34 +117,10 @@ const Home : React.FC = () => {
 	 * it with the mouse 
 	 */
 	function setupMapMovementByMouseDragging () {
-		home.current?.addEventListener("mousedown", (mouse) => {
-			userIsDragging.current = true
-		
-			dragPoint.current = {
-				x: mouse.clientX,
-				y: mouse.clientY
-			}
-			
-			starterOffset.current = mapOffset.current
-		})
-		
-		window.addEventListener("mousemove", (mouse) => {
-			if (!userIsDragging.current) return
-		
-			const displacement: Coord = {
-				x: dragPoint.current.x - mouse.clientX,
-				y: dragPoint.current.y - mouse.clientY
-			}
+		home.current?.addEventListener("mousedown", (mouse) => enableMapDragging({ x: mouse.clientX, y: mouse.clientY }))
 
-			mapOffset.current = getCoordInsideScrollingLimits({
-				x: starterOffset.current.x + displacement.x * MOUSE_DRAG_SPEED,
-				y: starterOffset.current.y + displacement.y * MOUSE_DRAG_SPEED
-			})
-		})
-		
-		window.addEventListener("mouseup", () => {
-			userIsDragging.current = false
-		})
+		window.addEventListener("mousemove", (mouse) => moveMap({ x: mouse.clientX, y: mouse.clientY }, MOUSE_DRAG_SPEED))
+		window.addEventListener("mouseup", () => disableMapDragging())
 	}
 
 	/**
@@ -116,33 +130,11 @@ const Home : React.FC = () => {
 	function setupMapMovementByTouchDragging () {
 		home.current?.addEventListener("touchstart", (finger) => {
 			finger.preventDefault()
-			userIsDragging.current = true
-		
-			dragPoint.current = {
-				x: finger.touches[0].clientX,
-				y: finger.touches[0].clientY
-			}
-			
-			starterOffset.current = mapOffset.current
+			enableMapDragging({ x: finger.touches[0].clientX, y: finger.touches[0].clientY })
 		})
 		
-		window.addEventListener("touchmove", (finger) => {
-			if (!userIsDragging.current) return
-		
-			const displacement: Coord = {
-				x: dragPoint.current.x - finger.touches[0].clientX,
-				y: dragPoint.current.y - finger.touches[0].clientY
-			}
-
-			mapOffset.current = getCoordInsideScrollingLimits({
-				x: starterOffset.current.x + displacement.x * TOUCH_DRAG_SPEED,
-				y: starterOffset.current.y + displacement.y * TOUCH_DRAG_SPEED
-			})
-		})
-		
-		window.addEventListener("touchend", () => {
-			userIsDragging.current = false
-		})
+		window.addEventListener("touchmove", (finger) => moveMap({ x: finger.touches[0].clientX, y: finger.touches[0].clientY }, TOUCH_DRAG_SPEED))
+		window.addEventListener("touchend", () => disableMapDragging())
 	}
 
 	/**
@@ -150,10 +142,10 @@ const Home : React.FC = () => {
 	 * the map to fit it's position
 	 */
 	function doMomentumScrolling() {
-		mapDisplacement.current.x += (mapOffset.current.x - mapDisplacement.current.x) * SCROLLING_SPEED
-		mapDisplacement.current.y += (mapOffset.current.y - mapDisplacement.current.y) * SCROLLING_SPEED
+		animatedMapPosition.current.x += (mapPosition.current.x - animatedMapPosition.current.x) * SCROLLING_SPEED
+		animatedMapPosition.current.y += (mapPosition.current.y - animatedMapPosition.current.y) * SCROLLING_SPEED
   
-		const translation = `-${ mapDisplacement.current.x }px -${ mapDisplacement.current.y }px`
+		const translation = `-${ animatedMapPosition.current.x }px -${ animatedMapPosition.current.y }px`
 		map.current?.style.setProperty("translate", translation)
 	
 		requestAnimationFrame(doMomentumScrolling)
