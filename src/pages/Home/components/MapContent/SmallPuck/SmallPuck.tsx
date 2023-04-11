@@ -15,17 +15,15 @@ const SmallPuck : React.FC<PuckInterface> = ({ className, children, depth, corne
 	} as React.CSSProperties
 
 	return <>
-		<div className={`puck ${ className ?? "" }`} style={ puckStyle }>
+		<div className={`small-puck ${ className ?? "" }`} style={ puckStyle }>
 
 			<div className="edge leftwards long top"></div>
 			<div className="edge leftwards short top first"></div>
 			<div className="edge leftwards short bottom second"></div>
-			<div className="edge leftwards short bottom third"></div>
 
 			<div className="edge downwards long left"></div>
 			<div className="edge downwards short left first"></div>
-			<div className="edge downwards short left second"></div>
-			<div className="edge downwards short right third"></div>
+			<div className="edge downwards short right second"></div>
 
 			<div className="content">{ children }</div>
 		</div>
