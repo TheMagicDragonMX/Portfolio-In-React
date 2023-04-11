@@ -4,20 +4,19 @@
   width: fit-content;
   height: fit-content;
 
-  display: grid;
+  display: grid; // TODO: Check if grid is necessary
   place-items: center;
 
-  transform: 
-    rotateX(20deg) 
-    rotateY(30deg)
-    skewY(-10deg)
-    ;
+  // TODO: Delete when finished
+  // transform: 
+  //   rotateX(20deg) 
+  //   rotateY(30deg)
+  //   skewY(-10deg)
+  //   ;
 
   transition: scale 200ms;
-  transform-style: preserve-3d;
+  // transform-style: preserve-3d; // TODO: Delete when finished
   user-select: none;
-
-  // animation: rotationTest 6s linear infinite;
 
   &:hover { 
     scale: 1.1;
@@ -25,19 +24,11 @@
   }
 }
 
-@keyframes rotationTest {
-  from {
-    transform: rotateX(-20deg) rotateY(0deg);
-  }
-  to {
-    transform: rotateX(-20deg) rotateY(360deg);
-  }
-}
-
+// TODO: Fix gap bellow image in puck
 .content {
   position: relative;
-  translate: 0px 0px calc(var(--puckDepth, 30px) / 2);
-  text-align: left;
+  // translate: 0px 0px calc(var(--puckDepth, 30px) / 2); // TODO: Delete when finished
+  text-align: left; // TODO: Check relationship between gap bello image
 
   clip-path: polygon(
     0px var(--cornerSize, 10px),
@@ -57,6 +48,7 @@
   );
 }
 
+// Inner puck shadow
 .content::before {
   content: "";
   position: absolute;
@@ -67,102 +59,168 @@
   box-shadow: 0px 0px calc(var(--innerShadow, 10px) * 4) var(--innerShadow, 10px) black inset;
 }
 
-.face {
+// Puck edges
+.edge {
   position: absolute;
-  top: 0;
-  left: 0;
+  background-color: rgba(255, 255, 255, 0.481);
 
-  width: 100%;
-  height: 100%;
-  
+  --cornerMinusDepth: calc(var(--cornerSize) - var(--puckDepth))
+}
+
+.top { top: 0; }
+.bottom { bottom: 0; }
+.left { left: 0; }
+.right { right: 0; }
+
+.leftwards {
+  left: 0;
   clip-path: polygon(
-    0px var(--cornerSize, 10px),
-    var(--cornerSize, 10px) var(--cornerSize, 10px),
-    var(--cornerSize, 10px) 0px,
-    calc(100% - var(--cornerSize, 10px)) 0px,
-    calc(100% - var(--cornerSize, 10px)) var(--cornerSize, 10px),
-    100% var(--cornerSize, 10px),
-    100% calc(100% - var(--cornerSize, 10px)),
-    calc(100% - var(--cornerSize, 10px)) calc(100% - var(--cornerSize, 10px)),
-    calc(100% - var(--cornerSize, 10px)) 100%,
-    calc(var(--cornerSize, 10px) * 2) 100%,
-    calc(var(--cornerSize, 10px) * 2) calc(100% - var(--cornerSize, 10px)),
-    var(--cornerSize, 10px) calc(100% - var(--cornerSize, 10px)),
-    var(--cornerSize, 10px) calc(100% - var(--cornerSize, 10px) * 2),
-    0px calc(100% - var(--cornerSize, 10px) * 2)
+    0px   var(--puckDepth),
+    100%  0px,
+    100%  calc(100% - var(--puckDepth)),
+    0px   100%,
   );
 }
 
-.front { translate: 0px 0px calc(var(--puckDepth, 30px) / 2); }
-.back { translate: 0px 0px calc(var(--puckDepth, 30px) / -2); }
-
-.side {
-  position: absolute;
-
-  transform-style: preserve-3d;
+.leftwards.short {
+  width: var(--puckDepth);
+  height: calc(var(--cornerSize) + var(--puckDepth));
 }
 
-.short { 
-  height: 100%;
-  width: var(--puckDepth, 30px);
+.leftwards.short.first { translate: calc(var(--cornerSize) - var(--puckDepth)) 0px; }
+.leftwards.short.second { translate: calc(var(--cornerSize) - var(--puckDepth)) calc(var(--cornerSize) * -1 + var(--puckDepth)); }
+.leftwards.short.third { translate: calc(var(--cornerSize) * 2 - var(--puckDepth)) var(--puckDepth); }
+
+.leftwards.long {
+  width: var(--puckDepth);
+  height: calc(100% - var(--cornerSize) * 3 + var(--puckDepth));
 }
 
-.long {
-  width: 100%;
-  height: var(--puckDepth, 30px);
+.leftwards.long { translate: -100% var(--cornerSize); }
 
-  display: flex;
-}
-
-.left { 
-  left: 0;
-  rotate: y -90deg;
-  translate: -50%;
-}
-
-.right { 
-  right: 0;
-  rotate: y 90deg;
-  translate: 50%;
-}
-
-.top {
-  top: 0;
-  rotate: x 90deg;
-  translate: 0 -50%;
-}
-
-.bottom {
+.downwards {
   bottom: 0;
-  rotate: x -90deg;
-  translate: 0 50%;
+  clip-path: polygon(
+    0px   100%,
+    var(--puckDepth) 0px,
+    100%  0px,
+    calc(100% - var(--puckDepth)) 100%,
+  );
 }
 
-.fragment {
-  translate: 0 0 calc(-1 * var(--cornerSize, 30px) * var(--displacement, 1));
-  background-color: rgba(255, 226, 99, 0.541);
+.downwards.short {
+  width: calc(var(--cornerSize) + var(--puckDepth));
+  height: var(--puckDepth);
 }
 
-.short > .fragment {
-  width: var(--puckDepth, 30px);
-  height: var(--cornerSize, 30px);
+.downwards.short.first { translate: calc(var(--puckDepth) * -1) calc(0px - (var(--cornerSize) * 2 - var(--puckDepth))) }
+.downwards.short.second { translate: calc(var(--cornerSize) - var(--puckDepth)) calc(0px - (var(--cornerSize) - var(--puckDepth))); }
+.downwards.short.third { translate: 0px calc(0px - (var(--cornerSize) - var(--puckDepth))); }
+
+.downwards.long {
+  width: calc(100% - var(--cornerSize) * 3 + var(--puckDepth));
+  height: var(--puckDepth);
 }
 
-.long > .fragment {
-  width: var(--cornerSize, 30px);
-  height: var(--puckDepth, 30px);
-}
+.downwards.long { translate: calc(var(--cornerSize) * 2 - var(--puckDepth)) var(--puckDepth); }
 
-.filler {
-  background-color: rgba(255, 143, 64, 0.466);
-}
+// TODO: Delete when finished
+// .face {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
 
-.short > .filler {
-  width: var(--puckDepth, 30px);
-  height: calc(100% - var(--amountOfFragments, 1) * var(--cornerSize, 30px));
-}
+//   width: 100%;
+//   height: 100%;
+  
+//   clip-path: polygon(
+//     0px var(--cornerSize, 10px),
+//     var(--cornerSize, 10px) var(--cornerSize, 10px),
+//     var(--cornerSize, 10px) 0px,
+//     calc(100% - var(--cornerSize, 10px)) 0px,
+//     calc(100% - var(--cornerSize, 10px)) var(--cornerSize, 10px),
+//     100% var(--cornerSize, 10px),
+//     100% calc(100% - var(--cornerSize, 10px)),
+//     calc(100% - var(--cornerSize, 10px)) calc(100% - var(--cornerSize, 10px)),
+//     calc(100% - var(--cornerSize, 10px)) 100%,
+//     calc(var(--cornerSize, 10px) * 2) 100%,
+//     calc(var(--cornerSize, 10px) * 2) calc(100% - var(--cornerSize, 10px)),
+//     var(--cornerSize, 10px) calc(100% - var(--cornerSize, 10px)),
+//     var(--cornerSize, 10px) calc(100% - var(--cornerSize, 10px) * 2),
+//     0px calc(100% - var(--cornerSize, 10px) * 2)
+//   );
+// }
 
-.long > .filler {
-  height: var(--puckDepth, 30px);
-  width: calc(100% - var(--amountOfFragments, 1) * var(--cornerSize, 30px));
-}
+// .front { translate: 0px 0px calc(var(--puckDepth, 30px) / 2); }
+// .back { translate: 0px 0px calc(var(--puckDepth, 30px) / -2); }
+
+// .side {
+//   position: absolute;
+
+//   transform-style: preserve-3d;
+// }
+
+// .short { 
+//   height: 100%;
+//   width: var(--puckDepth, 30px);
+// }
+
+// .long {
+//   width: 100%;
+//   height: var(--puckDepth, 30px);
+
+//   display: flex;
+// }
+
+// .left { 
+//   left: 0;
+//   rotate: y -90deg;
+//   translate: -50%;
+// }
+
+// .right { 
+//   right: 0;
+//   rotate: y 90deg;
+//   translate: 50%;
+// }
+
+// .top {
+//   top: 0;
+//   rotate: x 90deg;
+//   translate: 0 -50%;
+// }
+
+// .bottom {
+//   bottom: 0;
+//   rotate: x -90deg;
+//   translate: 0 50%;
+// }
+
+// .fragment {
+//   translate: 0 0 calc(-1 * var(--cornerSize, 30px) * var(--displacement, 1));
+//   background-color: rgba(255, 226, 99, 0.541);
+// }
+
+// .short > .fragment {
+//   width: var(--puckDepth, 30px);
+//   height: var(--cornerSize, 30px);
+// }
+
+// .long > .fragment {
+//   width: var(--cornerSize, 30px);
+//   height: var(--puckDepth, 30px);
+// }
+
+// .filler {
+//   background-color: rgba(255, 143, 64, 0.466);
+// }
+
+// .short > .filler {
+//   width: var(--puckDepth, 30px);
+//   height: calc(100% - var(--amountOfFragments, 1) * var(--cornerSize, 30px));
+// }
+
+// .long > .filler {
+//   height: var(--puckDepth, 30px);
+//   width: calc(100% - var(--amountOfFragments, 1) * var(--cornerSize, 30px));
+// }

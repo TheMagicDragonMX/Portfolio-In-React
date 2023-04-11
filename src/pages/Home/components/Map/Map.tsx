@@ -70,7 +70,7 @@ const Map : React.FC = () => {
 			<div ref={ puckArea } className="puck-area">
 				<Puck
 					className="pfp-puck"
-					depth={ 20 } 
+					depth={ 15 } 
 					corner={ 20 }
 					innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import "./Home.scss"
 
-import { MapBackground, SparkEnvironment } from "./components"
+import { Map, MapBackground, SparkEnvironment } from "./components"
 
 interface Coord {
 	x: number
@@ -196,7 +196,7 @@ const Home : React.FC = () => {
 	 * Keeps track of the offset value, and smoothly moves
 	 * the map to fit it's position
 	 */
-	function doMomentumScrolling(): void {
+	function doMomentumScrolling (): void {
 		animatedMapPosition.current.x += (mapPosition.current.x - animatedMapPosition.current.x) * MOMENTUM_SCROLLING_SPEED
 		animatedMapPosition.current.y += (mapPosition.current.y - animatedMapPosition.current.y) * MOMENTUM_SCROLLING_SPEED
   
@@ -241,8 +241,10 @@ const Home : React.FC = () => {
 	return <>
 		<div ref={ home } className="home">
 			<div ref={ map } className="map">
-				<MapBackground />
+				{/* <MapBackground /> */}
 				<SparkEnvironment />
+				
+				<Map />
 			</div>
 		</div>		
 	</>

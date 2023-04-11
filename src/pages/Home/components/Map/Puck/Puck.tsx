@@ -40,7 +40,7 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 			{/* <div className="face front"></div> */}
 			{/* <div className="face back"></div> */}
 
-			<div className="side short left" style={ sideWithThreeFragments } >
+			{/* <div className="side short left" style={ sideWithThreeFragments } >
 				<div className="fragment" style={ singleDisplacement } ></div>
 				<div className="filler"></div>
 				<div className="fragment" style={ singleDisplacement } ></div>
@@ -64,7 +64,22 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 				<div className="fragment" style={ singleDisplacement } ></div>
 				<div className="filler"></div>
 				<div className="fragment" style={ singleDisplacement } ></div>
-			</div>
+			</div> */}
+
+			<div className="edge leftwards long top"></div>
+			<div className="edge leftwards short top first"></div>
+			<div className="edge leftwards short bottom second"></div>
+			<div className="edge leftwards short bottom third"></div>
+
+			<div className="edge downwards long left"></div>
+			<div className="edge downwards short left first"></div>
+			<div className="edge downwards short left second"></div>
+			<div className="edge downwards short right third"></div>
+
+			{/* <div className="side left short first"></div>
+			<div className="side left large first"></div>
+			<div className="side left short second"></div>
+			<div className="side left short third"></div> */}
 
 			<div className="content">{ children }</div>
 		</div>
