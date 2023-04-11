@@ -37,34 +37,6 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 	
 	return <>
 		<div className={`puck ${ className ?? "" }`} style={ puckStyle }>
-			{/* <div className="face front"></div> */}
-			{/* <div className="face back"></div> */}
-
-			{/* <div className="side short left" style={ sideWithThreeFragments } >
-				<div className="fragment" style={ singleDisplacement } ></div>
-				<div className="filler"></div>
-				<div className="fragment" style={ singleDisplacement } ></div>
-				<div className="fragment" style={ doubleDisplacement } ></div>
-			</div>
-			
-			<div className="side short right" style={ sideWithTwoFragments } >
-				<div className="fragment" style={ singleDisplacement } ></div>
-				<div className="filler"></div>
-				<div className="fragment" style={ singleDisplacement } ></div>
-			</div>
-			
-			<div className="side long top" style={ sideWithTwoFragments } >
-				<div className="fragment" style={ singleDisplacement } ></div>
-				<div className="filler"></div>
-				<div className="fragment" style={ singleDisplacement } ></div>
-			</div>
-
-			<div className="side long bottom" style={ sideWithThreeFragments } >
-				<div className="fragment" style={ doubleDisplacement } ></div>
-				<div className="fragment" style={ singleDisplacement } ></div>
-				<div className="filler"></div>
-				<div className="fragment" style={ singleDisplacement } ></div>
-			</div> */}
 
 			<div className="edge leftwards long top"></div>
 			<div className="edge leftwards short top first"></div>
@@ -75,12 +47,7 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 			<div className="edge downwards short left first"></div>
 			<div className="edge downwards short left second"></div>
 			<div className="edge downwards short right third"></div>
-
-			{/* <div className="side left short first"></div>
-			<div className="side left large first"></div>
-			<div className="side left short second"></div>
-			<div className="side left short third"></div> */}
-
+			
 			<div className="content">{ children }</div>
 		</div>
 	</>
