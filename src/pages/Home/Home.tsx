@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import "./Home.scss"
 
-import { Map, MapBackground, SparkEnvironment } from "./components"
+import { MapContent, MapBackground, SparkEnvironment } from "./components"
 
 interface Coord {
 	x: number
@@ -244,7 +244,7 @@ const Home : React.FC = () => {
 				{/* <MapBackground /> */}
 				{/* <SparkEnvironment /> */}
 				
-				<Map />
+				<MapContent />
 			</div>
 		</div>		
 	</>

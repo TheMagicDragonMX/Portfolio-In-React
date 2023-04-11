@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import "./Map.scss"
+import "./MapContent.scss"
 
 import { Puck } from "./Puck"
 import { Projects } from "./Projects"
@@ -8,7 +8,7 @@ import { Technologies } from "./Technologies"
 
 import pfp from "@/assets/pixelated_cubes_pfp.png"
 
-const Map : React.FC = () => {
+const MapContent : React.FC = () => {
 
 	/**
 	 * Control the maximum and minimum values 
@@ -66,7 +66,7 @@ const Map : React.FC = () => {
 	}
 
 	return <>
-		<div className="mapp">
+		<div className="map-content">
 			<div ref={ puckArea } className="puck-area">
 				<Puck
 					className="pfp-puck"
@@ -102,4 +102,4 @@ const Map : React.FC = () => {
 	</>
 }
 
-export default Map
+export default MapContent
