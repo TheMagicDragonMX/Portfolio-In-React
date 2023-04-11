@@ -76,7 +76,7 @@ const Map : React.FC = () => {
 
 				<Puck
 					className="projects-puck"
-					depth={ 10 } 
+					depth={ 5 } 
 					corner={ 10 }
 					innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
@@ -84,7 +84,7 @@ const Map : React.FC = () => {
 
 				<Puck
 					className="technologies-puck"
-					depth={ 10 } 
+					depth={ 5 } 
 					corner={ 10 }
 					innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
 
@@ -92,7 +92,7 @@ const Map : React.FC = () => {
 
 				<Puck
 					className="socials-puck"
-					depth={ 10 } 
+					depth={ 5 } 
 					corner={ 10 }
 					innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
 

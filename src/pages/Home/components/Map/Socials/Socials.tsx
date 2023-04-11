@@ -11,12 +11,11 @@ import { Puck } from "../Puck"
 
 export interface SocialsInterface {}
 
-const Socials : React.FC<SocialsInterface> = () => {
+const DEPTH = 5
+const CORNER = 10
+const SHADOW = 2
 
-	const DEPTH = 10
-	const CORNER = 7
-	const SHADOW = 2
-	
+const Socials : React.FC<SocialsInterface> = () => {	
 	return <>
 		<div className="listed-socials">
 			<Puck

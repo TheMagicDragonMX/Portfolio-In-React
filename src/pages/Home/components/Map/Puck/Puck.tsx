@@ -21,20 +21,6 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 		"--innerShadow": innerShadow + "px",
 	} as React.CSSProperties
 
-	/**
-	 * Fragments are divs that fill corners, each side
-	 * has a defined amount of them 
-	 */
-	const sideWithTwoFragments = { "--amountOfFragments": 2 } as React.CSSProperties
-	const sideWithThreeFragments = { "--amountOfFragments": 3 } as React.CSSProperties
-
-	/**
-	 * Each fragments must displace to bottom a given
-	 * amount of units to fill the corner gap
-	 */
-	const singleDisplacement = { "--displacement": 1 } as React.CSSProperties
-	const doubleDisplacement = { "--displacement": 2 } as React.CSSProperties
-	
 	return <>
 		<div className={`puck ${ className ?? "" }`} style={ puckStyle }>
 
@@ -47,7 +33,7 @@ const Puck : React.FC<PuckInterface> = ({ className, children, depth, corner, in
 			<div className="edge downwards short left first"></div>
 			<div className="edge downwards short left second"></div>
 			<div className="edge downwards short right third"></div>
-			
+
 			<div className="content">{ children }</div>
 		</div>
 	</>

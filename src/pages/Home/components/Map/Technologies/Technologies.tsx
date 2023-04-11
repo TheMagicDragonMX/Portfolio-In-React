@@ -23,12 +23,12 @@ import { Puck } from "../Puck"
 
 export interface TechnologiesInterface {}
 
+const DEPTH = 5
+const CORNER = 10
+const SHADOW = 5
+
 const Technologies : React.FC<TechnologiesInterface> = () => {
 
-	const DEPTH = 10
-	const CORNER = 5
-	const SHADOW = 2
-	
 	return <>
 		<div className="listed-technologies">
 			<Puck

@@ -242,7 +242,7 @@ const Home : React.FC = () => {
 		<div ref={ home } className="home">
 			<div ref={ map } className="map">
 				{/* <MapBackground /> */}
-				<SparkEnvironment />
+				{/* <SparkEnvironment /> */}
 				
 				<Map />
 			</div>
