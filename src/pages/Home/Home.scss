@@ -14,8 +14,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 120%;
-  height: 120%;
+  width: fit-content;
+  min-height: fit-content;
 
   background-color: rgb(79, 13, 79);
 }
