@@ -27,14 +27,34 @@ const TOUCH_DRAG_SPEED = 1
 const Home : React.FC = () => {
 	
 	/**
+	 * Keeps track of the HTML element for the container of the map
+	 */
+	const home = useRef<HTMLDivElement>(null)
+
+	/**
 	 * Keeps track of the HTML element for the map, which moves
 	 */
 	const map = useRef<HTMLDivElement>(null)
 
 	/**
-	 * Keeps track of the HTML element for the container of the map
+	 * Keeps track of the HTML element for the content of the map, 
+	 * this ref will be forwarded 
 	 */
-	const home = useRef<HTMLDivElement>(null)
+	const contentArea = useRef<HTMLDivElement>(null)
+
+	/**
+	 * Control the maximum and minimum values 
+	 * for the zoom
+	 */
+	const MAX_ZOOM = 2
+	const MIN_ZOOM = 0.5
+	const NORMAL_ZOOM = 1
+	
+	/**
+	 * Keeps track of the amount of zoom that
+	 * the user currently has
+	 */
+	const zoom = useRef(NORMAL_ZOOM)
 
 	/**
 	 * The map moves by modifying it's translate property,
@@ -193,6 +213,13 @@ const Home : React.FC = () => {
 	}
 
 	/**
+	 * Allows user to zoom in and out the map
+	 */
+	function setupMapZooming (): void {
+		home.current?.addEventListener("wheel", changeZoom, { passive: false })
+	}
+
+	/**
 	 * Keeps track of the offset value, and smoothly moves
 	 * the map to fit it's position
 	 */
@@ -207,17 +234,61 @@ const Home : React.FC = () => {
 	}
 
 	/**
+	 * Depending on the amount of distance that the wheel
+	 * moved, scales the map accordingly.
+	 * 
+	 * Wheel down to zoom out
+	 * Wheel up to zoom in
+	 */
+	function changeZoom (this: HTMLDivElement, wheel: WheelEvent) {
+		wheel.preventDefault() // Prevent scrolling map with wheel
+
+		if (!contentArea.current) return
+		if (!map.current) return
+		if (!home.current) return
+		
+		// Calculate and apply the new zoom
+		const differential = wheel.deltaY / -800
+		zoom.current = Number(Math.max( Math.min( zoom.current + differential, MAX_ZOOM ), MIN_ZOOM ).toFixed(2))
+		contentArea.current.style.scale = zoom.current + ""
+
+		// Change map sizes to fit the new zoomed (scaled) element
+		// If content is fully viewable, a set size for the map is set
+		const newWidth = contentArea.current.clientWidth * zoom.current
+		const newHeight = contentArea.current.clientHeight * zoom.current
+
+		map.current.style.width = newWidth + "px"
+		map.current.style.height = newHeight + "px"
+
+		if (home.current.clientWidth > newWidth)
+			map.current.style.width = "1300px"
+		
+		if (home.current.clientHeight > newHeight)
+			map.current.style.height = "750px"		
+
+		setupScrollingLimits()
+	}
+
+	/**
 	 * Once the element renders, enables map movement, dragging and
 	 * momentum scrolling
 	 */
 	useEffect(() => {
+
+		// Initializing limits for map dragging
 		setupScrollingLimits()
+		window.onresize = setupScrollingLimits
 		
+		// Initializing map dragging in multiple ways
 		setupMapMovementWithMouseWheel()
 		setupMapMovementByMouseDragging()
 		setupMapMovementByTouchDragging()
 
+		// Starts momentum scrolling
 		doMomentumScrolling()
+
+		// Initializing zoom event
+		setupMapZooming()
 
 		return removeEventListeners
 	}, [])
@@ -236,6 +307,8 @@ const Home : React.FC = () => {
 		home.current?.removeEventListener("touchstart", savePositionsAndEnableDragging)
 		window.removeEventListener("touchmove", moveMap)
 		window.removeEventListener("touchend", disableMapDragging)
+
+		home.current?.removeEventListener("wheel", changeZoom)
 	}
 
 	return <>
@@ -244,7 +317,7 @@ const Home : React.FC = () => {
 				{/* <MapBackground /> */}
 				{/* <SparkEnvironment /> */}
 				
-				<MapContent />
+				<MapContent ref={ contentArea } />
 			</div>
 		</div>		
 	</>

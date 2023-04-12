@@ -1,21 +1,31 @@
+// .map-content {  
+//   --mainPuckColumnSize: 300px;
+//   --listedPucksColumnSize: 900px;
+
+//   --pfpRowSize: 300px;
+//   --projectsRowSize: 200px;
+//   --technologiesRowSize: 150px;
+//   --socialsRowSize: 150px;
+//   --rowGap: 20px;
+  
+//   position: relative;
+//   padding: 10px;
+
+//   & > * { z-index: 1; }
+// } // TODO: Delete when zoom done
+
 .map-content {
   --mainPuckColumnSize: 300px;
   --listedPucksColumnSize: 900px;
 
   --pfpRowSize: 300px;
-  --projectsRowSize: 150px;
+  --projectsRowSize: 200px;
   --technologiesRowSize: 150px;
   --socialsRowSize: 150px;
   --rowGap: 20px;
-  
-  position: relative;
-  padding: 10px;
 
-  & > * { z-index: 1; }
-}
-
-.puck-area {
   width: fit-content;
+  height: fit-content;
   
   display: grid;
   place-items: center;
@@ -42,7 +52,7 @@
 
   transform-origin: top left;
   transition: scale 500ms;
-  background-color: rgba(8, 0, 77, 0.092);
+  background-color: rgba(115, 112, 155, 0.618);
 }
 
 .pfp-puck { grid-area: pfp; }

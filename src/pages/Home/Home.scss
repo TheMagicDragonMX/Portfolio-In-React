@@ -5,17 +5,28 @@
   height: 95vh;
 
   overflow: hidden;
+  border: 2px solid white; // TODO: Delete when zoom done
 }
 
 .map {
   position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // TODO: Determine how to center the map content without flex
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
 
   width: fit-content;
   min-height: fit-content;
 
-  background-color: rgb(79, 13, 79);
+  border: 2px solid greenyellow; // TODO: Delete when zoom done
+  background: rgb(0,212,255);
+  background: radial-gradient(
+    circle, 
+    rgba(0,212,255,1) 31%, 
+    rgba(3,151,215,1) 52%, 
+    rgba(6,73,163,1) 79%, 
+    rgba(9,9,121,1) 92%, 
+    rgba(2,0,36,1) 100%
+    ); 
 }
