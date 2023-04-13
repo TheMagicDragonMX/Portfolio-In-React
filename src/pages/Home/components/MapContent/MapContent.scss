@@ -1,18 +1,8 @@
-// .map-content {  
-//   --mainPuckColumnSize: 300px;
-//   --listedPucksColumnSize: 900px;
+.map-content-container {
+  position: relative;
 
-//   --pfpRowSize: 300px;
-//   --projectsRowSize: 200px;
-//   --technologiesRowSize: 150px;
-//   --socialsRowSize: 150px;
-//   --rowGap: 20px;
-  
-//   position: relative;
-//   padding: 10px;
-
-//   & > * { z-index: 1; }
-// } // TODO: Delete when zoom done
+  transition: width 500ms, height 500ms;
+}
 
 .map-content {
   --mainPuckColumnSize: 300px;
@@ -23,6 +13,11 @@
   --technologiesRowSize: 150px;
   --socialsRowSize: 150px;
   --rowGap: 20px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 
   width: fit-content;
   height: fit-content;
@@ -50,9 +45,11 @@
 
   row-gap: var(--rowGap);
 
-  transform-origin: top left;
+  transform-origin: center;
   transition: scale 500ms;
-  background-color: rgba(115, 112, 155, 0.618);
+  // background-color: rgba(118, 155, 112, 0.618); // TODO: Remove when map content done
+
+  & > * { z-index: 1; }
 }
 
 .pfp-puck { grid-area: pfp; }

@@ -21,8 +21,16 @@ interface Coord {
  * with the mouse or with a touchscreen
  */
 const MOMENTUM_SCROLLING_SPEED = 0.05
-const MOUSE_DRAG_SPEED = 1
+const MOUSE_DRAG_SPEED = 1.5
 const TOUCH_DRAG_SPEED = 1
+
+/**
+ * Properties that control the maximum and minimum values 
+ * for the zoom
+ */
+const MAX_ZOOM = 3
+const MIN_ZOOM = 0.3
+const NORMAL_ZOOM = 1
 
 const Home : React.FC = () => {
 	
@@ -41,14 +49,6 @@ const Home : React.FC = () => {
 	 * this ref will be forwarded 
 	 */
 	const contentArea = useRef<HTMLDivElement>(null)
-
-	/**
-	 * Control the maximum and minimum values 
-	 * for the zoom
-	 */
-	const MAX_ZOOM = 2
-	const MIN_ZOOM = 0.5
-	const NORMAL_ZOOM = 1
 	
 	/**
 	 * Keeps track of the amount of zoom that
@@ -171,13 +171,15 @@ const Home : React.FC = () => {
 	 * When the user rotates the mouse wheel, the map moves vertically
 	 * or horizontally if the shift key was pressed
 	 */
-	function moveMapWithMouseWheel ({ deltaY: wheelMovement, shiftKey }: WheelEvent) {
+	function moveMapWithMouseWheel ({ deltaY: wheelMovement, shiftKey, ctrlKey }: WheelEvent) {
+		if (ctrlKey) return // Pressing CTRL activates zoom
+
 		const limitedCoord = getCoordInsideScrollingLimits({
 			x: mapPosition.current.x + wheelMovement,
 			y: mapPosition.current.y + wheelMovement
 		})
 
-		if (shiftKey)
+		if (shiftKey) // With SHIFT: Moves horizontally, otherwise vertically
 			mapPosition.current.x = limitedCoord.x  
 		
 		else
@@ -217,6 +219,13 @@ const Home : React.FC = () => {
 	 */
 	function setupMapZooming (): void {
 		home.current?.addEventListener("wheel", changeZoom, { passive: false })
+
+		// Adjust content container at first render
+		const contentContainer = contentArea.current?.parentElement
+		if (!contentContainer) return
+
+		contentContainer.style.width = contentArea.current.clientWidth + "px"
+		contentContainer.style.height = contentArea.current.clientHeight + "px"
 	}
 
 	/**
@@ -243,30 +252,42 @@ const Home : React.FC = () => {
 	function changeZoom (this: HTMLDivElement, wheel: WheelEvent) {
 		wheel.preventDefault() // Prevent scrolling map with wheel
 
+		if (!wheel.ctrlKey) return // Activate only if CTRL key is pressed
 		if (!contentArea.current) return
 		if (!map.current) return
 		if (!home.current) return
 		
-		// Calculate and apply the new zoom
-		const differential = wheel.deltaY / -800
+		// Calculate new zoom
+		const differential = wheel.deltaY / -800 // -800 lowers the value of deltaY, being negative helps with the intuitive "up" to zoom in, "down" to zoom out
 		zoom.current = Number(Math.max( Math.min( zoom.current + differential, MAX_ZOOM ), MIN_ZOOM ).toFixed(2))
+
+		// Calculare new sizes of container
+		const newContainerWidth = contentArea.current.clientWidth * zoom.current
+		const newContainerHeight = contentArea.current.clientHeight * zoom.current		
+
+		// Update scrolling limits as the container takes a while to adjust its new size (it's animated)
+		const previousContentWidth = contentArea.current.getBoundingClientRect().width
+		const previousContentHeight = contentArea.current.getBoundingClientRect().height
+
+		scrollingLimits.current = {
+			x: (map.current.offsetWidth - previousContentWidth + newContainerWidth) - home.current.clientWidth,
+			y: (map.current.offsetHeight - previousContentHeight + newContainerHeight) - home.current.clientHeight
+		}
+
+		// Move map in case zooming made it go out of bounds
+		mapPosition.current = getCoordInsideScrollingLimits({
+			x: mapPosition.current.x,
+			y: mapPosition.current.y
+		})
+
+		// Apply new changes
 		contentArea.current.style.scale = zoom.current + ""
 
-		// Change map sizes to fit the new zoomed (scaled) element
-		// If content is fully viewable, a set size for the map is set
-		const newWidth = contentArea.current.clientWidth * zoom.current
-		const newHeight = contentArea.current.clientHeight * zoom.current
+		const contentContainer = contentArea.current.parentElement
 
-		map.current.style.width = newWidth + "px"
-		map.current.style.height = newHeight + "px"
-
-		if (home.current.clientWidth > newWidth)
-			map.current.style.width = "1300px"
-		
-		if (home.current.clientHeight > newHeight)
-			map.current.style.height = "750px"		
-
-		setupScrollingLimits()
+		if (!contentContainer) return
+		contentContainer.style.width = newContainerWidth + "px"
+		contentContainer.style.height = newContainerHeight + "px"
 	}
 
 	/**

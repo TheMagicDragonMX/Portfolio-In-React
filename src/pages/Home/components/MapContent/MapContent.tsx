@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import "./MapContent.scss"
 
 import { Puck } from "./Puck"
@@ -11,36 +11,38 @@ import pfp from "@/assets/pixelated_cubes_pfp.png"
 const MapContent = React.forwardRef((props, ref: React.ForwardedRef<HTMLDivElement>) => {
 
 	return <>
-		<div ref={ ref } className="map-content">
-			<Puck
-				className="pfp-puck"
-				depth={ 15 } 
-				corner={ 20 }
-				innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
+		<div className="map-content-container">
+			<span ref={ ref } className="map-content">
+				<Puck
+					className="pfp-puck"
+					depth={ 15 } 
+					corner={ 20 }
+					innerShadow={ 5 }><img className="profile-pic" src={ pfp } alt="Profile Pic" /></Puck>
 
-			<Puck
-				className="projects-puck"
-				depth={ 5 } 
-				corner={ 10 }
-				innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
+				<Puck
+					className="projects-puck"
+					depth={ 5 } 
+					corner={ 10 }
+					innerShadow={ 5 }><h2 className="topic">Projects</h2></Puck>
 
-			<Projects />
+				<Projects />
 
-			<Puck
-				className="technologies-puck"
-				depth={ 5 } 
-				corner={ 10 }
-				innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
+				<Puck
+					className="technologies-puck"
+					depth={ 5 } 
+					corner={ 10 }
+					innerShadow={ 5 }><h2 className="topic">Technologies</h2></Puck>
 
-			<Technologies />
+				<Technologies />
 
-			<Puck
-				className="socials-puck"
-				depth={ 5 } 
-				corner={ 10 }
-				innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
+				<Puck
+					className="socials-puck"
+					depth={ 5 } 
+					corner={ 10 }
+					innerShadow={ 5 }><h2 className="topic">Socials</h2></Puck>
 
-			<Socials />
+				<Socials />
+			</span>
 		</div>
 	</>
 })
